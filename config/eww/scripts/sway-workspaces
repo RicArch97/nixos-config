@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+# Script to listen for workspace updates and generate yuck syntax for EWW.
+# This script runs until it's manually terminated.
+
+# Requires: sway, jq
+# Usage: sway-workspaces <workspaces>
+#        sway-workspaces 1-9
+
+if [ $# -eq 0 ]; then
+  echo "No arguments provided"
+  exit 1
+fi
+
+bound1=$(echo $1 | cut -d '-' -f1)
+bound2=$(echo $1 | cut -d '-' -f2)
+
+contains() {
+  for e in $1; do
+    [ "$e" -eq "$2" ] && echo 1 && return
+  done
+  echo 0
+}
+
+generate_workspace_syntax() {
+  cmd=""
+  # retrieve updates once
+  workspaces=$(swaymsg -t get_workspaces)
+  # parse all info
+  all=$(echo "$workspaces" | jq -r '[.[] | .num] | @sh')
+  visible=$(echo "$workspaces" | jq -r '[.[] | select (.visible == true) | .num] | @sh')
+  urgent=$(echo "$workspaces" | jq -r '[.[] | select (.urgent == true) | .num] | @sh')
+  
+  for (( w=$bound1; w<=$bound2; w++ )); do
+    icon="󰋙"
+    class="workspace-inactive"
+    
+    if [ "$(contains "$all" "$w")" -eq 1 ]; then
+      class="workspace-invisible"
+    fi
+    
+    if [ "$(contains "$visible" "$w")" -eq 1 ]; then
+      icon="󰫈"
+      class="workspace-visible"
+    fi
+    
+    if [ "$(contains "$urgent" "$w")" -eq 1 ]; then
+      class="workspace-urgent"
+    fi
+    
+    # though swaysome, workspaces are handled as tags per monitor
+    # focus is always 0-9
+    w_focus=$(expr $w % 10)
+
+    cmd="$cmd (eventbox :cursor \"pointer\" (button :class \"$class\" :onclick \"swaysome focus $w_focus\" \"$icon\"))"
+  done
+
+  echo "(box :orientation \"v\" :class \"workspaces\" :spacing 5 :valign \"center\" :vexpand true :halign \"center\" :hexpand true $cmd)"
+}
+
+# first run
+generate_workspace_syntax
+swaymsg -t subscribe -m '[ "workspace" ]' | while read -r _ ; do
+  generate_workspace_syntax &
+done

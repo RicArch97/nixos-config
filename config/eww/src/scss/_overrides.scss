@@ -1,0 +1,10 @@
+* {
+  all: unset;
+}
+
+tooltip {
+	background-color: $background;
+	border-radius: 4px;
+	font-family: $main-font-family;
+	font-size: 14px;
+}

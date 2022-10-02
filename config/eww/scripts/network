@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+# Script to listen for workspace manager updates and return an appriopriate icon and tooltip.
+# This script runs until it's manually terminated.
+
+# Requires: NetworkManager, gawk
+# Usage: network
+
+# get initialize network device info and states
+nm_devices=($(echo "$(nmcli -g DEVICE d)" | tr ' ' '\n'))
+nm_types=($(echo "$(nmcli -g TYPE d)" | tr ' ' '\n'))
+nm_states=($(echo "$(nmcli -g STATE d)" | tr ' ' '\n'))
+
+function wifi_type() {
+  case "$1" in
+    "disconnected") echo "󰤭";;
+    "connected") echo "󰤨";;
+  esac
+}
+
+function ethernet_type() {
+  case "$1" in
+    "disconnected") echo "󰪎";;
+    "connected") echo "󰈀";;
+  esac
+}
+
+function make_content() {
+  local ethernet_icon=$(ethernet_type "disconnected")
+  local ethernet_tooltip="disconnected"
+  local wifi_icon=$(wifi_type "disconnected")
+  local wifi_tooltip="disconnected"
+
+  for i in ${!nm_devices[@]}; do
+    if [ "${nm_types[${i}]}" = "ethernet" ] ; then
+      if [ "${nm_states[${i}]}" = "connected" ] ; then
+        ethernet_tooltip="${nm_devices[${i}]}"
+        ethernet_icon="$(ethernet_type "${nm_states[${i}]}")"
+      fi
+    fi
+
+    if [ "${nm_types[${i}]}" = "wifi" ] ; then
+      if [ "${nm_states[${i}]}" = "connected" ] ; then
+        wifi_tooltip="${nm_devices[${i}]}"
+        wifi_icon="$(wifi_type "${nm_states[${i}]}")"
+      fi
+    fi
+  done
+
+  echo '{ "ethernet_icon": "'"$ethernet_icon"'", "ethernet_tooltip": "'"$ethernet_tooltip"'", "wifi_icon": "'"$wifi_icon"'", "wifi_tooltip": "'"$wifi_tooltip"'" }'
+}
+
+# first run
+make_content
+nmcli monitor | while read -r data; do
+  device="$(echo $data | awk -F': ' '{print $1}')"
+  action="$(echo $data | awk -F': ' '{print $2}')"
+  state="$(echo $action | awk '{print $1}')"
+  
+  for i in ${!nm_devices[@]}; do
+    if [ "${nm_devices[${i}]}" = "$device" ] ; then
+      nm_states[${i}]="$state"
+    fi
+  done
+
+  make_content
+done

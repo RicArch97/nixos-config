@@ -1,0 +1,149 @@
+.misc {
+  margin-left: 0.2rem;
+}
+.layout-switcher {
+  font-family: "Material Design Icons";
+  font-size: 2.2rem;
+  background-color: $background;
+  color: $foreground;
+  border-radius: 10px 10px 0px 0px;
+  margin-top: 0.6rem;
+  padding: 0.5rem 0.7rem 0.5rem 0.7rem;
+}
+.layout-switcher-hover {
+  @extend .layout-switcher;
+  background-color: $current-line;
+}
+.resources {
+  background-color: $background;
+  border-radius: 0px 0px 10px 10px;
+  margin-top: 0.6rem;
+}
+.cpu-usage {
+  color: $label;
+  background-color: $selection;
+  margin: 0.6rem 0rem 0.6rem 0rem;
+}
+.cpu-usage-icon {
+  font-size: 1.4rem;
+  font-family: "Phosphor";
+  color: $label;
+  padding: 0.8rem;
+}
+.cpu-temp {
+  color: $variable;
+  background-color: $selection;
+  margin: 0.6rem 0rem 0.6rem 0rem;
+}
+.cpu-temp-icon {
+  font-size: 1.4rem;
+  font-family: "Material Design Icons";
+  color: $variable;
+  padding: 0.8rem;
+}
+.ram-usage {
+  color: $function; 
+  background-color: $selection;
+  margin: 0.6rem 0rem 0.6rem 0rem;
+}
+.ram-usage-icon {
+  font-size: 1.2rem;
+  font-family: "Font Awesome 6 Free";
+  color: $function;
+  padding: 0.8rem;
+}
+.disk-usage {
+  color: $keyword;
+  background-color: $selection;
+  margin: 0.6rem 0rem 0.6rem 0rem;
+}
+.disk-usage-icon {
+  font-size: 1.4rem;
+  font-family: "Material Design Icons";
+  color: $keyword;
+  padding: 0.8rem;
+}
+
+.controls {
+  margin-left: 0.2rem;
+}
+.notifications {
+  font-size: 1.8rem;
+  font-family: "Material Design Icons";
+  background-color: $background;
+  color: $foreground;
+  border-radius: 10px 10px 0px 0px;
+  margin-bottom: 0.6rem;
+  padding: 0.3rem 0.9rem 0.3rem 0.9rem; 
+}
+.notifications-hover {
+  @extend .notifications;
+  background-color: $current-line;
+}
+.notifications-icon {
+  margin-top: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+.volume {
+  font-size: 1rem;
+  background-color: $background;
+  color: $foreground;
+  margin-bottom: 0.6rem;
+}
+.volume-hover {
+  @extend .volume;
+  background-color: $current-line;
+}
+.volume-slider {
+  background-color: $selection;
+  border-radius: 10px;
+  margin: 0.6rem 1.2rem 0.6rem 1.2rem;
+  contents trough highlight {
+    background-color: $highlight;
+    padding: 0.6rem;
+    border-radius: 10px;
+  }
+}
+.volume-label {
+  margin-bottom: 0.6rem;
+}
+.tray-button {
+  font-family: "Material Design Icons";
+  font-size: 2.6rem;
+  background-color: $background;
+  color: $foreground;
+  border-radius: 0px 0px 10px 10px;
+  margin-bottom: 0.6rem;
+  padding: 0.3rem 0.5rem 0.3rem 0.5rem; 
+}
+.tray-button-hover {
+  @extend .tray-button;
+  background-color: $current-line;
+}
+
+.bar-right {
+  background-color: transparent;
+  font-family: $main-font-family;
+}
+
+.top-container-right {
+  background-color: transparent;
+}
+.top-region-right {
+  background-color: $background-darker;
+  border-top-left-radius: 10px;
+}
+.top-slanted-right {
+  background-image: url("assets/logit-top-right.svg");
+}
+
+.bottom-container-right {
+  background-color: transparent;
+}
+.bottom-slanted-right { 
+  background-image: url("assets/logit-bottom-right.svg");
+}
+.bottom-region-right {
+  background-color: $background-darker;
+  border-bottom-left-radius: 10px;
+}

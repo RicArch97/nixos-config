@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+# Listener for volume changes, to report to eww.
+
+# Requires: PipeWire / Wireplumber, gawk
+# Usage: volume
+
+get_time_ms() {
+  date -u +%s%3N
+}
+
+get_volume() {
+  echo $(wpctl get-volume @DEFAULT_AUDIO_"$1"@ | awk '{print int($2*100)}')
+}
+get_mute() {
+  wpctl get-volume @DEFAULT_AUDIO_"$1"@ | grep -i muted
+  echo $?
+}
+set_mute() {
+  echo $(wpctl set-mute @DEFAULT_AUDIO_"$1"@ toggle)
+}
+
+gen_output() {
+  is_audio_muted=$(get_mute "SINK")
+  is_mic_muted=$(get_mute "SOURCE")
+
+  if [ "$is_audio_muted" = 1 ]; then
+  	audio_icon="󰋋" 
+  else
+    audio_icon="󰟎"
+  fi
+  
+  if [ "$is_mic_muted" = 1 ]; then
+  	mic_icon="󰍬" 
+  else
+    mic_icon="󰍭"
+  fi
+
+  echo '{ "audio": "'"$(get_volume "SINK")"'", "audio_icon": "'"$audio_icon"'", "mic": "'"$(get_volume "SOURCE")"'", "mic_icon": "'"$mic_icon"'" }'
+}
+
+last_time=$(get_time_ms)
+vol_icons=("󰕿" "󰖀" "󰕾")
+
+if [ "$1" = "mute" ]; then
+  if [ "$2" != "SOURCE" ] && [ "$2" != "SINK" ]; then
+    exit 1
+  fi
+  setmute "$2"
+else
+  # initial values
+  gen_output
+  
+  pactl subscribe | grep --line-buffered "sink" | while read -r data ; do
+    current_time=$(get_time_ms)
+    delta=$(( $current_time - $last_time )) 
+    # 100 millisecond debounce
+    if [[ "${delta}" -gt 50 ]] ; then
+      gen_output
+      # reset debounce timer
+      last_time=$(get_time_ms)
+    fi
+  done
+fi

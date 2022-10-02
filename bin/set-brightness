@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+# Script to change the brightness, and send dunst notification with the change.
+# Using k-vernooy's dunst fork for better looks.
+
+# Requires: light, dunst
+# Usage: set-brightness inc <value>
+#        set-brightness dec <value>
+
+ctl=light
+iconDir="$XDG_CONFIG_HOME/dunst/icons"
+
+getIcon() {
+  if [ "$1" -eq 0 ]; then
+    echo "$iconDir/brightness-off.png"
+  elif [ "$1" -lt 33 ]; then
+    echo "$iconDir/brightness-low.png"
+  elif [ "$1" -lt 66 ]; then
+    echo "$iconDir/brightness-medium.png"
+  else
+    echo "$iconDir/brightness-high.png"
+  fi
+}
+
+opt=""
+
+if [ "$1" == "inc" ]; then
+  opt="-A"
+else
+  opt="-U"
+fi
+
+for i in $(seq $2); do
+  current=$("$ctl")
+  truncated=$(echo "$current" | cut -d '.' -f1)
+
+  if (( $(echo "$current==0" | bc -l) )) && [ "$opt" == "-U" ]; then
+    exit 0;
+  elif (( $(echo "$current==100" | bc -l) )) && [ "$opt" == "-A"  ]; then
+    exit 0;
+  fi
+
+  subinc=2
+  subchange=$(echo "1 / $subinc" | bc -l)
+
+  for i in $(seq $subinc); do
+    "$ctl" "$opt" "$subchange"
+    sleep 0.001
+  done
+      
+  current=$("$ctl")
+  truncated=$(echo "$current" | cut -d '.' -f1)
+  
+  dunstify "Brightness at ${truncated}%" -i $(getIcon "$truncated") -a "Backlight" -u normal -h "int:value:$current" -h string:x-dunst-stack-tag:backlight
+done

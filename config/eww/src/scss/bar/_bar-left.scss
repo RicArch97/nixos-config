@@ -1,0 +1,115 @@
+.launcher {
+  font-family: "Material Design Icons";
+  font-size: 2.3rem;
+  background-color: $highlight;
+  color: $background-darker;
+  border-radius: 10px;
+  margin-top: 0.6rem;
+  margin-right: 0.2rem;
+  padding: 0.4rem;
+}
+.launcher-hover {
+  @extend .launcher;
+  background-color: $highlight-focused;
+}
+
+.workspaces {
+  background-color: $background;
+  font-size: 1.8rem;
+  border-radius: 10px;
+  margin-right: 0.2rem;
+  padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+}
+.workspace-visible {
+  color: $highlight;
+}
+.workspace-invisible {
+  color: $label;
+}
+.workspace-inactive {
+  color: $border;
+}
+.workspace-urgent {
+  color: $error;
+}
+
+.stats {
+  margin-right: 0.2rem;
+}
+.audio {
+  font-family: "Material Design Icons";
+  font-size: 1.8rem;
+  background-color: $background;
+  color: $foreground;
+  border-radius: 10px 10px 0px 0px;
+  margin-bottom: 0.6rem;
+  padding: 0.3rem 0.9rem 0.3rem 0.9rem; 
+}
+.audio-hover {
+  @extend .audio;
+  background-color: $current-line;
+}
+.mic-icon {
+  margin-top: 0.6rem;
+}
+.sound-icon {
+  margin-bottom: 0.6rem;
+}
+.connections {
+  font-family: "Material Design Icons";
+  font-size: 1.8rem;
+  background-color: $background;
+  color: $foreground;
+  margin-bottom: 0.6rem;
+  padding: 0.3rem 0.9rem 0.3rem 0.9rem; 
+}
+.connections-hover {
+  @extend .connections;
+  background-color: $current-line;
+}
+.bluetooth-icon {
+  margin-top: 0.6rem;
+}
+.ethernet-icon {
+  margin-bottom: 0.6rem;
+}
+.clock {
+  font-weight: bold;
+  font-size: 1.5rem;
+  background-color: $background;
+  color: $foreground;
+  border-radius: 0px 0px 10px 10px;
+  margin-bottom: 0.6rem;
+  padding: 0.3rem 0.9rem 0.3rem 0.9rem; 
+}
+.clock-hover {
+  @extend .clock;
+  background-color: $current-line;
+}
+
+.bar-left {
+  background-color: transparent;
+  font-family: $main-font-family;
+}
+
+.top-container-left {
+  background-color: transparent;
+}
+.top-region-left {
+  background-color: $background-darker;
+  border-top-right-radius: 10px;
+}
+.top-slanted-left {
+  background-image: url("assets/logit-top-left.svg");
+}
+
+.bottom-container-left {
+  background-color: transparent;
+}
+.bottom-slanted-left {
+  background-image: url("assets/logit-bottom-left.svg"); 
+}
+.bottom-region-left {
+  background-color: $background-darker;
+  border-bottom-right-radius: 10px;
+}

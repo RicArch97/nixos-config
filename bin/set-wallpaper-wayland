@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# Set a wallpaper on Wayland compositors, or restore the one previously set.
+# Uses the location ~/.wallpaper
+
+# Requires: swaybg
+# Usage: set-wallpaper-wayland image <file> [<mode>]
+#        set-wallpaper-wayland restore
+
+ctl=swaybg
+wallpaperPath="$HOME/.wallpaper"
+
+if [ "$1" == "image" ]; then
+  if [ "$2" != '' ]; then
+    mode="fill"
+    if [ "$3" != '' ]; then mode="$3"; fi
+    # store new path
+    rm -f "$wallpaperPath"
+    touch "$wallpaperPath" && echo "$2:$mode" >> "$wallpaperPath"
+    # set wallpaper
+    pkill "$ctl"
+    "$ctl" -i "$2" -m "$mode" &
+  else
+    echo "error: no image provided"
+  fi
+elif [ "$1" == "restore" ]; then
+  if test -f "$wallpaperPath"; then
+    # parse img path and mode
+    imgmode="$(cat "$wallpaperPath")"
+    img="$(cut -d ':' -f1 <<<"$imgmode")"
+    mode="$(cut -d ':' -f2 <<<"$imgmode")"
+    # set wallpaper
+    pkill "$ctl"
+    "$ctl" -i "$img" -m "$mode" &
+  else
+    echo "error: could not find ~/.wallpaper"
+  fi
+else
+  echo "error: undefined option: $1"
+fi

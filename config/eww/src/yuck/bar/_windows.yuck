@@ -1,0 +1,37 @@
+;; exclusive zones reverves space for the windows,
+;; so that other windows don't overlap it
+(defwindow bar-left-main
+  :monitor 0
+  :geometry (geometry :width "70px"
+                      :height "100%"
+                      :anchor "left center")
+  :stacking "bottom"
+  :exclusive true
+  (bar-left :screen 0))
+
+(defwindow bar-left-side
+  :monitor 1
+  :geometry (geometry :width "70px"
+                      :height "100%"
+                      :anchor "left center")
+  :stacking "bottom"
+  :exclusive true
+  (bar-left :screen 1))
+
+(defwindow bar-right-main
+  :monitor 0
+  :geometry (geometry :width "70px"
+                      :height "100%"
+                      :anchor "right center")
+  :stacking "bottom"
+  :exclusive true
+  (bar-right))
+
+(defwindow bar-right-side
+  :monitor 1
+  :geometry (geometry :width "70px"
+                      :height "100%"
+                      :anchor "right center")
+  :stacking "bottom"
+  :exclusive true
+  (bar-right))

@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# Script that polls BlueZ on interval for adapter / device changes. 
+# This script runs until it's manually terminated.
+
+# Requires: BlueZ
+# Usage: bluetooth
+
+while true; do
+  powered=$(bluetoothctl show | grep Powered | cut -f 2- -d ' ')
+  status=$(bluetoothctl info)
+  name=$(echo "$status" | grep Name | cut -f 2- -d ' ')
+  type=$(echo "$status" | grep Icon | cut -f 2- -d ' ')
+  
+  audio_headset="false"
+  if [ "$powered" = "yes" ]; then
+    if [ "$status" != "Missing device address argument" ]; then
+      tooltip="$name"
+      icon=""
+      if [ "$type" = "audio-headset" ]; then
+        audio_headset="true"
+      fi
+    else
+      icon=""
+      tooltip="disconnected"
+    fi
+  else
+    icon=""
+    tooltip="bluetooth off"
+  fi
+
+  echo '{ "icon": "'"$icon"'", "tooltip": "'"$tooltip"'", "audio_headset": "'"$audio_headset"'" }'
+
+  sleep 5
+done

@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# Wrapper script to launch wlclock with a specific configuration.
+
+# Requires: wlclock, psmisc
+# Usage: launch-wlclock <output> <clock-color>
+
+# Terminate current instance
+killall -q wlclock
+
+# Wait till processes have been shut down
+while pgrep -u $UID -x wlclock > /dev/null; do sleep 1; done
+
+# Launch wlclock
+wlclock								\
+	--output "$1"                   \
+	--background-colour "#000000b3"	\
+	--corner-radius 200             \
+	--border-size 0                 \
+	--clock-colour "$2"				\
+	--layer bottom                  \
+	--hand-width 6                  \
+	--marking-width 3               \
+	--position top-right            \
+	--margin 40 150 0 0             \
+	--size 300						\
+	& disown

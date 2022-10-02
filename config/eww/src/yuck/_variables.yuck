@@ -1,0 +1,23 @@
+;; pollers
+(defpoll time :interval "5s" `date +'{"date": "%b %d %Y", "hour": "%H", "minute": "%M"}'`)
+
+;; listeners
+(deflisten workspaces_main "scripts/sway-workspaces 1-8")
+(deflisten workspaces_side "scripts/sway-workspaces 11-18")
+(deflisten volume "scripts/volume")
+(deflisten network "scripts/network")
+(deflisten bluetooth "scripts/bluetooth")
+(deflisten cpu_temp "scripts/cpu-temp")
+(deflisten memory_usage "scripts/memory-usage")
+(deflisten disk_usage "scripts/disk-usage")
+
+;; hover states
+(defvar layout_hover false)
+(defvar launcher_hover false)
+(defvar stats_hover false)
+(defvar controls_hover false)
+(defvar tray_button_hover false)
+
+;; state vars
+(defvar layout_state "tiling")
+(defvar layout_icon "󰕴")

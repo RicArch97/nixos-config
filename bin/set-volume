@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+
+# Script to change the volume, and send dunst notification with the change. 
+# Using k-vernooy's dunst fork for better looks.
+
+# Requires: wireplumber, dunst
+# Usage: set-volume inc <value>
+#        set-volume dec <value>
+#        set-volume toggle-mute
+
+lockfile="/tmp/volume_lockfile"
+iconDir="$HOME/.config/dunst/icons"
+
+while [ -f "$lockfile" ]; do
+  sleep 0.1
+done
+touch "$lockfile"
+
+get_sink_vol() {
+  echo $(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}')
+}
+get_sink_mute() {
+  wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -i muted
+  echo $?
+}
+get_device_name() {
+  echo $(wpctl inspect @DEFAULT_AUDIO_SINK@ | grep -e "node.description" | cut -d '='  -f2 | cut -c 3- | sed 's/.$//')
+}
+increase_sink_vol() {
+  echo $(wpctl set-volume @DEFAULT_AUDIO_SINK@ "$1%+")
+}
+decrease_sink_vol() {
+  echo $(wpctl set-volume @DEFAULT_AUDIO_SINK@ "$1%-")
+}
+set_sink_mute() {
+  echo $(wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle)
+}
+
+getIcon() {
+  vol=$(get_sink_vol)
+  mute=$(get_sink_mute)
+  
+  if [ "$mute" = 1 ]; then
+    if [ "$vol" -eq 0 ]; then
+      echo "$iconDir/volume-off.svg"
+    elif [ "$vol" -lt 33 ]; then
+      echo "$iconDir/volume-low.svg"
+    elif [ "$vol" -lt 66 ]; then
+      echo "$iconDir/volume-medium.svg"
+    else
+      echo "$iconDir/volume-high.svg"
+    fi
+  else
+    echo "$iconDir/volume-muted.svg"
+  fi
+}
+
+val="5"
+orig=$(get_sink_vol)
+currDevice=$(get_device_name)
+
+if [ "$1" == "mute" ]; then
+  set_sink_mute
+else
+  if [ "$1" == "inc" ] && [ "$2" != '' ]; then
+    val="$2"
+    increase_sink_vol "$2" &
+  elif [ "$1" == "dec" ] && [ "$2" != '' ]; then
+    val="$2"
+    decrease_sink_vol "$2" & 
+  fi
+
+  # Fake animated volume change (on change > 1)
+  for i in $(seq "$val"); do
+    operation="+"
+    inverse="-"
+    if [ "$1" == "dec" ]; then
+      operation="-"
+      inverse="+"
+    fi
+
+    current=$(( ($orig "$operation" $i) "$inverse" 1 ))
+    if [ "$current" -lt 0 ]; then
+      current=0
+      rm "$lockfile"
+      exit 1
+    fi
+
+    dunstify -i "$(getIcon)" -u normal -h string:x-dunst-stack-tag:volume -a "$currDevice" "Volume at ${current}%" -h "int:value:${current}"
+  done
+fi
+
+current=$(get_sink_vol)
+mute=$(get_sink_mute)
+ntext="Volume at $current%"
+
+if [ ! "$mute" = 1 ]; then
+  ntext="Volume muted"
+fi
+
+dunstify -i "$(getIcon)" -u normal -h string:x-dunst-stack-tag:volume -a "$currDevice" "$ntext" -h "int:value:${current}"
+
+rm "$lockfile"

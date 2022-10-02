@@ -1,0 +1,120 @@
+;; launcher button 
+(defwidget launcher []
+  (eventbox :cursor "pointer"
+            :onclick "wofi"
+            :onhover "${EWW_CMD} update launcher_hover=true"
+            :onhoverlost "${EWW_CMD} update launcher_hover=false"
+            :vexpand true
+            :valign "start"
+            :hexpand true 
+            :halign "center"
+    (box :class "${launcher_hover ? "launcher-hover" : "launcher"}"
+         :orientation "v"
+         :space-evenly false
+      (label :class "launcher-icon"
+             :text "󱄅"))))
+
+;; workspaces
+(defwidget workspaces [screen]
+  (literal :content {screen == 0 ? workspaces_main : workspaces_side}))
+
+;; stats widget
+(defwidget stats []
+  (eventbox :cursor "pointer"
+            :onhover "${EWW_CMD} update stats_hover=true"
+            :onhoverlost "${EWW_CMD} update stats_hover=false"
+            :valign "end"
+            :vexpand true
+            :halign "center"
+            :hexpand true
+    (box :class "stats"
+         :orientation "v"
+         :space-evenly false
+      (box :class "${stats_hover ? "audio-hover" : "audio"}"
+           :orientation "v"
+           :spacing 15
+        (label :class "mic-icon"
+               :tooltip "${volume.mic}%"
+               :text {volume.mic_icon})
+        (label :class "sound-icon"
+           :tooltip "${volume.audio}%" 
+               :text {bluetooth.audio_headset == "true" ? "󰥰" : volume.audio_icon}))
+      (box :class "${stats_hover ? "connections-hover" : "connections"}"
+           :orientation "v"
+           :spacing 15 
+        (label :class "bluetooth-icon"
+               :tooltip {bluetooth.tooltip}
+               :text {bluetooth.icon})
+        (label :class "wifi-icon"
+               :tooltip {network.wifi_tooltip}
+               :text {network.wifi_icon})
+        (label :class "ethernet-icon"
+               :tooltip {network.ethernet_tooltip}
+               :text {network.ethernet_icon}))
+      (box :class "${stats_hover ? "clock-hover" : "clock"}"
+           :orientation "v"
+           :space-evenly false
+           :tooltip {time.date} 
+        (label :class "clock-hour"
+               :text {time.hour})
+        (label :class "clock-minute"
+               :text {time.minute})))))
+
+;; top widgets
+(defwidget top-left [screen]
+  (box :class "top-container-left"
+       :orientation "v"
+       :valign "start"
+       :space-evenly false
+       :height 400
+    (box :class "top-region-left"
+         :orientation "v"
+         :vexpand true
+         :valign "start"
+         :height 330
+         :space-evenly false
+      (launcher)
+      (workspaces :screen screen))
+    (box :class "top-slanted-left"
+         :orientation "v"
+         :vexpand true
+         :valign "end"
+         :height 70
+         :space-evenly false)))
+
+;; center widgets
+(defwidget center-left []
+  (box :class "center-region-left"
+       :orientation "v" 
+       :valign "center"
+       :halign "center"
+       :space-evenly false))
+
+;; bottom widgets
+(defwidget bottom-left []
+  (box :class "bottom-container-left"
+       :orientation "v"
+       :valign "end"
+       :space-evenly false
+       :height 400
+    (box :class "bottom-slanted-left"
+         :orientation "v"
+         :vexpand true
+         :valign "start"
+         :height 70
+         :space-evenly false)
+    (box :class "bottom-region-left"
+         :orientation "v"
+         :vexpand true
+         :valign "end"
+         :height 330
+         :space-evenly false
+      (stats))))
+
+;; the bar
+(defwidget bar-left [screen]
+  (box :class "bar-left" 
+       :orientation "v"
+    (top-left :screen screen)
+    (center-left)
+    (bottom-left)))

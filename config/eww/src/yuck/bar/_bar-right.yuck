@@ -1,0 +1,149 @@
+;; miscellaneous widget
+(defwidget misc []
+  (box :class "misc"
+       :orientation "v"
+       :space-evenly false
+       :vexpand true
+       :valign "start"
+       :hexpand true
+       :halign "center"
+    (eventbox :cursor "pointer"
+              :onclick "${layout_state == "tiling" ? "scripts/sway-layout-switcher floating" : "scripts/sway-layout-switcher tiling"}"
+              :tooltip layout_state
+              :onhover "${EWW_CMD} update layout_hover=true"
+              :onhoverlost "${EWW_CMD} update layout_hover=false"
+              :vexpand true
+              :valign "start"
+              :hexpand true
+              :halign "center"
+      (box :class "${layout_hover ? "layout-switcher-hover" : "layout-switcher"}"
+           :orientation "v"
+           :space-evenly false
+        (label :class "layout-switcher-icon"
+               :text layout_icon)))
+    (box :class "resources"
+         :orientation "v"
+         :spacing 7
+      (circular-progress :class "cpu-usage"
+                         :thickness 5
+                         :value {EWW_CPU.avg}
+                         :tooltip "CPU usage: ${round(EWW_CPU.avg, 2)}%"
+        (label :class "cpu-usage-icon" 
+               :text "ﮦ"))
+      (circular-progress :class "cpu-temp"
+                         :thickness 5
+                         :value cpu_temp
+                         :tooltip "CPU temp: ${cpu_temp}°C"
+        (label :class "cpu-temp-icon"
+               :text "󰔐"))
+      (circular-progress :class "ram-usage"
+                         :thickness 5
+                         :value memory_usage 
+                         :tooltip "RAM usage: ${memory_usage}%"
+        (label :class "ram-usage-icon"
+               :text ""))
+      (circular-progress :class "disk-usage"
+                         :thickness 5
+                         :value disk_usage
+                         :tooltip "Disk usage: ${disk_usage}%"
+        (label :class "disk-usage-icon"
+               :text "󰋊")))))
+   
+;; controls widget 
+(defwidget controls []
+  (box :class "controls"
+       :orientation "v"
+       :space-evenly false
+       :valign "end"
+       :vexpand true
+       :halign "center"
+       :hexpand true
+    (eventbox :cursor "pointer"
+              :onhover "${EWW_CMD} update controls_hover=true"
+              :onhoverlost "${EWW_CMD} update controls_hover=false"
+      (box :orientation "v"
+           :space-evenly false
+        (box :class "${controls_hover ? "notifications-hover" : "notifications"}"
+             :orientation "v"
+             :space-evenly false
+          (label :class "notifications-icon"
+                 :text "󰂚"))
+        (box :class "${controls_hover ? "volume-hover" : "volume"}"
+             :orientation "v"
+             :space-evenly false
+          (scale :flipped true 
+                 :class "volume-slider"
+                 :orientation "v"
+                 :height 180
+                 :min 0
+                 :max 101
+                 :value {volume.audio}
+                 :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%")
+          (label :class "volume-label"
+                 :text "${volume.audio}%"))))
+    (eventbox :cursor "pointer"
+              :onhover "${EWW_CMD} update tray_button_hover=true"
+              :onhoverlost "${EWW_CMD} update tray_button_hover=false"
+      (box :class "${tray_button_hover ? "tray-button-hover" : "tray-button"}"
+           :orientation "v"
+           :space-evenly false
+        (label :class "tray-button-icon" 
+               :text "󰍞")))))
+
+;; top widgets
+(defwidget top-right []
+  (box :class "top-container-right"
+       :orientation "v"
+       :valign "start"
+       :space-evenly false
+       :height 400
+    (box :class "top-region-right"
+         :orientation "v"
+         :vexpand true
+         :valign "start"
+         :height 330
+         :space-evenly false
+      (misc))
+    (box :class "top-slanted-right"
+         :orientation "v"
+         :vexpand true
+         :valign "end"
+         :height 70
+         :space-evenly false)))
+
+;; center widgets
+(defwidget center-right []
+  (box :class "center-region-right"
+       :orientation "v" 
+       :valign "center"
+       :halign "center"
+       :space-evenly false))
+
+;; bottom widgets
+(defwidget bottom-right []
+  (box :class "bottom-container-right"
+       :orientation "v"
+       :valign "end"
+       :space-evenly false
+       :height 400
+    (box :class "bottom-slanted-right"
+         :orientation "v"
+         :vexpand true
+         :valign "start"
+         :height 70
+         :space-evenly false)
+    (box :class "bottom-region-right"
+         :orientation "v"
+         :vexpand true
+         :valign "end"
+         :height 330
+         :space-evenly false
+      (controls))))
+
+;; the bar
+(defwidget bar-right []
+  (box :class "bar-right" 
+       :orientation "v"
+    (top-right)
+    (center-right)
+    (bottom-right)))

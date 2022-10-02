@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Script to poll the current disk usage (root) in percentage.
+# This script runs until it's manually terminated.
+
+# Requires: coreutils
+# Usage: disk-usage
+
+while true; do
+  echo $(df / | grep -w "/" | awk '{print $5}' | sed s/.$//)
+  sleep 20
+done
