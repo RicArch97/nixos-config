@@ -30,7 +30,7 @@ in {
   };
 
   # configure default apps and mimeapps
-  config = lib.mkIf appsConf.enable {
+  config = lib.mkIf (appsConf.enable) {
     # set default terminal and editor
     modules.desktop.apps.alacritty.enable = true;
     modules.desktop.apps.neovim.enable = true;

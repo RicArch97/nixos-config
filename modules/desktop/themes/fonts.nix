@@ -33,7 +33,7 @@ in {
     };
   };
 
-  config = lib.mkIf fontConf.enable {
+  config = lib.mkIf (fontConf.enable) {
     fonts = {
       fonts = [
         pkgs.custom.product-sans
@@ -46,6 +46,7 @@ in {
         pkgs.noto-fonts-emoji
         pkgs.material-design-icons
         pkgs.material-icons
+        pkgs.font-awesome
       ];
       fontconfig = let
         styles = fontConf.styles;

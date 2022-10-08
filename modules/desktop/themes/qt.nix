@@ -24,7 +24,7 @@ in {
     };
   };
 
-  config = lib.mkIf qtConfig.enable {
+  config = lib.mkIf (qtConfig.enable) {
     # home manager configuration
     home.manager.qt = {
       enable = true;

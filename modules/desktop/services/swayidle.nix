@@ -16,7 +16,7 @@ in {
     };
   };
 
-  config = lib.mkIf idleConfig.enable {
+  config = lib.mkIf (idleConfig.enable) {
     # use own wlopm package
     user.packages = [pkgs.wlopm];
 

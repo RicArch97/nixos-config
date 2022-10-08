@@ -16,7 +16,7 @@ in {
     };
   };
 
-  config = lib.mkIf cpuConfig.enable (lib.mkMerge [
+  config = lib.mkIf (cpuConfig.enable) (lib.mkMerge [
     {
       # allow propriertary software
       hardware.enableRedistributableFirmware = true;
@@ -24,18 +24,16 @@ in {
       environment.systemPackages = [config.boot.kernelPackages.cpupower];
     }
 
-    (lib.mkIf device.cpu
-      == "amd" {
-        hardware.cpu.amd.updateMicrocode = true;
-        # amd virtualization support
-        boot.initrd.kernelModules = ["kvm_amd"];
-      })
+    (lib.mkIf (device.cpu == "amd") {
+      hardware.cpu.amd.updateMicrocode = true;
+      # amd virtualization support
+      boot.kernelModules = ["kvm-amd"];
+    })
 
-    (lib.mkIf device.cpu
-      == "intel" {
-        hardware.cpu.intel.updateMicrocode = true;
-        # intel virtualization support
-        boot.initrd.kernelModules = ["kvm_intel"];
-      })
+    (lib.mkIf (device.cpu == "intel") {
+      hardware.cpu.intel.updateMicrocode = true;
+      # intel virtualization support
+      boot.kernelModules = ["kvm-intel"];
+    })
   ]);
 }

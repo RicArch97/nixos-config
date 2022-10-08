@@ -27,11 +27,11 @@ in {
   };
 
   # Configuration for the Sway package
-  config = lib.mkIf swayConfig.enable {
+  config = lib.mkIf (swayConfig.enable) {
     programs.sway = {
       enable = true;
       extraPackages = lib.mkMerge [
-        (lib.mkIf swayConfig.xwayland [pkgs.xwayland])
+        (lib.mkIf (swayConfig.xwayland) [pkgs.xwayland])
       ];
     };
 
@@ -47,7 +47,7 @@ in {
         pkgs.wlclock
       ]
       # brightness support
-      (lib.mkIf device.supportsBrightness [pkgs.light])
+      (lib.mkIf (device.supportsBrightness) [pkgs.light])
     ];
 
     # set display protocol to Wayland for some specifics
@@ -100,10 +100,7 @@ in {
     modules.desktop.util.rofi = {
       enable = true;
       package = pkgs.rofi-wayland;
-      apps = {
-        menu.enable = true;
-        grid.enable = true;
-      };
+      menu.enable = true;
       exit.enable = true;
     };
 
@@ -355,7 +352,7 @@ in {
             {
               command = let
                 output =
-                  if device.name == "X570AM"
+                  if (device.name == "X570AM")
                   then "DP-1"
                   else "eDP-1";
               in "launch-wlclock ${output} ${colorScheme.types.foreground}";
@@ -368,7 +365,7 @@ in {
           border = 1;
           commands = let
             floatSize =
-              if device.bigScreen
+              if (device.bigScreen)
               then "1700 1000"
               else "1200 700";
           in [

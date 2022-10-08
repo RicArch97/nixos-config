@@ -16,7 +16,7 @@ in {
     };
   };
 
-  config = lib.mkIf zshConfig.enable {
+  config = lib.mkIf (zshConfig.enable) {
     users.defaultUserShell = pkgs.zsh;
     environment.sessionVariables.SHELL = "zsh";
     environment.pathsToLink = ["/share/zsh"];

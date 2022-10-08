@@ -26,7 +26,7 @@ in {
     };
   };
 
-  config = lib.mkIf gpgConfig.enable {
+  config = lib.mkIf (gpgConfig.enable) {
     # for gnome3 pinentry
     services.dbus.packages = [pkgs.gcr];
 

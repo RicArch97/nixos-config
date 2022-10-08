@@ -18,7 +18,7 @@ in {
     };
   };
 
-  config = lib.mkIf zatConfig.enable {
+  config = lib.mkIf (zatConfig.enable) {
     apps.defaultApps.pdf = rec {
       package = pkgs.zathura;
       install = false; # installed by home manager

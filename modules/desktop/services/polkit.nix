@@ -15,7 +15,7 @@ in {
     };
   };
 
-  config = lib.mkIf polkitConfig.enable {
+  config = lib.mkIf (polkitConfig.enable) {
     # make sure polkit daemon is available
     security.polkit.enable = true;
     # for authentication dialogs

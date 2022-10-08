@@ -15,13 +15,13 @@ in {
       default = false;
     };
 
-    config = lib.mkIf passwordConfig.enable {
+    config = lib.mkIf (passwordConfig.enable) {
       home.manager = {
         programs.password-store = {
           enable = true;
           package = let
             passpkg =
-              if device.displayProtocol == "wayland"
+              if (device.displayProtocol == "wayland")
               then pkgs.pass-wayland
               else pkgs.pass;
           in [

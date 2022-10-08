@@ -18,15 +18,9 @@ in {
       type = lib.types.package;
       default = pkgs.rofi;
     };
-    apps = {
-      menu.enable = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-      };
-      grid.enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-      };
+    menu.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
     };
     exit.enable = lib.mkOption {
       type = lib.types.bool;
@@ -34,8 +28,8 @@ in {
     };
   };
 
-  config = lib.mkIf rofiConfig.enable (lib.mkMerge [
-    (lib.mkIf rofiConfig.apps.menu.enable {
+  config = lib.mkIf (rofiConfig.enable) (lib.mkMerge [
+    (lib.mkIf (rofiConfig.menu.enable) {
       apps.defaultApps.menu = rec {
         package = rofiConfig.package;
         cmd = "${package}/bin/rofi";
@@ -43,7 +37,7 @@ in {
       };
     })
 
-    (lib.mkIf rofiConfig.exit.enable {
+    (lib.mkIf (rofiConfig.exit.enable) {
       apps.defaultApps.exit = rec {
         package = rofiConfig.package;
         cmd = "${package}/bin/rofi";

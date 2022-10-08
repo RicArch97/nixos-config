@@ -18,7 +18,7 @@ in {
     };
   };
 
-  config = lib.mkIf alaConfig.enable {
+  config = lib.mkIf (alaConfig.enable) {
     apps.defaultApps.terminal = rec {
       package = pkgs.alacritty;
       install = false; # installed by home manager

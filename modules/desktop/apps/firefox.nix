@@ -20,7 +20,7 @@ in {
     };
   };
 
-  config = lib.mkIf firefoxConfig.enable {
+  config = lib.mkIf (firefoxConfig.enable) {
     apps.defaultApps.browser = rec {
       package = firefoxConfig.package;
       install = false; # installed by home manager

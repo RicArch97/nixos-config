@@ -22,7 +22,7 @@ in {
     };
   };
 
-  config = lib.mkIf audioConfig.enable (lib.mkMerge [
+  config = lib.mkIf (audioConfig.enable) (lib.mkMerge [
     {
       # able to change scheduling policies, e.g. to SCHED_RR
       security.rtkit.enable = true;
@@ -41,7 +41,7 @@ in {
       user.packages = [pkgs.pavucontrol pkgs.pamixer];
     }
 
-    (lib.mkIf audioConfig.bluetooth.enable {
+    (lib.mkIf (audioConfig.bluetooth.enable) {
       hardware.bluetooth = {
         enable = true;
         package = pkgs.bluezFull;

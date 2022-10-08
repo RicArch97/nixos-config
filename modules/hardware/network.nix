@@ -16,19 +16,19 @@ in {
     };
   };
 
-  config = lib.mkIf networkConfig.enable {
+  config = lib.mkIf (networkConfig.enable) {
     networking = {
-      networkmanager.enable = true;
       hostName = device.name;
       hostId = builtins.substring 0 8 (
         builtins.hashString "md5" config.networking.hostName
       );
+      networkmanager.enable = true;
     };
 
     # Don't wait for network startup (speeds up boot time)
     systemd = {
-      targets.network-online.wantedBy = pkgs.lib.mkForce []; # Normally ["multi-user.target"]
-      services.NetworkManager-wait-online.wantedBy = pkgs.lib.mkForce []; # Normally ["network-online.target"]
+      targets.network-online.wantedBy = lib.mkForce []; # Normally ["multi-user.target"]
+      services.NetworkManager-wait-online.wantedBy = lib.mkForce []; # Normally ["network-online.target"]
     };
 
     # permissions

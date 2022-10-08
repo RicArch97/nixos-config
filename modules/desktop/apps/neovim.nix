@@ -17,7 +17,7 @@ in {
     };
   };
 
-  config = lib.mkIf nvimConfig.enable {
+  config = lib.mkIf (nvimConfig.enable) {
     appsConf.defaultApps.editor = rec {
       package = pkgs.neovim;
       install = false; # installed by home manager

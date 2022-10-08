@@ -20,7 +20,7 @@ in {
     };
   };
 
-  config = lib.mkIf greetdConfig.enable {
+  config = lib.mkIf (greetdConfig.enable) {
     # Sway is used to run gtkgreet,
     # independent from whether Sway is used as desktop window manager
     programs.sway = lib.mkIf (!swayConfig.enable) {enable = true;};

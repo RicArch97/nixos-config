@@ -17,7 +17,7 @@ in {
     };
   };
 
-  config = lib.mkIf mpvConfig.enable {
+  config = lib.mkIf (mpvConfig.enable) {
     apps.defaultApps.video = rec {
       package = pkgs.mpv;
       install = false; # installed by home manager
@@ -32,7 +32,7 @@ in {
         profile = "gpu-hq";
         gpu-api = "vulkan";
         gpu-context =
-          if device.displayProtocol == "wayland"
+          if (device.displayProtocol == "wayland")
           then "waylandvk"
           else "x11vk";
         vo = "gpu";

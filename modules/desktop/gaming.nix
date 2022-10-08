@@ -16,7 +16,7 @@ in {
     };
   };
 
-  config = lib.mkIf gameConfig.enable {
+  config = lib.mkIf (gameConfig.enable) {
     # Steam hardware (just in case)
     hardware.steam-hardware.enable = true;
 
@@ -45,13 +45,13 @@ in {
     # Lutris, Wine and OBS studio for game capture
     user.packages = let
       winepkg =
-        if device.displayProtocol == "wayland"
+        if (device.displayProtocol == "wayland")
         then pkgs.wine-wayland
         else pkgs.wine;
     in
       [
+        winepkg
         pkgs.lutris
-        pkgs.winepkg
         pkgs.obs-studio
         pkgs.obs-studio-plugins.obs-gstreamer
         pkgs.obs-studio-plugins.pipewire-audio-capture

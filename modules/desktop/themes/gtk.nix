@@ -54,7 +54,7 @@ in {
     };
   };
 
-  config = lib.mkIf gtkConfig.enable (lib.mkMerge [
+  config = lib.mkIf (gtkConfig.enable) (lib.mkMerge [
     {
       # install default adwaita theme for fallback
       user.packages = [pkgs.gnome.gnome-themes-extra];
@@ -91,7 +91,7 @@ in {
       '';
     }
 
-    (lib.mkIf gtkConfig.gsettings.enable {
+    (lib.mkIf (gtkConfig.gsettings.enable) {
       # GSettings API backend
       programs.dconf.enable = true;
       # make this globally available so it can be used by gtkgreet

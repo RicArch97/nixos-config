@@ -21,7 +21,7 @@ in {
     };
   };
 
-  config = lib.mkIf codeConfig.enable {
+  config = lib.mkIf (codeConfig.enable) {
     apps.defaultApps.ide = {
       package = codeConfig.package;
       install = false; # installed by home manager
@@ -52,6 +52,7 @@ in {
       mutableExtensionsDir = true;
       userSettings = {
         "editor.fontFamily" = "${fontStyles.mono.family} 14";
+        "workbench.colorTheme" = "GitHub Dark Default";
         "nix.formatterPath" = "alejandra";
         "git.autofetch" = true;
         "security.workspace.trust.untrustedFiles" = "open";

@@ -39,7 +39,7 @@ in {
       pkgs.pulseaudio
     ];
   in
-    lib.mkIf ewwConfig.enable {
+    lib.mkIf (ewwConfig.enable) {
       user.packages = dependencies;
 
       # home manager configuration

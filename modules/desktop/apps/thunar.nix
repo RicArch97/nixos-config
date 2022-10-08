@@ -16,7 +16,7 @@ in {
     };
   };
 
-  config = lib.mkIf thunarConfig.enable {
+  config = lib.mkIf (thunarConfig.enable) {
     apps.defaultApps = {
       file-manager = rec {
         package = pkgs.xfce.thunar;

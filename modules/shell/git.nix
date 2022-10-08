@@ -26,7 +26,7 @@ in {
     };
   };
 
-  config = lib.mkIf gitConfig.enable {
+  config = lib.mkIf (gitConfig.enable) {
     # home manager configuration
     home.manager.programs.git = {
       enable = true;
