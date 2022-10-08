@@ -19,12 +19,44 @@
       (lib.filterAttrs (n: _: n != "self") inputs);
   in {
     package = pkgs.nixFlakes;
-    optimise.automatic = true;
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
     nixPath = ["nixosConfig=${config.nixosConfig.dir}"];
     registry = regInputs // {nixosConfig.flake = inputs.self;};
     settings = {trusted-users = ["root" "${config.user.name}" "@wheel"];};
     extraOptions = "experimental-features = nix-command flakes";
   };
 
-  system.stateVersion = lib.mkDefault "22.11";
+  # default options that apply to all hosts, unless changed
+
+  # default timezone
+  time.timezone = lib.mkDefault "Europe/Amsterdam";
+
+  # default bootoptions / kernel / modules
+  boot = {
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+    loader = {
+      systemd-boot.enable = lib.mkDefault true;
+      systemd-boot.configurationLimit = lib.mkDefault 5;
+      efi.canTouchEfiVariables = true;
+    };
+    initrd = {
+      availableKernelModules = [
+        "xhci_pci"
+        "usb_storage"
+        "usbhid"
+        "sd_mod"
+        "dm_mod"
+      ];
+      kernelModules = [
+        "sd_mod"
+        "dm_mod"
+      ];
+    };
+  };
+
+  system.stateVersion = "22.11";
 }
