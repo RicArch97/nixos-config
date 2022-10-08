@@ -1,5 +1,5 @@
 /*
-T470 - University and office laptop.
+T470 - Office laptop.
 
 Lenovo ThinkPad T470
 Intel i5-7200U processor
@@ -8,35 +8,46 @@ Intel Wi-Fi 6E AX210 vPro Wi-Fi and Bluetooth chip
 8 GB RAM
 Samsung EVO 970 1TB SSD
 
-This system is used for programming.
+This system is used for programming / writing documents.
 Should not contain any gaming related stuff.
 */
 {
+  config,
   inputs,
   lib,
   pkgs,
   ...
 }: {
-  imports = [
-    ./hardware-configuration.nix
-  ];
-
-  time.timezone = "Europe/Amsterdam";
-
-  boot.initrd = {
-    availableKernelModules = [
-      "xhci_pci"
-      "usb_storage"
-      "usbhid"
-      "sd_mod"
-      "dm_mod"
+  # power management
+  boot = {
+    extraModulePackages = with config.boot.kernelPackages; [acpi_call];
+    kernelModules = ["acpi_call"];
+    # this device has a kaby lake CPU, from nixos-hardware (both power saving features)
+    kernelParams = [
+      "i915.enable_fbc=1"
+      "i915.enable_psr=2"
     ];
-    kernelModules = [
-      "sd_mod"
-      "dm_mod"
+    # RealTek sd card reader support
+    initrd.availableKernelModules = [
+      "rtsx_pci_sdmmc"
     ];
   };
 
+  # thinkpad trackpoint
+  hardware.trackpoint.enable = true;
+  hardware.trackpoint.emulateWheel = true;
+
+  # specific services
+  services = {
+    # thinkpad fingerprint reader
+    fprintd.enable = true;
+    # this device should be able to send docs to a printer
+    printing.enable = true;
+    # power management daemon
+    tlp.enable = true;
+  };
+
+  # host specific user packages
   user.packages = [
     # multimedia
     inputs.webcord.packages.${pkgs.system}.default
@@ -53,6 +64,7 @@ Should not contain any gaming related stuff.
       gpu = "intel";
       drive = "ssd"; # where the os is installed
       hasTouchpad = true;
+      hasFingerprint = true;
       supportsBrightness = true;
       supportsBluetooth = true;
       bigScreen = false;
@@ -63,7 +75,7 @@ Should not contain any gaming related stuff.
       passwords.enable = true;
     };
     services.greetd.enable = true;
-    hardware.storage.zfs.enable = true;
+    hardware.filesystem.zfs.enable = true;
     desktop = {
       sway.enable = true; # this enables various other components
       util.mpv.enable = true;
