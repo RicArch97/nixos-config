@@ -16,30 +16,10 @@ Created with multi monitor setup in mind.
   pkgs,
   ...
 }: {
-  imports = [
-    ./hardware-configuration.nix
-  ];
+  # Allow SMBus access for OpenRGB device interaction
+  boot.kernelParams = ["acpi_enforce_resources=lax"];
 
-  time.timezone = "Europe/Amsterdam";
-
-  boot = {
-    # allows to interact with the SMBus on Gigabyte boards, for OpenRGB
-    kernelParams = ["acpi_enforce_resources=lax"];
-    initrd = {
-      availableKernelModules = [
-        "xhci_pci"
-        "usb_storage"
-        "usbhid"
-        "sd_mod"
-        "dm_mod"
-      ];
-      kernelModules = [
-        "sd_mod"
-        "dm_mod"
-      ];
-    };
-  };
-
+  # host specific user packages
   user.packages = [
     # multimedia
     inputs.webcord.packages.${pkgs.system}.default
@@ -65,7 +45,7 @@ Created with multi monitor setup in mind.
       passwords.enable = true;
     };
     services.greetd.enable = true;
-    hardware.storage.zfs.enable = true;
+    hardware.filesystem.zfs.enable = true;
     desktop = {
       sway.enable = true; # this enables various other components
       gaming.enable = true;
