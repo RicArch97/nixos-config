@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+
+# Partition disk and create a zpool and datasets for the ZFS filesystem.
+# Should be used in a Nixos live environment.
+
+# Mostly taken from https://github.com/spikespaz/dotfiles/ (Thanks!)
+
+# Requirements: gawk, coreutils, zfs
+# Usage: partition-disk <disk-id> (<disk-path>)
+
+set -eu
+
+if [ $# -eq 0 ]; then
+  echo "No disk provided. Provide a disk from either: /dev/disk/by-id/ or /dev/disk/by-path/ (VM)."
+  exit 1
+fi
+
+##### PAREMETERS #####
+
+# Specify the drive to partition for install
+TARGET_DISK="/dev/disk/by-id/$1"
+BOOT_PART="${TARGET_DISK}-part1"
+SWAP_PART="${TARGET_DISK}-part2"
+ROOT_PART="${TARGET_DISK}-part3"
+POOL_NAME="rpool"
+
+# Calculate preferred swap partition size for hibernation
+TOTAL_MEM=$(awk '{if ($1 == "MemTotal:") print $2}' /proc/meminfo)
+# Some forgiveness if memory was full when hibernating
+EXTRA_SWAP=$((2 * 1024 * 1024))
+TOTAL_SWAP="$((TOTAL_MEM + EXTRA_SWAP))K" # KiB
+
+##### PARTITIONING #####
+
+# Wipe the partition table
+read -p "This will wipe the partition table on the current drive! Are you sure (y/n)?" choice
+case "$choice" in 
+  y|Y ) sgdisk -Z $TARGET_DISK;;
+  n|N ) exit 1;;
+  * ) echo "Not a valid choice, exiting."; exit 1;;
+esac
+
+# Create boot partition (ef00 = EFI system partition)
+sgdisk  -n1:1M:+512M        -t1:ef00  $TARGET_DISK
+# Create swap partition (8200 = Linux swap)
+# shellcheck disable=SC2086
+sgdisk  -n2:0:+$TOTAL_SWAP  -t2:8200  $TARGET_DISK
+# Create primary partition (bf00 = Solaris root)
+sgdisk  -n3:0:0             -t3:bf00  $TARGET_DISK
+
+# Notify the kernel
+partprobe $TARGET_DISK
+
+# Pause to allow device changes
+sleep 1s
+
+##### FORMATTING #####
+
+# Create the root pool
+zpool create \
+	-o ashift=12 \
+	-o autotrim=on \
+	-O acltype=posixacl \
+	-O dnodesize=auto \
+	-O normalization=formD \
+	-O atime=off \
+	-O relatime=on \
+	-O xattr=sa \
+	-O compression=zstd-3 \
+	-O canmount=off \
+	-O mountpoint=none \
+	-R /mnt \
+	-f \
+	$POOL_NAME \
+	$ROOT_PART
+
+# Create system datasets
+zfs create  -o canmount=on   -o mountpoint=/      -o compression=zstd-fast                                $POOL_NAME/root
+zfs create  -o canmount=off  -o mountpoint=/var                             -o relatime=off               $POOL_NAME/var
+zfs create  -o canmount=on                                                                                $POOL_NAME/var/lib
+zfs create  -o canmount=on                        -o compression=zstd-fast                                $POOL_NAME/var/log
+zfs create  -o canmount=on                        -o compression=zstd-fast                                $POOL_NAME/var/cache
+zfs create  -o canmount=on   -o mountpoint=/nix   -o compression=zstd-5     -o relatime=off  -o dedup=on  $POOL_NAME/nix
+zfs create  -o canmount=on   -o mountpoint=/home                                                          $POOL_NAME/home
+
+# Format boot partition
+mkfs.vfat -F32 -n boot $BOOT_PART
+
+# Format the swap partition
+mkswap -L swap $SWAP_PART
+
+# Pause to allow device changes
+sleep 1s
+
+# Mount the boot partition
+mkdir /mnt/boot
+mount -t vfat /dev/disk/by-label/boot /mnt/boot
