@@ -18,7 +18,7 @@ in {
 
   config = lib.mkIf (idleConfig.enable) {
     # use own wlopm package
-    user.packages = [pkgs.wlopm];
+    home.packages = [pkgs.wlopm];
 
     # home manager configuration
     home.manager.services.swayidle = {

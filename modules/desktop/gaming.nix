@@ -43,7 +43,7 @@ in {
     modules.desktop.services.dunst.enable = true;
 
     # Lutris, Wine and OBS studio for game capture
-    user.packages = let
+    home.packages = let
       winepkg =
         if device.displayProtocol == "wayland"
         then pkgs.wine-wayland

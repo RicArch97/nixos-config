@@ -57,7 +57,7 @@ in {
   config = lib.mkIf (gtkConfig.enable) (lib.mkMerge [
     {
       # install default adwaita theme for fallback
-      user.packages = [pkgs.gnome.gnome-themes-extra];
+      home.packages = [pkgs.gnome.gnome-themes-extra];
 
       # home manager configuration
       home.manager.gtk = {

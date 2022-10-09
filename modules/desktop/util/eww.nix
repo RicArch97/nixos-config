@@ -40,7 +40,7 @@ in {
     ];
   in
     lib.mkIf (ewwConfig.enable) {
-      user.packages = dependencies;
+      home.packages = dependencies;
 
       # home manager configuration
       home.manager = {

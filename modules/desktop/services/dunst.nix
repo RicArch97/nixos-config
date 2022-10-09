@@ -21,7 +21,7 @@ in {
 
   config = lib.mkIf (dunstConfig.enable) {
     # hicolor is the fallback theme
-    user.packages = [pkgs.libnotify pkgs.hicolor-icon-theme];
+    home.packages = [pkgs.libnotify pkgs.hicolor-icon-theme];
 
     # home manager configuration
     home.manager.services.dunst = {

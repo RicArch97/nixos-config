@@ -91,7 +91,7 @@ in {
   in
     lib.mkIf (lockConfig.enable) {
       # used to screenshot and apply blur / gradient to an image
-      user.packages = [
+      home.packages = [
         pkgs.custom.gtklock
         pkgs.grim
         pkgs.imagemagick

@@ -22,7 +22,7 @@ in {
     environment.pathsToLink = ["/share/zsh"];
 
     # shell specific packages
-    user.packages = [
+    home.packages = [
       pkgs.zsh-autocomplete
       pkgs.pure-prompt
       pkgs.jq

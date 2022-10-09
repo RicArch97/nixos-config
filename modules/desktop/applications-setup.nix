@@ -42,7 +42,7 @@ in {
     };
 
     # add all default packages to user packages, if they should be installed manually
-    user.packages = lib.filter (elem: elem != null) (lib.mapAttrsToList (name: value:
+    home.packages = lib.filter (elem: elem != null) (lib.mapAttrsToList (name: value:
       if value.install
       then value.package
       else null)

@@ -25,7 +25,7 @@ in {
     };
 
     # language servers
-    user.packages = [
+    home.packages = [
       pkgs.rnix-lsp
       pkgs.ccls
       pkgs.nodePackages.pyright

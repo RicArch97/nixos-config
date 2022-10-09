@@ -35,7 +35,7 @@ in {
       ];
     };
 
-    user.packages = lib.mkMerge [
+    home.packages = lib.mkMerge [
       # utilized packages in the config
       [
         pkgs.swaybg
