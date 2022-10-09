@@ -86,9 +86,9 @@ in {
         '';
         "eww/src/scss/_fonts.scss".text = ''
           $main-font-family: "${fontConfig.main.family}";
-          $main-font-size: "${fontConfig.main.size}px";
+          $main-font-size: "${toString fontConfig.main.size}px";
           $sub-font-family: "${fontConfig.sub.family}";
-          $sub-font-size: "${fontConfig.sub.size}px";
+          $sub-font-size: "${toString fontConfig.sub.size}px";
         '';
       };
     };

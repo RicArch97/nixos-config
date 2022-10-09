@@ -28,9 +28,7 @@ in {
     # home manager configuration
     home.manager.programs.zathura = {
       enable = true;
-      package = pkgs.zathura.override {
-        useMupdf = true;
-      };
+      package = pkgs.zathura;
       options = let
         ct = colorScheme.types;
         cs = colorScheme.syntax;

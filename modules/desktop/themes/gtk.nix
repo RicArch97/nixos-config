@@ -25,7 +25,7 @@ in {
       };
       name = lib.mkOption {
         type = lib.types.str;
-        name = "Orchis-grey-dark-compact";
+        default = "Orchis-grey-dark-compact";
       };
     };
     iconTheme = {

@@ -19,7 +19,7 @@ in {
       };
       name = lib.mkOption {
         type = lib.types.str;
-        name = "gtk2";
+        default = "gtk2";
       };
     };
   };

@@ -54,7 +54,6 @@ in {
       boot.initrd.kernelModules = ["i915"];
       # better performance than the actual Intel driver
       services.xserver.videoDrivers = ["modesetting"];
-      services.xserver.useGlamor = true;
 
       # OpenCL support and VAAPI
       hardware.opengl.extraPackages = [

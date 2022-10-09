@@ -166,7 +166,7 @@ in {
         fonts = {
           names = [fontConfig.sub.family];
           style = "Bold";
-          size = 10;
+          size = 10.0;
         };
 
         # Window properties
@@ -214,8 +214,7 @@ in {
             ;
           # Generate a list of lists, each inner list containing a key(number) and workspace
           workspaces = lib.genList (x: [(toString (x + 1)) (toString (x + 1))]) 8;
-        in (
-          lib.mkOptionDefault
+        in
           {
             # General
             "${mod}+Shift+q" = "kill";
@@ -260,6 +259,11 @@ in {
             "${mod}+space" = "focus mode_toggle";
             "${mod}+a" = "focus parent";
 
+            # Modes
+            #
+            # Resize
+            "${mod}+r" = "mode resize";
+
             # Scratchpad
             #
             # Move window to scratchpad
@@ -296,8 +300,7 @@ in {
               name = "${mod}+Shift+${builtins.elemAt x 0}";
               value = "exec ${pkgs.swaysome}/bin/swaysome move ${builtins.elemAt x 1}";
             })
-            workspaces)
-        );
+            workspaces);
 
         # Modes
         modes = {

@@ -86,7 +86,7 @@ in {
 
         wait
 
-        ${pkgs.gtklock}/bin/gtklock -d -s ${gtklock-style}
+        ${pkgs.custom.gtklock}/bin/gtklock -d -s ${gtklock-style}
       '';
   in
     lib.mkIf (lockConfig.enable) {
