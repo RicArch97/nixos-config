@@ -7,7 +7,6 @@
   ...
 }: let
   alaConfig = config.modules.desktop.apps.alacritty;
-  apps = config.modules.desktop.default-apps;
   colorScheme = config.modules.desktop.themes.colors;
   fontStyles = config.modules.desktop.themes.fonts.styles;
 in {
@@ -19,7 +18,7 @@ in {
   };
 
   config = lib.mkIf (alaConfig.enable) {
-    apps.defaultApps.terminal = rec {
+    modules.desktop.defaultApplications.apps.terminal = rec {
       package = pkgs.alacritty;
       install = false; # installed by home manager
       cmd = "${package}/bin/alacritty";

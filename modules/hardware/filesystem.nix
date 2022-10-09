@@ -33,7 +33,7 @@ in {
       {
         # mount partitions (by default root is ext4, when zfs not enabled)
         # this is just according to the official install guide
-        filesystems = {
+        fileSystems = {
           "/" = {
             device = lib.mkDefault "/dev/disk/by-label/nixos";
             fsType = lib.mkDefault "ext4";
@@ -81,7 +81,7 @@ in {
             supportedFilesystems = ["zfs"];
             kernelModules = ["zfs"];
             # latest kernels with ZFS support
-            kernelPackages = lib.mkDefault config.boot.zfs.package.latestCompatibleLinuxPackages;
+            kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
             zfs = {
               forceImportAll = false;
               forceImportRoot = false;

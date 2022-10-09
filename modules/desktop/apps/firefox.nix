@@ -7,7 +7,6 @@
   ...
 }: let
   firefoxConfig = config.modules.desktop.apps.firefox;
-  apps = config.modules.desktop.default-apps;
 in {
   options.modules.desktop.apps.firefox = {
     enable = lib.mkOption {
@@ -21,7 +20,7 @@ in {
   };
 
   config = lib.mkIf (firefoxConfig.enable) {
-    apps.defaultApps.browser = rec {
+    modules.desktop.defaultApplications.apps.browser = rec {
       package = firefoxConfig.package;
       install = false; # installed by home manager
       cmd = "${package}/bin/firefox";

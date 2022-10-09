@@ -7,7 +7,6 @@
   ...
 }: let
   thunarConfig = config.modules.desktop.apps.thunar;
-  apps = config.modules.desktop.default-apps;
 in {
   options.modules.desktop.apps.thunar = {
     enable = lib.mkOption {
@@ -17,7 +16,7 @@ in {
   };
 
   config = lib.mkIf (thunarConfig.enable) {
-    apps.defaultApps = {
+    modules.desktop.defaultApplications.apps = {
       file-manager = rec {
         package = pkgs.xfce.thunar;
         install = false; # installed by system

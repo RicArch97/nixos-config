@@ -47,6 +47,10 @@
         type = lib.types.attrs;
         default = {};
       };
+      packages = lib.mkOption {
+        type = lib.types.listOf lib.types.package;
+        default = [];
+      };
     };
     env = lib.mkOption {
       type = lib.types.attrsOf (
@@ -96,6 +100,7 @@
       home = {
         stateVersion = config.system.stateVersion;
         file = lib.mkAliasDefinitions options.home.file;
+        packages = lib.mkAliasDefinitions options.home.packages;
       };
       xdg = {
         enable = true;

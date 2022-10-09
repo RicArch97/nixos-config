@@ -45,7 +45,7 @@ in {
     # Lutris, Wine and OBS studio for game capture
     user.packages = let
       winepkg =
-        if (device.displayProtocol == "wayland")
+        if device.displayProtocol == "wayland"
         then pkgs.wine-wayland
         else pkgs.wine;
     in
@@ -54,7 +54,7 @@ in {
         pkgs.lutris
         pkgs.obs-studio
         pkgs.obs-studio-plugins.obs-gstreamer
-        pkgs.obs-studio-plugins.pipewire-audio-capture
+        pkgs.obs-studio-plugins.obs-pipewire-audio-capture
         pkgs.obs-studio-plugins.obs-vkcapture
       ]
       ++ lib.optional (device.displayProtocol == "wayland")

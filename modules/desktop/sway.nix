@@ -8,7 +8,7 @@
 }: let
   swayConfig = config.modules.desktop.sway;
   device = config.modules.device;
-  apps = config.modules.desktop.default-apps.defaultApps;
+  defaultApps = config.modules.desktop.defaultApplications.apps;
   colorScheme = config.modules.desktop.themes.colors;
   fontConfig = config.modules.desktop.themes.fonts.styles;
   gtkConfig = config.modules.desktop.themes.gtk;
@@ -51,7 +51,7 @@ in {
     ];
 
     # set display protocol to Wayland for some specifics
-    device.displayProtocol = "wayland";
+    modules.device.displayProtocol = "wayland";
 
     # screensharing
     xdg.portal.enable = true;
@@ -66,7 +66,7 @@ in {
     };
 
     # use gsettings
-    gtkConfig.gsettings = true;
+    modules.desktop.themes.gtk.gsettings.enable = true;
 
     # set a wallpaper to default location,
     # wallpaper script will read from this
@@ -75,7 +75,7 @@ in {
     '';
 
     # some default apps used with Wayland / Sway
-    apps = {
+    modules.desktop.defaultApplications.apps = {
       screenshot = rec {
         package = pkgs.sway-contrib.grimshot;
         cmd = "${package}/bin/grimshot";
@@ -109,7 +109,7 @@ in {
 
     # enable swayidle and gtklock modules
     modules.desktop.services.swayidle.enable = true;
-    modules.desktop.apps.gtklock.enable = true;
+    modules.desktop.util.gtklock.enable = true;
 
     # polkit auth agent for GUI authentication
     modules.desktop.services.polkit.enable = true;
@@ -129,8 +129,8 @@ in {
         up = "Up";
         right = "Right";
         # Programs
-        menu = "${apps.menu.cmd}";
-        terminal = "${apps.terminal.cmd}";
+        menu = "${defaultApps.menu.cmd}";
+        terminal = "${defaultApps.terminal.cmd}";
 
         # Theming
         colors = let
@@ -219,14 +219,14 @@ in {
           {
             # General
             "${mod}+Shift+q" = "kill";
-            "${mod}+Return" = "exec ${apps.terminal.cmd}";
-            "${mod}+Shift+Return" = "exec ${apps.terminal.cmd} --class='alacritty'";
-            "${mod}+d" = "exec ${apps.menu.cmd}";
+            "${mod}+Return" = "exec ${defaultApps.terminal.cmd}";
+            "${mod}+Shift+Return" = "exec ${defaultApps.terminal.cmd} --class='alacritty'";
+            "${mod}+d" = "exec ${defaultApps.menu.cmd}";
             "${mod}+Shift+c" = "reload";
-            "${mod}+Shift+e" = "exec ${apps.exit.cmd}";
-            "${mod}+Print" = "exec ${apps.screenshot.cmd} --notify save output";
-            "${mod}+Shift+Print" = "exec ${apps.screenshot.cmd} --notify save area";
-            "${mod}+Shift+p" = "exec ${apps.screenshot.cmd} --notify save screen";
+            "${mod}+Shift+e" = "exec ${defaultApps.exit.cmd}";
+            "${mod}+Print" = "exec ${defaultApps.screenshot.cmd} --notify save output";
+            "${mod}+Shift+Print" = "exec ${defaultApps.screenshot.cmd} --notify save area";
+            "${mod}+Shift+p" = "exec ${defaultApps.screenshot.cmd} --notify save screen";
 
             # Moving focus
             "${mod}+${left}" = "focus left";
@@ -352,7 +352,7 @@ in {
             {
               command = let
                 output =
-                  if (device.name == "X570AM")
+                  if device.name == "X570AM"
                   then "DP-1"
                   else "eDP-1";
               in "launch-wlclock ${output} ${colorScheme.types.foreground}";
@@ -365,7 +365,7 @@ in {
           border = 1;
           commands = let
             floatSize =
-              if (device.bigScreen)
+              if device.bigScreen
               then "1700 1000"
               else "1200 700";
           in [

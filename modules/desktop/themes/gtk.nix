@@ -110,12 +110,11 @@ in {
             gsettings set $gnome-schema cursor-size '${gtkConfig.cursorTheme.size}'
             gsettings set $gnome-schema font-name '${fontConfig.main.family} ${toString fontConfig.main.size}'
           '';
-      in
-        lib.mkIf (gtkConfig.gettings) [
-          set-gsettings
-          pkgs.gsettings-desktop-schemas
-          pkgs.glib
-        ];
+      in [
+        set-gsettings
+        pkgs.gsettings-desktop-schemas
+        pkgs.glib
+      ];
     })
   ]);
 }

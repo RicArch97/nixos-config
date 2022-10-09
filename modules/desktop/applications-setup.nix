@@ -6,14 +6,14 @@
   pkgs,
   ...
 }: let
-  appsConf = config.modules.desktop.default-apps;
+  appsConf = config.modules.desktop.defaultApplications;
 in {
-  options.modules.desktop.default-apps = {
+  options.modules.desktop.defaultApplications = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = true;
     };
-    defaultApps = lib.mkOption {
+    apps = lib.mkOption {
       type = lib.types.attrsOf (lib.types.submodule ({name, ...}: {
         options = {
           package = lib.mkOption {type = lib.types.package;};
@@ -37,25 +37,21 @@ in {
 
     # set term and editor as envvars as well
     env = {
-      EDITOR = appsConf.defaultApps.editor.cmd;
-      TERM = appsConf.defaultApps.terminal.cmd;
+      EDITOR = appsConf.apps.editor.cmd;
+      TERM = appsConf.apps.terminal.cmd;
     };
 
     # add all default packages to user packages, if they should be installed manually
-    user.packages = lib.mkMerge [
-      lib.filter
-      (elem: elem != null)
-      (lib.mapAttrsToList (name: value:
-        if value.install
-        then value.package
-        else null)
-      appsConf.defaultApps)
-    ];
+    user.packages = lib.filter (elem: elem != null) (lib.mapAttrsToList (name: value:
+      if value.install
+      then value.package
+      else null)
+    appsConf.apps);
 
     # set XDG mimeapps and associations
     home.manager.xdg.mimeApps = {
       enable = true;
-      defaultApplications = with appsConf.defaultApps;
+      defaultApplications = with appsConf.apps;
         builtins.mapAttrs
         (name: value:
           if value ? desktop

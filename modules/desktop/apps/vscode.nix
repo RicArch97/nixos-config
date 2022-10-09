@@ -7,7 +7,6 @@
   ...
 }: let
   codeConfig = config.modules.desktop.apps.vscode;
-  apps = config.modules.desktop.default-apps;
   fontStyles = config.modules.desktop.themes.fonts.styles;
 in {
   options.modules.desktop.apps.vscode = {
@@ -22,7 +21,7 @@ in {
   };
 
   config = lib.mkIf (codeConfig.enable) {
-    apps.defaultApps.ide = {
+    modules.desktop.defaultApplications.apps.ide = {
       package = codeConfig.package;
       install = false; # installed by home manager
       cmd = "${codeConfig.package}/bin/code";

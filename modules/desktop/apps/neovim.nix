@@ -7,7 +7,6 @@
   ...
 }: let
   nvimConfig = config.modules.desktop.apps.neovim;
-  appsConf = config.modules.desktop.default-apps;
   configDir = config.nixosConfig.configDir;
 in {
   options.modules.desktop.apps.neovim = {
@@ -18,7 +17,7 @@ in {
   };
 
   config = lib.mkIf (nvimConfig.enable) {
-    appsConf.defaultApps.editor = rec {
+    modules.desktop.defaultApplications.apps.editor = rec {
       package = pkgs.neovim;
       install = false; # installed by home manager
       cmd = "${package}/bin/neovim";

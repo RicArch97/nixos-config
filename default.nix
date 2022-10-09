@@ -18,7 +18,6 @@
       lib.mapAttrs (_: v: {flake = v;})
       (lib.filterAttrs (n: _: n != "self") inputs);
   in {
-    package = pkgs.nixFlakes;
     gc = {
       automatic = true;
       dates = "weekly";
@@ -33,7 +32,7 @@
   # default options that apply to all hosts, unless changed
 
   # default timezone
-  time.timezone = lib.mkDefault "Europe/Amsterdam";
+  time.timeZone = lib.mkDefault "Europe/Amsterdam";
 
   # default bootoptions / kernel / modules
   boot = {

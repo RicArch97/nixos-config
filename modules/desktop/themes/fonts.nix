@@ -37,6 +37,7 @@ in {
     fonts = {
       fonts = [
         pkgs.custom.product-sans
+        pkgs.custom.phosphor
         pkgs.inter
         pkgs.nerdfonts
         pkgs.julia-mono
@@ -52,7 +53,6 @@ in {
         styles = fontConf.styles;
       in {
         enable = true;
-        autohint = false;
         antialias = true;
         hinting = {
           enable = true;
@@ -63,7 +63,6 @@ in {
           sansSerif = ["${styles.main.family} ${toString styles.main.size}"];
           serif = ["${styles.serif.family} ${toString styles.serif.size}"];
           monospace = ["${styles.mono.family} ${toString styles.mono.size}"];
-          icons = ["${styles.icons.family} ${toString styles.icons.size}"];
           emoji = ["${styles.emoji.family} ${toString styles.emoji.size}"];
         };
       };

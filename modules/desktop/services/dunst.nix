@@ -10,7 +10,7 @@
   colorScheme = config.modules.desktop.themes.colors;
   gtkConfig = config.modules.desktop.themes.gtk;
   fontConfig = config.modules.desktop.themes.fonts.styles;
-  apps = config.modules.desktop.default-apps.defaultApps;
+  defaultApps = config.modules.desktop.defaultApplications.apps;
 in {
   options.modules.desktop.services.dunst = {
     enable = lib.mkOption {
@@ -80,8 +80,8 @@ in {
           sticky_history = true;
           history_length = 100;
 
-          dmenu = "${apps.menu.cmd} -p dunst";
-          browser = "${apps.browser.cmd} -new-tab";
+          dmenu = "${defaultApps.menu.cmd} -p dunst";
+          browser = "${defaultApps.browser.cmd} -new-tab";
           always_run_script = true;
           ignore_dbusclose = false;
 

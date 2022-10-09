@@ -26,6 +26,9 @@ in {
     programs.sway = lib.mkIf (!swayConfig.enable) {enable = true;};
     environment.systemPackages = [pkgs.greetd.gtkgreet];
 
+    # enable gsettings
+    modules.desktop.themes.gtk.gsettings.enable = true;
+
     # unlock GPG keyring upon login
     security.pam.services.greetd.gnupg = lib.mkIf (gpgConfig.enable) {
       enable = true;

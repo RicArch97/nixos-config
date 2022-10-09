@@ -7,7 +7,6 @@
   ...
 }: let
   zatConfig = config.modules.desktop.apps.zathura;
-  apps = config.modules.desktop.default-apps;
   colorScheme = config.modules.desktop.themes.colors;
   fontStyles = config.modules.desktop.themes.fonts.styles;
 in {
@@ -19,7 +18,7 @@ in {
   };
 
   config = lib.mkIf (zatConfig.enable) {
-    apps.defaultApps.pdf = rec {
+    modules.desktop.defaultApplications.apps.pdf = rec {
       package = pkgs.zathura;
       install = false; # installed by home manager
       cmd = "${package}/bin/zathura";

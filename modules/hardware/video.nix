@@ -9,7 +9,7 @@
   videoConfig = config.modules.hardware.video;
   device = config.modules.device;
 in {
-  options.modules.hardware.graphics = {
+  options.modules.hardware.video = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = true;

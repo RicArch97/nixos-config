@@ -7,7 +7,6 @@
   ...
 }: let
   mpvConfig = config.modules.desktop.util.mpv;
-  apps = config.modules.desktop.default-apps;
   device = config.modules.device;
 in {
   options.modules.desktop.util.mpv = {
@@ -18,7 +17,7 @@ in {
   };
 
   config = lib.mkIf (mpvConfig.enable) {
-    apps.defaultApps.video = rec {
+    modules.desktop.defaultApplications.apps.video = rec {
       package = pkgs.mpv;
       install = false; # installed by home manager
       cmd = "${package}/bin/mpv";
@@ -32,7 +31,7 @@ in {
         profile = "gpu-hq";
         gpu-api = "vulkan";
         gpu-context =
-          if (device.displayProtocol == "wayland")
+          if device.displayProtocol == "wayland"
           then "waylandvk"
           else "x11vk";
         vo = "gpu";

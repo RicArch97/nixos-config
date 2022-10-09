@@ -7,7 +7,7 @@
   ...
 }: let
   idleConfig = config.modules.desktop.services.swayidle;
-  apps = config.modules.desktop.default-apps.defaultApps;
+  defaultApps = config.modules.desktop.defaultApplications.apps;
 in {
   options.modules.desktop.services.swayidle = {
     enable = lib.mkOption {
@@ -26,13 +26,13 @@ in {
       events = [
         {
           event = "before-sleep";
-          command = "${apps.locker.cmd}";
+          command = "${defaultApps.locker.cmd}";
         }
       ];
       timeouts = [
         {
           timeout = 600;
-          command = "${apps.locker.cmd}";
+          command = "${defaultApps.locker.cmd}";
         }
         {
           timeout = 3600;

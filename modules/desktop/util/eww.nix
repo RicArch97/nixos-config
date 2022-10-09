@@ -89,7 +89,6 @@ in {
           $main-font-size: "${fontConfig.main.size}px";
           $sub-font-family: "${fontConfig.sub.family}";
           $sub-font-size: "${fontConfig.sub.size}px";
-          $icon-font-family: "${fontConfig.icons.family}";
         '';
       };
     };

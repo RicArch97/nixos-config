@@ -7,7 +7,6 @@
   ...
 }: let
   rofiConfig = config.modules.desktop.util.rofi;
-  apps = config.modules.desktop.default-apps;
 in {
   options.modules.desktop.util.rofi = {
     enable = lib.mkOption {
@@ -30,7 +29,7 @@ in {
 
   config = lib.mkIf (rofiConfig.enable) (lib.mkMerge [
     (lib.mkIf (rofiConfig.menu.enable) {
-      apps.defaultApps.menu = rec {
+      modules.desktop.defaultApplications.apps.menu = rec {
         package = rofiConfig.package;
         cmd = "${package}/bin/rofi";
         desktop = "rofi"; #TODO config
@@ -38,7 +37,7 @@ in {
     })
 
     (lib.mkIf (rofiConfig.exit.enable) {
-      apps.defaultApps.exit = rec {
+      modules.desktop.defaultApplications.apps.exit = rec {
         package = rofiConfig.package;
         cmd = "${package}/bin/rofi";
         desktop = "rofi"; #TODO config
