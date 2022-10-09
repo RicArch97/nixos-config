@@ -7,8 +7,6 @@
   ...
 }: let
   lockConfig = config.modules.desktop.util.gtklock;
-  apps = config.modules.desktop.default-apps;
-  gtkConfig = config.modules.desktop.themes.gtk;
   device = config.modules.device;
   colorScheme = config.modules.desktop.themes.colors;
 in {
@@ -22,7 +20,7 @@ in {
   config = let
     gtklock-blur = let
       outputs =
-        if (device.name == "X570AM")
+        if device.name == "X570AM"
         then "(DP-1 DP-2)"
         else "(eDP-1)";
       gtklock-style =
@@ -92,8 +90,15 @@ in {
       '';
   in
     lib.mkIf (lockConfig.enable) {
-      apps.defaultApps.locker = rec {
-        package = pkgs.gtklock;
+      # used to screenshot and apply blur / gradient to an image
+      user.packages = [
+        pkgs.custom.gtklock
+        pkgs.grim
+        pkgs.imagemagick
+      ];
+
+      modules.desktop.defaultApplications.apps.locker = rec {
+        package = pkgs.custom.gtklock;
         cmd = gtklock-blur;
         desktop = "gtklock";
       };
@@ -103,7 +108,7 @@ in {
 
       # allow gtklock to unlock the screen
       security.pam.services.gtklock.text =
-        if (device.hasFingerprint)
+        if device.hasFingerprint
         then ''
           auth sufficient pam_unix.so try_first_pass likeauth nullok
           auth sufficient ${pkgs.fprintd}/lib/security/pam_fprintd.so
@@ -112,8 +117,5 @@ in {
         else ''
           auth include login
         '';
-
-      # used to screenshot and apply blur / gradient to an image
-      user.packages = [pkgs.grim pkgs.imagemagick];
     };
 }
