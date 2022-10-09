@@ -44,7 +44,7 @@ in {
             background-color: ${colorScheme.types.background};
           }
         ''
-        // lib.optionalString (device.name == "X570AM") ''
+        + lib.optionalString (device.name == "X570AM") ''
           window#DP-1 {
             background-image: url("/tmp/DP-1.png");
           }
@@ -52,7 +52,7 @@ in {
             background-image: url("/tmp/DP-2.png");
           }
         ''
-        // lib.optionalString (device.name == "T470") ''
+        + lib.optionalString (device.name == "T470") ''
           window#eDP-1 {
             background-image: url("/tmp/eDP-1.png");
           }

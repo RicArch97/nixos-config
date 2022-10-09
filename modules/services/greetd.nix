@@ -67,10 +67,10 @@ in {
 
               seat seat0 xcursor_theme ${gtkConfig.cursorTheme.name} ${toString gtkConfig.cursorTheme.size}
             ''
-            // lib.optionalString (!device.hasTouchpad) ''
+            + lib.optionalString (!device.hasTouchpad) ''
               input * accel_profile flat
             ''
-            // lib.optionalString (device.name == "X570AM") ''
+            + lib.optionalString (device.name == "X570AM") ''
               output DP-2 pos 0 0 mode 2560x1440@165Hz
               output DP-1 pos 2560 0 mode 3440x1440@160Hz
             '';
