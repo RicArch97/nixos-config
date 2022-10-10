@@ -6,6 +6,7 @@
   github-nvim-theme = prev.vimUtils.buildVimPlugin {
     name = "github-nvim-theme";
     src = inputs.github-nvim-theme;
+    dontBuild = true;
   };
 in {
   # own packages

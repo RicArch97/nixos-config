@@ -160,11 +160,11 @@
     "github-nvim-theme": {
       "flake": false,
       "locked": {
-        "lastModified": 1665026449,
-        "narHash": "sha256-DZq3APtn8NOM2e6SAjP0fXIEziVVpyFgrlg1RJE8oyc=",
+        "lastModified": 1665384859,
+        "narHash": "sha256-cd9a8s2WIijsi4nvP1iu7/Dz7Mq8fxwFT0qOPuvyy00=",
         "owner": "projekt0n",
         "repo": "github-nvim-theme",
-        "rev": "fb0fd624dc1a341bad4820b08c1fe8f3a28be263",
+        "rev": "a0632f9fa9b696896d4b427de0c84c1e9f192204",
         "type": "github"
       },
       "original": {
