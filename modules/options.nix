@@ -134,7 +134,7 @@
         XDG_BIN_HOME = "$HOME/.local/bin/";
       };
       extraInit =
-        lib.concatStringSep "\n"
+        lib.concatStringsSep "\n"
         (lib.mapAttrsToList (n: v: ''export ${n}="${v}"'') config.env);
     };
 

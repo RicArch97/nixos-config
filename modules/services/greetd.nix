@@ -53,27 +53,31 @@ in {
               }
             '';
           in
-            pkgs.writeText "greetd-sway-config" ''
-              exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -s ${gtkgreetStyle} -c sway; swaymsg exit"
-              exec set-gsettings
+            pkgs.writeText "greetd-sway-config" (
+              ''
+                exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -s ${gtkgreetStyle} -c sway; swaymsg exit"
+                exec set-gsettings
 
-              xwayland disable
+                xwayland disable
 
-              bindsym Mod4+shift+e exec swaynag \
-                -t warning \
-                -m 'What do you want to do?' \
-                -b 'Poweroff' 'systemctl poweroff' \
-                -b 'Reboot' 'systemctl reboot'
+                bindsym Mod4+shift+e exec swaynag \
+                  -t warning \
+                  -m 'What do you want to do?' \
+                  -b 'Poweroff' 'systemctl poweroff' \
+                  -b 'Reboot' 'systemctl reboot'
 
-              seat seat0 xcursor_theme ${gtkConfig.cursorTheme.name} ${toString gtkConfig.cursorTheme.size}
-            ''
-            + lib.optionalString (!device.hasTouchpad) ''
-              input * accel_profile flat
-            ''
-            + lib.optionalString (device.name == "X570AM") ''
-              output DP-2 pos 0 0 mode 2560x1440@165Hz
-              output DP-1 pos 2560 0 mode 3440x1440@160Hz
-            '';
+                seat seat0 xcursor_theme ${gtkConfig.cursorTheme.name} ${toString gtkConfig.cursorTheme.size}
+
+              ''
+              + lib.optionalString (!device.hasTouchpad) ''
+                input * accel_profile flat
+
+              ''
+              + lib.optionalString (device.name == "X570AM") ''
+                output DP-2 pos 0 0 mode 2560x1440@165Hz
+                output DP-1 pos 2560 0 mode 3440x1440@160Hz
+              ''
+            );
         in {command = "${pkgs.sway}/bin/sway --config ${greetdSwayConfig}";};
       };
     };

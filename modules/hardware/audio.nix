@@ -44,7 +44,7 @@ in {
     (lib.mkIf (audioConfig.bluetooth.enable) {
       hardware.bluetooth = {
         enable = true;
-        package = pkgs.bluezFull;
+        package = pkgs.bluez;
         powerOnBoot = false;
       };
 

@@ -107,7 +107,7 @@ in {
             gsettings set $gnome-schema gtk-theme '${gtkConfig.theme.name}'
             gsettings set $gnome-schema icon-theme '${gtkConfig.iconTheme.name}'
             gsettings set $gnome-schema cursor-theme '${gtkConfig.cursorTheme.name}'
-            gsettings set $gnome-schema cursor-size '${gtkConfig.cursorTheme.size}'
+            gsettings set $gnome-schema cursor-size '${toString gtkConfig.cursorTheme.size}'
             gsettings set $gnome-schema font-name '${fontConfig.main.family} ${toString fontConfig.main.size}'
           '';
       in [
