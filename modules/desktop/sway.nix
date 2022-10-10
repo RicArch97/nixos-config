@@ -33,6 +33,18 @@ in {
       extraPackages = lib.mkMerge [
         (lib.mkIf (swayConfig.xwayland) [pkgs.xwayland])
       ];
+      # Sway / Wayland specific environment variables
+      extraSessionCommands = ''
+        export XDG_SESSION_TYPE=wayland
+        export XDG_SESSION_DESKTOP=sway
+        export XDG_CURRENT_DESKTOP=sway
+        export QT_QPA_PLATFORM=wayland
+        export CLUTTER_BACKEND=wayland
+        export SDL_VIDEODRIVER=wayland
+        export _JAVA_AWT_WM_NONREPARENTING=1
+      '';
+      # Launches Sway with required envvars for GTK apps
+      wrapperFeatures.gtk = true;
     };
 
     home.packages = lib.mkMerge [
@@ -120,6 +132,7 @@ in {
     # Home manager configuration
     home.manager.wayland.windowManager.sway = {
       enable = true;
+      package = null; # don't override system-installed one
       config = {
         # Modifier (super key)
         modifier = "Mod4";
@@ -414,18 +427,6 @@ in {
         titlebar_border_thickness 1
         titlebar_padding 7
       '';
-      # Sway / Wayland specific environment variables
-      extraSessionCommands = ''
-        export XDG_SESSION_TYPE=wayland
-        export XDG_SESSION_DESKTOP=sway
-        export XDG_CURRENT_DESKTOP=sway
-        export QT_QPA_PLATFORM=wayland
-        export CLUTTER_BACKEND=wayland
-        export SDL_VIDEODRIVER=wayland
-        export _JAVA_AWT_WM_NONREPARENTING=1
-      '';
-      # Launches Sway with required envvars for GTK apps
-      wrapperFeatures = {gtk = true;};
       # XWayland support for legacy X11 apps (enabled from module options)
       xwayland = swayConfig.xwayland;
     };
