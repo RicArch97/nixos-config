@@ -63,33 +63,5 @@ in {
           Install.WantedBy = ["graphical-session.target"];
         };
       };
-
-      # colors and fonts to be used by the other EWW files
-      # it only makes sense to this declarative, the rest is symlinked
-      home.configFile = {
-        "eww/src/scss/_colors.scss".text = ''
-          $background: ${colorScheme.types.background};
-          $background-darker: ${colorScheme.types.background-darker};
-          $border: ${colorScheme.types.border};
-          $foreground: ${colorScheme.types.foreground};
-          $highlight: ${colorScheme.types.highlight};
-          $selection: ${colorScheme.types.selection};
-
-          $keyword: ${colorScheme.syntax.keyword};
-          $variable: ${colorScheme.syntax.variable};
-          $label: ${colorScheme.syntax.label};
-          $function: ${colorScheme.syntax.function};
-          $string: ${colorScheme.syntax.string};
-
-          $warning: ${colorScheme.diagnostic.warning};
-          $error: ${colorScheme.diagnostic.error};
-        '';
-        "eww/src/scss/_fonts.scss".text = ''
-          $main-font-family: "${fontConfig.main.family}";
-          $main-font-size: "${toString fontConfig.main.size}px";
-          $sub-font-family: "${fontConfig.sub.family}";
-          $sub-font-size: "${toString fontConfig.sub.size}px";
-        '';
-      };
     };
 }
