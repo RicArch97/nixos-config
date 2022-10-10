@@ -48,9 +48,9 @@ Should not contain any gaming related stuff.
   };
 
   # host specific user packages
-  user.packages = [
+  home.packages = [
     # multimedia
-    inputs.webcord.packages.${pkgs.system}.default
+    pkgs.discord
     pkgs.spotify
     pkgs.gimp
     pkgs.gimpPlugins.resynthesizer
