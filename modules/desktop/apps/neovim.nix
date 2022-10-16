@@ -20,7 +20,7 @@ in {
     modules.desktop.defaultApplications.apps.editor = rec {
       package = pkgs.neovim;
       install = false; # installed by home manager
-      cmd = "${package}/bin/neovim";
+      cmd = "${package}/bin/nvim";
       desktop = "nvim";
     };
 
