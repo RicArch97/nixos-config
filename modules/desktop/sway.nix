@@ -111,9 +111,7 @@ in {
     };
     modules.desktop.util.rofi = {
       enable = true;
-      package = pkgs.rofi-wayland;
       menu.enable = true;
-      exit.enable = true;
     };
 
     # for volume and brightness level notification
@@ -235,7 +233,7 @@ in {
             "${mod}+Shift+Return" = "exec ${defaultApps.terminal.cmd} --class='alacritty'";
             "${mod}+d" = "exec ${defaultApps.menu.cmd}";
             "${mod}+Shift+c" = "reload";
-            "${mod}+Shift+e" = "exec ${defaultApps.exit.cmd}";
+            #"${mod}+Shift+e" = "exec ${defaultApps.exit.cmd}";  undecided whether to do this, might put power menu in eww side panel
             "${mod}+Print" = "exec ${defaultApps.screenshot.cmd} --notify save output";
             "${mod}+Shift+Print" = "exec ${defaultApps.screenshot.cmd} --notify save area";
             "${mod}+Shift+p" = "exec ${defaultApps.screenshot.cmd} --notify save screen";

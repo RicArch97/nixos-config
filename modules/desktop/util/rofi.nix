@@ -7,6 +7,8 @@
   ...
 }: let
   rofiConfig = config.modules.desktop.util.rofi;
+  device = config.modules.device;
+  swayConfig = config.modules.desktop.sway;
 in {
   options.modules.desktop.util.rofi = {
     enable = lib.mkOption {
@@ -21,35 +23,42 @@ in {
       type = lib.types.bool;
       default = true;
     };
-    exit.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-    };
   };
 
-  config = lib.mkIf (rofiConfig.enable) (lib.mkMerge [
-    (lib.mkIf (rofiConfig.menu.enable) {
-      modules.desktop.defaultApplications.apps.menu = rec {
-        package = rofiConfig.package;
-        cmd = "${package}/bin/rofi";
-        desktop = "rofi"; #TODO config
-      };
-    })
+  config = let
+    launch-rofi-menu =
+      if (swayConfig.enable && device.name == "X570AM")
+      then
+        pkgs.writeShellScript "launch-rofi-menu-sway" ''
+          output=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused)' | jq -r '.name')
 
-    (lib.mkIf (rofiConfig.exit.enable) {
-      modules.desktop.defaultApplications.apps.exit = rec {
-        package = rofiConfig.package;
-        cmd = "${package}/bin/rofi";
-        desktop = "rofi"; #TODO config
-      };
-    })
+          if [[ $output == "DP-1" ]]; then
+            ${rofiConfig.package}/bin/rofi -show drun -config $XDG_CONFIG_HOME/rofi/menu.rasi -m 1
+          elif [[ $output == "DP-2" ]]; then
+            ${rofiConfig.package}/bin/rofi -show drun -config $XDG_CONFIG_HOME/rofi/menu.rasi -m 0
+          else
+           echo "Error getting focused display"
+          fi
+        ''
+      else "${rofiConfig.package}/bin/rofi -show drun -config $XDG_CONFIG_HOME/rofi/menu.rasi";
+  in
+    lib.mkIf (rofiConfig.enable) (lib.mkMerge [
+      (lib.mkIf (rofiConfig.menu.enable) {
+        modules.desktop.defaultApplications.apps.menu = {
+          package = rofiConfig.package;
+          cmd = launch-rofi-menu;
+          desktop = "rofi";
+        };
 
-    {
-      # home manager configuration
-      home.manager.programs.rofi = {
-        enable = true;
-        package = rofiConfig.package;
-      };
-    }
-  ]);
+        home.configFile."rofi/menu.rasi".source = "${config.nixosConfig.configDir}/rofi/menu.rasi";
+      })
+
+      {
+        # home manager configuration
+        home.manager.programs.rofi = {
+          enable = true;
+          package = rofiConfig.package;
+        };
+      }
+    ]);
 }

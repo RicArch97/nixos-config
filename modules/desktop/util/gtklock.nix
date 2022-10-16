@@ -99,7 +99,7 @@ in {
         pkgs.imagemagick
       ];
 
-      modules.desktop.defaultApplications.apps.locker = rec {
+      modules.desktop.defaultApplications.apps.locker = {
         package = pkgs.custom.gtklock;
         cmd = gtklock-blur;
         desktop = "gtklock";
