@@ -102,7 +102,7 @@ in {
         in
           pkgs.writeShellScriptBin "set-gsettings" ''
             export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
-            gnome_schema=org.gnome.desktop.interface
+            gnome-schema=org.gnome.desktop.interface
 
             gsettings set $gnome-schema gtk-theme '${gtkConfig.theme.name}'
             gsettings set $gnome-schema icon-theme '${gtkConfig.iconTheme.name}'
