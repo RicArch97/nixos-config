@@ -30,6 +30,10 @@ fi
 nixos-install --flake $current_path#$1
 
 if grep -qs '/mnt ' /proc/mounts; then
+  # move flake folder to the new root
+  mv /etc/nixos-config /mnt/etc/nixos-config
+  echo "Moved flake into new root!"
+  # unmount drive
 	umount -Rl /mnt
 fi
 
