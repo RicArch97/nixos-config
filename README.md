@@ -1,6 +1,6 @@
 <h1 align="center">NixOS Configuration</h1>
 
-Desktop NixOS flake configuration using home-manager for my personal computers
+<p align="center">Desktop NixOS flake configuration using home-manager for my personal computers</p>
 
 # Hosts
 
