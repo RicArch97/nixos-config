@@ -27,7 +27,7 @@ if [ ! "$dirname" == "nixos-config" ]; then
   exit 1
 fi
 
-nixos-install --flake "path:$current_path#$1"
+nixos-install --flake $current_path#$1
 
 if grep -qs '/mnt ' /proc/mounts; then
 	umount -Rl /mnt
