@@ -139,6 +139,6 @@
     };
 
     # add user binary path to PATH
-    env.PATH = ["NIXOSCONFIG_BIN" "$XDG_BIN_HOME" "$PATH"];
+    env.PATH = ["$NIXOSCONFIG_BIN" "$XDG_BIN_HOME" "$PATH"];
   };
 }

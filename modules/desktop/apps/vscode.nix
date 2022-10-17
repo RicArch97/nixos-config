@@ -52,9 +52,11 @@ in {
       userSettings = {
         "editor.fontFamily" = "${fontStyles.mono.family} 14";
         "workbench.colorTheme" = "GitHub Dark Default";
+        "workbench.iconTheme" = "material-icon-theme";
         "nix.formatterPath" = "alejandra";
         "git.autofetch" = true;
         "security.workspace.trust.untrustedFiles" = "open";
+        "files.autoSave" = "afterDelay";
       };
     };
   };

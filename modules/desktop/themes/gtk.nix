@@ -102,13 +102,12 @@ in {
         in
           pkgs.writeShellScriptBin "set-gsettings" ''
             export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
-            gnome-schema=org.gnome.desktop.interface
 
-            gsettings set $gnome-schema gtk-theme '${gtkConfig.theme.name}'
-            gsettings set $gnome-schema icon-theme '${gtkConfig.iconTheme.name}'
-            gsettings set $gnome-schema cursor-theme '${gtkConfig.cursorTheme.name}'
-            gsettings set $gnome-schema cursor-size '${toString gtkConfig.cursorTheme.size}'
-            gsettings set $gnome-schema font-name '${fontConfig.main.family} ${toString fontConfig.main.size}'
+            gsettings set org.gnome.desktop.interface gtk-theme '${gtkConfig.theme.name}'
+            gsettings set org.gnome.desktop.interface icon-theme '${gtkConfig.iconTheme.name}'
+            gsettings set org.gnome.desktop.interface cursor-theme '${gtkConfig.cursorTheme.name}'
+            gsettings set org.gnome.desktop.interface cursor-size '${toString gtkConfig.cursorTheme.size}'
+            gsettings set org.gnome.desktop.interface font-name '${fontConfig.main.family} ${toString fontConfig.main.size}'
           '';
       in [
         set-gsettings

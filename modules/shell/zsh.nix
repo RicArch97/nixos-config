@@ -66,9 +66,6 @@ in {
           cs = colorScheme.syntax;
           cd = colorScheme.diagnostic;
         in ''
-          # for autocomplete
-          bindkey "$key[Up]" up-line-or-search
-
           autoload -U promptinit; promptinit
 
           # prompt colors

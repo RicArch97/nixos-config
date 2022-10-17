@@ -34,7 +34,7 @@ in {
       userEmail = gitConfig.userEmail;
       signing = {
         key = gitConfig.signingKey;
-        signByDefault = true;
+        signByDefault = false;
       };
       ignores = ["/.vscode" "/.pio" "/__pycache__" ".envrc" ".direnv"];
       delta.enable = true;
