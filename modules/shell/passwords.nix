@@ -14,30 +14,29 @@ in {
       type = lib.types.bool;
       default = false;
     };
+  };
 
-    config = lib.mkIf (passwordConfig.enable) {
-      home.manager = {
-        programs.password-store = {
-          enable = true;
-          package = let
-            passpkg =
-              if device.displayProtocol == "wayland"
-              then pkgs.pass-wayland
-              else pkgs.pass;
-          in [
-            (passpkg.withExtensions (exts: [
-              exts.pass-otp
-              exts.pass-genphrase
-              exts.pass-tomb
-            ]))
-          ];
-          settings = {
-            PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store";
-          };
+  config = lib.mkIf (passwordConfig.enable) {
+    home.manager = {
+      programs.password-store = {
+        enable = true;
+        package = let
+          passpkg =
+            if device.displayProtocol == "wayland"
+            then pkgs.pass-wayland
+            else pkgs.pass;
+        in
+          passpkg.withExtensions (exts: [
+            exts.pass-otp
+            exts.pass-genphrase
+            exts.pass-tomb
+          ]);
+        settings = {
+          PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store";
         };
-        # Libsecret D-Bus API with pass as backend to let apps authenticate
-        services.pass-secret-service.enable = true;
       };
+      # Libsecret D-Bus API with pass as backend to let apps authenticate
+      services.pass-secret-service.enable = true;
     };
   };
 }
