@@ -31,6 +31,8 @@ in {
       };
     };
 
+    services.dbus.packages = [pkgs.xfce.tumbler];
+
     programs.thunar = {
       enable = true;
       plugins = [

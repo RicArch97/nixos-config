@@ -37,8 +37,8 @@ in {
 
       # permissions
       user.extraGroups = ["audio"];
-      # GUI audio management
-      home.packages = [pkgs.pavucontrol pkgs.pamixer];
+      # audio management & backwards compat
+      home.packages = [pkgs.pavucontrol pkgs.pamixer pkgs.pulseaudio];
     }
 
     (lib.mkIf (audioConfig.bluetooth.enable) {

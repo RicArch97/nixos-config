@@ -37,8 +37,8 @@ in {
 
     # set term and editor as envvars as well
     env = {
-      EDITOR = appsConf.apps.editor.cmd;
-      TERM = appsConf.apps.terminal.cmd;
+      EDITOR = appsConf.apps.editor.desktop;
+      TERM = appsConf.apps.terminal.desktop;
     };
 
     # add all default packages to user packages, if they should be installed manually
@@ -58,7 +58,8 @@ in {
           then ["${value.desktop}.desktop"]
           else value)
         {
-          "image/*" = image-viewer;
+          "image/png" = image-viewer;
+          "image/jpg" = image-viewer;
           "video/*" = video;
           "inode/directory" = file-manager;
           "text/html" = browser;

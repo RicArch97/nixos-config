@@ -31,6 +31,7 @@ in {
     programs.sway = {
       enable = true;
       extraPackages = lib.mkMerge [
+        [pkgs.xorg.xrandr]
         (lib.mkIf (swayConfig.xwayland) [pkgs.xwayland])
       ];
       # Sway / Wayland specific environment variables
@@ -48,7 +49,7 @@ in {
     };
 
     home.packages = lib.mkMerge [
-      # utilized packages in the config
+      # utilized packages in the config / util
       [
         pkgs.swaybg
         pkgs.swaysome
@@ -57,6 +58,7 @@ in {
         pkgs.slurp
         pkgs.dex
         pkgs.wlclock
+        pkgs.wl-clipboard
       ]
       # brightness support
       (lib.mkIf (device.supportsBrightness) [pkgs.light])
@@ -79,12 +81,6 @@ in {
 
     # use gsettings
     modules.desktop.themes.gtk.gsettings.enable = true;
-
-    # set a wallpaper to default location,
-    # wallpaper script will read from this
-    home.file.".wallpaper".text = ''
-      ${config.nixosConfig.configDir}/wallpaper.png:fill
-    '';
 
     # some default apps used with Wayland / Sway
     modules.desktop.defaultApplications.apps = {
@@ -142,6 +138,8 @@ in {
         # Programs
         menu = "${defaultApps.menu.cmd}";
         terminal = "${defaultApps.terminal.cmd}";
+        # No sway bar
+        bars = [];
 
         # Theming
         colors = let
@@ -251,9 +249,9 @@ in {
             # Workspaces
             #
             # Move focused container to next output
-            "${mod}+o" = "exec ${pkgs.swaysome}/bin/swaysome next-output";
+            "${mod}+o" = "exec ${pkgs.swaysome}/bin/swaysome next_output";
             # Move focused container to previous output
-            "${mod}+Shift+o" = "exec ${pkgs.swaysome}/bin/swaysome prev-output";
+            "${mod}+Shift+o" = "exec ${pkgs.swaysome}/bin/swaysome prev_output";
 
             # Layout stuff
             #
@@ -359,17 +357,17 @@ in {
         startup =
           [
             {command = "${pkgs.swaysome}/bin/swaysome init 1";}
-            {command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway";}
             {command = "${pkgs.dex}/bin/dex -a -s ~/.config/autostart/";}
-            {command = "set-gsettings";}
+            {command = "configure-gtk";}
             {command = "set-wallpaper-wayland restore";}
+            {command = "eww open-many bar-left-main bar-right-main bar-left-side";}
             {
               command = let
                 output =
                   if device.name == "X570AM"
                   then "DP-1"
                   else "eDP-1";
-              in "launch-wlclock ${output} ${colorScheme.types.foreground}";
+              in "launch-wlclock '${output}' '${colorScheme.types.background-darker}' '${colorScheme.types.foreground}'";
             }
           ]
           ++ lib.optional (device.name == "X570AM") {command = "set-xwayland-primary";};

@@ -17,7 +17,20 @@ Created with multi monitor setup in mind.
   ...
 }: {
   # Allow SMBus access for OpenRGB device interaction
-  boot.kernelParams = ["acpi_enforce_resources=lax"];
+  boot = {
+    kernelParams = ["acpi_enforce_resources=lax"];
+    kernelModules = ["i2c-dev" "i2c-piix4"];
+  };
+
+  # Enable OpenRGB udev rules
+  services.udev.packages = [pkgs.openrgb];
+
+  # Mount Data drive
+  fileSystems."/media/data" = {
+    device = "/dev/disk/by-label/Data";
+    fsType = "ntfs";
+    options = ["rw" "uid=1000"];
+  };
 
   # host specific user packages
   home.packages = [
@@ -27,8 +40,8 @@ Created with multi monitor setup in mind.
     pkgs.gimp
     pkgs.gimpPlugins.resynthesizer
     # utils
-    pkgs.openrgb
     pkgs.neofetch
+    pkgs.openrgb
   ];
 
   modules = {

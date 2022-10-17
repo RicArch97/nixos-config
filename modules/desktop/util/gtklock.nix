@@ -47,15 +47,15 @@ in {
         ''
         + lib.optionalString (device.name == "X570AM") ''
           window#DP-1 {
-            background-image: url("file:///tmp/DP-1.png");
+            background-image: url("/tmp/DP-1.png");
           }
           window#DP-2 {
-            background-image: url("file:///tmp/DP-2.png");
+            background-image: url("/tmp/DP-2.png");
           }
         ''
         + lib.optionalString (device.name == "T470") ''
           window#eDP-1 {
-            background-image: url("file:///tmp/eDP-1.png");
+            background-image: url("/tmp/eDP-1.png");
           }
         ''
       );

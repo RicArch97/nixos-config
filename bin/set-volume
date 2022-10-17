@@ -42,16 +42,16 @@ getIcon() {
   
   if [ "$mute" = 1 ]; then
     if [ "$vol" -eq 0 ]; then
-      echo "$iconDir/volume-off.svg"
+      echo "$iconDir/volume-off.png"
     elif [ "$vol" -lt 33 ]; then
-      echo "$iconDir/volume-low.svg"
+      echo "$iconDir/volume-low.png"
     elif [ "$vol" -lt 66 ]; then
-      echo "$iconDir/volume-medium.svg"
+      echo "$iconDir/volume-medium.png"
     else
-      echo "$iconDir/volume-high.svg"
+      echo "$iconDir/volume-high.png"
     fi
   else
-    echo "$iconDir/volume-muted.svg"
+    echo "$iconDir/volume-muted.png"
   fi
 }
 
@@ -59,7 +59,7 @@ val="5"
 orig=$(get_sink_vol)
 currDevice=$(get_device_name)
 
-if [ "$1" == "mute" ]; then
+if [ "$1" == "toggle-mute" ]; then
   set_sink_mute
 else
   if [ "$1" == "inc" ] && [ "$2" != '' ]; then

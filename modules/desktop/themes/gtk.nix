@@ -25,17 +25,17 @@ in {
       };
       name = lib.mkOption {
         type = lib.types.str;
-        default = "Orchis-grey-dark-compact";
+        default = "Orchis-Grey-Dark-Compact";
       };
     };
     iconTheme = {
       package = lib.mkOption {
         type = lib.types.package;
-        default = pkgs.tela-circle-icon-theme;
+        default = pkgs.tela-circle-icon-theme.override {colorVariants = ["grey"];};
       };
       name = lib.mkOption {
         type = lib.types.str;
-        default = "Tela-circle-black-dark";
+        default = "Tela-circle-grey-dark";
       };
     };
     cursorTheme = {
@@ -82,6 +82,23 @@ in {
         };
       };
 
+      # Systemwide GTK theming (e.g. for greetd)
+      environment = {
+        systemPackages = [
+          gtkConfig.theme.package
+          gtkConfig.iconTheme.package
+          gtkConfig.cursorTheme.package
+        ];
+        etc."xdg/gtk-3.0/settings.ini".text = ''
+          [Settings]
+          gtk-cursor-theme-name=${gtkConfig.cursorTheme.name}
+          gtk-cursor-theme-size=${toString gtkConfig.cursorTheme.size}
+          gtk-font-name=${fontConfig.main.family} ${toString fontConfig.main.size}
+          gtk-icon-theme-name=${gtkConfig.iconTheme.name}
+          gtk-theme-name=${gtkConfig.theme.name}
+        '';
+      };
+
       # XDG spec cursor theme
       home.file.".local/share/icons/default/index.theme".text = ''
         [icon theme]
@@ -95,25 +112,17 @@ in {
       # GSettings API backend
       programs.dconf.enable = true;
       # make this globally available so it can be used by gtkgreet
-      environment.systemPackages = let
-        set-gsettings = let
-          schema = pkgs.gsettings-desktop-schemas;
-          datadir = "${schema}/share/gsettings-schemas/${schema.name}";
-        in
-          pkgs.writeShellScriptBin "set-gsettings" ''
-            export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
+      home.packages = let
+        configure-gtk = pkgs.writeShellScriptBin "configure-gtk" ''
+          gnome_schema=org.gnome.desktop.interface
 
-            gsettings set org.gnome.desktop.interface gtk-theme '${gtkConfig.theme.name}'
-            gsettings set org.gnome.desktop.interface icon-theme '${gtkConfig.iconTheme.name}'
-            gsettings set org.gnome.desktop.interface cursor-theme '${gtkConfig.cursorTheme.name}'
-            gsettings set org.gnome.desktop.interface cursor-size '${toString gtkConfig.cursorTheme.size}'
-            gsettings set org.gnome.desktop.interface font-name '${fontConfig.main.family} ${toString fontConfig.main.size}'
-          '';
-      in [
-        set-gsettings
-        pkgs.gsettings-desktop-schemas
-        pkgs.glib
-      ];
+          gsettings set $gnome_schema gtk-theme '${gtkConfig.theme.name}'
+          gsettings set $gnome_schema icon-theme '${gtkConfig.iconTheme.name}'
+          gsettings set $gnome_schema cursor-theme '${gtkConfig.cursorTheme.name}'
+          gsettings set $gnome_schema cursor-size '${toString gtkConfig.cursorTheme.size}'
+          gsettings set $gnome_schema font-name '${fontConfig.main.family} ${toString fontConfig.main.size}'
+        '';
+      in [configure-gtk pkgs.glib];
     })
   ]);
 }

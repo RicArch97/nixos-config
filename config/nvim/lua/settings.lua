@@ -32,9 +32,7 @@ vim.opt.hidden = true
 vim.opt.smartcase = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
-vim.opt.textwidth = 88
 vim.opt.colorcolumn = "+1"
-vim.opt.wrap = true
 vim.opt.updatetime = 250
 
 local opt = {}

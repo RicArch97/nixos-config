@@ -26,6 +26,7 @@ in {
     # home manager configuration
     home.manager.services.dunst = {
       enable = true;
+      package = pkgs.dunst;
       iconTheme = {
         name = gtkConfig.iconTheme.name;
         package = gtkConfig.iconTheme.package;
@@ -76,6 +77,9 @@ in {
           stack_duplicates = false;
           hide_duplicate_count = false;
           show_indicators = true;
+
+          min_icon_size = 80;
+          max_icon_size = 90;
 
           sticky_history = true;
           history_length = 100;

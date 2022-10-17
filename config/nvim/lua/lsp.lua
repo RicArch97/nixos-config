@@ -5,7 +5,7 @@ local nvim_lsp = require("lspconfig")
 local cmp_window = require("cmp.utils.window")
 
 vim.o.completeopt = "menuone,noselect"
-vim.o.shortness = vim.o.shortness .. "c"
+vim.o.shortmess = vim.o.shortmess .. "c"
 
 local function on_attach(client, bufnr)
   local function map(...)

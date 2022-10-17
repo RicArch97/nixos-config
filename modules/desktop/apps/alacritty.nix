@@ -33,7 +33,7 @@ in {
         window = {
           padding = {
             x = 10;
-            y = 12;
+            y = 10;
           };
           dynamic_padding = true;
           opacity = 0.95;
@@ -73,7 +73,7 @@ in {
           ct = colorScheme.types;
         in {
           primary = {
-            background = ct.background;
+            background = ct.background-darker;
             foreground = ct.foreground;
           };
           normal = {

@@ -45,11 +45,12 @@ in {
         };
         swapDevices = [{device = "/dev/disk/by-label/swap";}];
 
-        # drive automounting
-        programs.udevil.enable = true;
+        # filesystem mounting
+        services.gvfs.enable = true;
 
-        # some extra non-default filesystems
-        environment.systemPackages = [pkgs.exfat pkgs.ntfs3g];
+        # for expansion drives / data drive
+        boot.supportedFilesystems = ["ntfs"];
+        environment.systemPackages = [pkgs.ntfs3g];
 
         # permissions
         user.extraGroups = ["storage"];

@@ -29,6 +29,8 @@ in {
       pkgs.wget
       pkgs.curl
       pkgs.psmisc
+      pkgs.htop
+      pkgs.gnugrep
     ];
 
     # home manger configuration

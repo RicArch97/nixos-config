@@ -21,46 +21,13 @@ in {
     };
   };
 
-  config = let
-    # used in scripts
-    dependencies = [
-      pkgs.bash
-      pkgs.sway
-      pkgs.coreutils
-      pkgs.findutils
-      pkgs.gawk
-      pkgs.gnused
-      pkgs.psmisc
-      pkgs.procps
-      pkgs.jq
-      pkgs.networkmanager
-      pkgs.bluez
-      pkgs.wireplumber
-      pkgs.pulseaudio
-    ];
-  in
-    lib.mkIf (ewwConfig.enable) {
-      home.packages = dependencies;
-
+  config = lib.mkIf (ewwConfig.enable) {
       # home manager configuration
       home.manager = {
         programs.eww = {
           enable = true;
           package = ewwConfig.package;
           configDir = "${config.nixosConfig.configDir}/eww";
-        };
-        # systemd user service for the daemon
-        systemd.user.services.eww-daemon = {
-          Unit = {
-            Description = "Eww Daemon";
-            PartOf = ["graphical-session.target"];
-          };
-          Service = {
-            Environment = "PATH=/run/wrappers/bin:${lib.makeBinPath dependencies}";
-            ExecStart = "${ewwConfig.package}/bin/eww daemon --no-daemonize";
-            Restart = "on-failure";
-          };
-          Install.WantedBy = ["graphical-session.target"];
         };
       };
     };

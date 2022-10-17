@@ -3,7 +3,7 @@
 # Wrapper script to launch wlclock with a specific configuration.
 
 # Requires: wlclock, psmisc
-# Usage: launch-wlclock <output> <clock-color>
+# Usage: launch-wlclock <output> <background-color> <clock-color> 
 
 # Terminate current instance
 killall -q wlclock
@@ -14,10 +14,10 @@ while pgrep -u $UID -x wlclock > /dev/null; do sleep 1; done
 # Launch wlclock
 wlclock								\
 	--output "$1"                   \
-	--background-colour "#000000b3"	\
+	--background-colour "$2"		\
 	--corner-radius 200             \
 	--border-size 0                 \
-	--clock-colour "$2"				\
+	--clock-colour "$3"				\
 	--layer bottom                  \
 	--hand-width 6                  \
 	--marking-width 3               \
