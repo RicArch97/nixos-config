@@ -31,9 +31,6 @@ in {
             exts.pass-genphrase
             exts.pass-tomb
           ]);
-        settings = {
-          PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store";
-        };
       };
       # Libsecret D-Bus API with pass as backend to let apps authenticate
       services.pass-secret-service.enable = true;

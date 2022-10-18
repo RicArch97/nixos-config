@@ -55,7 +55,7 @@ in {
 
             entry {
               color: ${colorScheme.types.foreground};
-              background: ${colorScheme.types.background-darker}cc;
+              background: ${colorScheme.types.background-darker};
               border-radius: 10px;
               box-shadow: 0 0 5px ${colorScheme.types.border};
             }
