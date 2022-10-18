@@ -41,17 +41,31 @@ in {
       settings = {
         default_session.command = let
           gtkgreetStyle = pkgs.writeText "greetd-gtkgreet.css" ''
-            box#body {
-              background-color: ${colorScheme.types.background};
-              border-radius: 10px;
-              padding: 50px;
-            }
             window {
               background-size: cover;
               background-repeat: no-repeat;
               background-position: center;
-              background-image: url("${config.nixosConfig.configDir}/wallpaper.png");
+              background-image: url("${config.nixosConfig.configDir}/wallpaper.jpg");
             }
+
+            #body > box > box > label {
+              text-shadow: 0 0 3px ${colorScheme.types.border};
+              color: ${colorScheme.types.foreground};
+            }
+
+            entry {
+              color: ${colorScheme.types.foreground};
+              background: ${colorScheme.types.background-darker}cc;
+              border-radius: 10px;
+              box-shadow: 0 0 5px ${colorScheme.types.border};
+            }
+
+            #clock {
+              color: ${colorScheme.types.foreground};
+              text-shadow: 0 0 3px ${colorScheme.types.border};
+            }
+
+            .text-button { border-radius: 10px; }
           '';
           greetdSwayConfig = pkgs.writeText "greetd-sway-config" (
             ''
