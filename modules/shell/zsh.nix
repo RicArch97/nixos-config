@@ -30,7 +30,7 @@ in {
       pkgs.curl
       pkgs.psmisc
       pkgs.htop
-      pkgs.gnugrep
+      pkgs.xdg-utils
     ];
 
     # home manger configuration
