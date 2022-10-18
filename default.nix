@@ -39,7 +39,7 @@
 
   # default bootoptions / kernel / modules
   boot = {
-    consoleLogLevel = 3;
+    kernelParams = ["quiet"];
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
     loader = {
       systemd-boot.enable = lib.mkDefault true;
