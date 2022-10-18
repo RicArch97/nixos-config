@@ -60,6 +60,7 @@ in {
         {
           "image/png" = image-viewer;
           "image/jpg" = image-viewer;
+          "image/jpeg" = image-viewer;
           "video/*" = video;
           "inode/directory" = file-manager;
           "text/html" = browser;
