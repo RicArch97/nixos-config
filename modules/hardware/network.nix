@@ -25,12 +25,6 @@ in {
       networkmanager.enable = true;
     };
 
-    # Don't wait for network startup (speeds up boot time)
-    systemd = {
-      targets.network-online.wantedBy = lib.mkForce []; # Normally ["multi-user.target"]
-      services.NetworkManager-wait-online.wantedBy = lib.mkForce []; # Normally ["network-online.target"]
-    };
-
     # permissions
     user.extraGroups = ["networkmanager"];
   };

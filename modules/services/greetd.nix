@@ -28,7 +28,7 @@ in {
       enable = true;
       wrapperFeatures.gtk = true;
     };
-    # install GTK themes systemwide
+    # install gtkgreet
     environment.systemPackages = [pkgs.greetd.gtkgreet];
 
     # unlock GPG keyring upon login

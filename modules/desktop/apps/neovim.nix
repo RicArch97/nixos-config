@@ -46,17 +46,10 @@ in {
       extraConfig = ''
         luafile ${configDir}/nvim/lua/settings.lua
         luafile ${configDir}/nvim/lua/alpha.lua
-
-        lua << EOF
-        vim.defer_fn(function()
-          vim.cmd [[
-            luafile ${configDir}/nvim/lua/bufferline.lua
-            luafile ${configDir}/nvim/lua/telescope.lua
-            luafile ${configDir}/nvim/lua/lsp.lua
-            luafile ${configDir}/nvim/lua/others.lua
-          ]]
-        end, 70)
-        EOF
+        luafile ${configDir}/nvim/lua/bufferline.lua
+        luafile ${configDir}/nvim/lua/telescope.lua
+        luafile ${configDir}/nvim/lua/lsp.lua
+        luafile ${configDir}/nvim/lua/others.lua
       '';
       plugins = let
         vp = pkgs.vimPlugins;

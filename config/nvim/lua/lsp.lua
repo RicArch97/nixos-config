@@ -38,9 +38,9 @@ local function on_attach(client, bufnr)
   map("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
   -- Set some keybinds conditional on server capabilities
-  if client.resolved_capabilities.document_formatting then
+  if client.server_capabilities.document_formatting then
     map("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  elseif client.resolved_capabilities.document_range_formatting then
+  elseif client.server_capabilities.document_range_formatting then
     map("v", "<leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
   end
 end

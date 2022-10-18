@@ -37,7 +37,7 @@ in {
 
       # permissions
       user.extraGroups = ["audio"];
-      # audio management & backwards compat
+      # audio management & pactl util
       home.packages = [pkgs.pavucontrol pkgs.pamixer pkgs.pulseaudio];
     }
 

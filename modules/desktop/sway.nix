@@ -31,8 +31,10 @@ in {
     programs.sway = {
       enable = true;
       extraPackages = lib.mkMerge [
-        [pkgs.xorg.xrandr]
-        (lib.mkIf (swayConfig.xwayland) [pkgs.xwayland])
+        (lib.mkIf (swayConfig.xwayland) [
+          pkgs.xwayland
+          pkgs.xorg.xrandr
+        ])
       ];
       # Sway / Wayland specific environment variables
       extraSessionCommands = ''
@@ -96,7 +98,7 @@ in {
       };
     };
 
-    # enable firefox wayland, eww wayland & rofi wayland
+    # enable firefox wayland, eww wayland & rofi
     modules.desktop.apps.firefox = {
       enable = true;
       package = pkgs.firefox-wayland;

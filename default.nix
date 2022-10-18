@@ -14,6 +14,9 @@
   environment.variables.NIXPKGS_ALLOW_UNFREE = "1";
 
   nix = let
+    nixPathInputs =
+      lib.mapAttrsToList (n: v: "${n}=${v}")
+      (lib.filterAttrs (n: _: n != "self") inputs);
     regInputs =
       lib.mapAttrs (_: v: {flake = v;})
       (lib.filterAttrs (n: _: n != "self") inputs);
@@ -23,7 +26,7 @@
       dates = "weekly";
       options = "--delete-older-than 7d";
     };
-    nixPath = ["nixosConfig=${config.nixosConfig.dir}"];
+    nixPath = nixPathInputs ++ ["nixos-config=${config.nixosConfig.dir}"];
     registry = regInputs // {nixosConfig.flake = inputs.self;};
     settings = {trusted-users = ["root" "${config.user.name}" "@wheel"];};
     extraOptions = "experimental-features = nix-command flakes";
@@ -36,6 +39,7 @@
 
   # default bootoptions / kernel / modules
   boot = {
+    consoleLogLevel = 3;
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
     loader = {
       systemd-boot.enable = lib.mkDefault true;
@@ -43,14 +47,11 @@
       efi.canTouchEfiVariables = true;
     };
     initrd = {
+      verbose = false;
       availableKernelModules = [
         "xhci_pci"
         "usb_storage"
         "usbhid"
-        "sd_mod"
-        "dm_mod"
-      ];
-      kernelModules = [
         "sd_mod"
         "dm_mod"
       ];

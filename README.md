@@ -9,14 +9,14 @@
 
 # Contents
 
-* [bin](bin): Collections of scripts globally available in the system.
-* [config](config): User configuration for applications which is symlinked, used for complex comfigurations (like EWW) or assets.
+* [bin](bin): Collection of scripts globally available in the system.
+* [config](config): User configuration for applications which is symlinked, used for complex configurations (like EWW) or assets.
 * [hosts](hosts): Per host configuration / module enablement.
 * [installation](installation): Partitioning / install scripts for a ZFS install. (ext4 not covered, refer to the NixOS manual)
 * [modules](modules): Modules for everything that can be specifically enabled or disabled.
 * [packages](packages): Custom packages for stuff not available in nixpkgs.
 
-Modules are used for everything to make it as modular as possible, with some enabled by default. Home mamanger configuration is not separate however, thus required.
+Modules are used for everything to make it as modular as possible, with some enabled by default. Home mananger configuration is not separate however, thus required.
 
 # References
 

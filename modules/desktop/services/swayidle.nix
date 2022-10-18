@@ -17,7 +17,7 @@ in {
   };
 
   config = lib.mkIf (idleConfig.enable) {
-    # use own wlopm package
+    # Wayland output management
     home.packages = [pkgs.wlopm];
 
     # home manager configuration

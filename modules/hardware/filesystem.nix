@@ -57,7 +57,7 @@ in {
       }
 
       (lib.mkIf (device.drive == "nvme") {
-        boot.initrd.availableKernelModules = ["nvme"];
+        boot.initrd.kernelModules = ["nvme"];
       })
 
       (lib.mkIf (!fsConfig.zfs.enable && device.drive == "ssd") {
