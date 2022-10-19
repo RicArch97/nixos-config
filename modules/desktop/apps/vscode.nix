@@ -28,6 +28,9 @@ in {
       desktop = "code";
     };
 
+    # Used with the extenstions
+    home.packages = [pkgs.texlive.combined.scheme-basic]
+
     # home manager configuration
     home.manager.programs.vscode = {
       enable = true;
