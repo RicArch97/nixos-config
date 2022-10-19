@@ -29,7 +29,7 @@ in {
     };
 
     # Used with the extenstions
-    home.packages = [pkgs.texlive.combined.scheme-basic]
+    home.packages = [pkgs.texlive.combined.scheme-basic];
 
     # home manager configuration
     home.manager.programs.vscode = {
