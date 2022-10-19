@@ -42,6 +42,8 @@ Created with multi monitor setup in mind.
     # utils
     pkgs.neofetch
     pkgs.openrgb
+    # development
+    pkgs.texlive.combined.scheme-basic
   ];
 
   modules = {

@@ -56,6 +56,8 @@ Should not contain any gaming related stuff.
     pkgs.gimpPlugins.resynthesizer
     # utils
     pkgs.neofetch
+    # development
+    pkgs.texlive.combined.scheme-basic
   ];
 
   modules = {
