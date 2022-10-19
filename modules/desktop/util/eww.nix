@@ -22,13 +22,13 @@ in {
   };
 
   config = lib.mkIf (ewwConfig.enable) {
-      # home manager configuration
-      home.manager = {
-        programs.eww = {
-          enable = true;
-          package = ewwConfig.package;
-          configDir = "${config.nixosConfig.configDir}/eww";
-        };
+    # home manager configuration
+    home.manager = {
+      programs.eww = {
+        enable = true;
+        package = ewwConfig.package;
+        configDir = "${config.nixosConfig.configDir}/eww";
       };
     };
+  };
 }
