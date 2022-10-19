@@ -99,7 +99,7 @@ in {
 
       modules.desktop.defaultApplications.apps.locker = {
         package = pkgs.custom.gtklock;
-        cmd = "gtklock-blur";
+        cmd = "${gtklock-blur}/bin/gtklock-blur";
         desktop = "gtklock";
       };
 
