@@ -67,16 +67,17 @@ in {
       convertImg() {
         ${pkgs.grim}/bin/grim -o $o "$outdir/$o.png"
         size=$(identify -format "%wx%h" "$outdir/$o.png")
-        pids=""
+
         convert "$outdir/$o.png" -filter Gaussian -resize 50% \
-          -define filter:sigma=3 -resize 200% "$outdir/$o.png" &
-        pids="$pids $!"
+          -define filter:sigma=3 -resize 200% "$outdir/$o.png"
+
         magick -size "$size" radial-gradient:black-white \
-          -contrast-stretch 3%x0% "$outdir/$o-gradient.png" &
-        pids="$pids $!"
-        wait $pids
+          -contrast-stretch 3%x0% "$outdir/$o-gradient.png"
+
         convert "$outdir/$o.png" "$outdir/$o-gradient.png" \
           -compose multiply -composite "$outdir/$o.png"
+
+        rm "$outdir/$o-gradient.png"
       }
 
       for o in ''${outputs[@]}; do
@@ -92,6 +93,7 @@ in {
       # add script as binary to execute by other programs such as eww
       home.packages = [
         pkgs.custom.gtklock
+        pkgs.at-spi2-core
         pkgs.grim
         pkgs.imagemagick
         gtklock-blur
@@ -99,7 +101,7 @@ in {
 
       modules.desktop.defaultApplications.apps.locker = {
         package = pkgs.custom.gtklock;
-        cmd = "${gtklock-blur}/bin/gtklock-blur";
+        cmd = "gtklock-blur";
         desktop = "gtklock";
       };
 

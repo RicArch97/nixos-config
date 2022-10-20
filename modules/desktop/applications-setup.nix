@@ -21,7 +21,9 @@ in {
             type = lib.types.bool;
             default = true;
           };
-          cmd = lib.mkOption {type = lib.types.path;};
+          cmd = lib.mkOption {
+            type = lib.types.either lib.types.str lib.types.path;
+          };
           desktop = lib.mkOption {type = lib.types.str;};
         };
       }));
