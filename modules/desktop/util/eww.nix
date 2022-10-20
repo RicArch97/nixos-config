@@ -7,8 +7,7 @@
   ...
 }: let
   ewwConfig = config.modules.desktop.util.eww;
-  colorScheme = config.modules.desktop.themes.colors;
-  fontConfig = config.modules.desktop.themes.fonts.styles;
+  swayConfig = config.modules.desktop.sway;
 in {
   options.modules.desktop.util.eww = {
     enable = lib.mkOption {
@@ -22,6 +21,29 @@ in {
   };
 
   config = lib.mkIf (ewwConfig.enable) {
+    home.packages = lib.mkMerge [
+      [
+        pkgs.swaysome
+        pkgs.bash
+        pkgs.bluez
+        pkgs.coreutils
+        pkgs.xdg-utils
+        pkgs.gawk
+        pkgs.gnugrep
+        pkgs.gnused
+        pkgs.procps
+        pkgs.findutils
+        pkgs.jq
+        pkgs.networkmanager
+        pkgs.pulseaudio
+        pkgs.wireplumber
+      ]
+      (lib.mkIf (!swayConfig.enable) [
+        # This is installed systemwide when module is enabled
+        pkgs.sway
+      ])
+    ];
+
     # home manager configuration
     home.manager = {
       programs.eww = {

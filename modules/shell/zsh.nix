@@ -29,6 +29,7 @@ in {
       pkgs.wget
       pkgs.curl
       pkgs.psmisc
+      pkgs.gnugrep
       pkgs.htop
       pkgs.xdg-utils
     ];
