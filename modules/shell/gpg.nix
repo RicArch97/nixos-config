@@ -37,6 +37,9 @@ in {
       defaultCacheTtl = gpgConfig.cacheTtl.default;
       maxCacheTtl = gpgConfig.cacheTtl.max;
       pinentryFlavor = "gnome3";
+      extraConfig = ''
+        allow-preset-passphrase
+      '';
     };
   };
 }
