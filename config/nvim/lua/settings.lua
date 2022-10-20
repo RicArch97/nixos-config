@@ -2,6 +2,10 @@
 
 vim.g.mapleader = " "
 
+-- disable netrw (strongly advised by nvim tree)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Undo files
 vim.opt.undofile = true
 vim.opt.undodir = "$HOME/.cache/"

@@ -8,6 +8,9 @@ require("github-theme").setup({
   sidebars = { "terminal" },
 })
 
+-- nvim tree
+require("nvim-tree").setup({})
+
 -- treesitter highlighting, plugins managed by HM
 require("nvim-treesitter.configs").setup({
   highlight = { enable = true, },
