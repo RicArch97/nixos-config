@@ -1,7 +1,6 @@
 ;; launcher button 
 (defwidget launcher []
   (eventbox :cursor "pointer"
-            :onclick "wofi"
             :onhover "${EWW_CMD} update launcher_hover=true"
             :onhoverlost "${EWW_CMD} update launcher_hover=false"
             :vexpand true

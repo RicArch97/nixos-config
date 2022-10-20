@@ -7,6 +7,6 @@
 # Usage: disk-usage
 
 while true; do
-  echo $(df / | grep -w "/" | awk '{print $5}' | sed s/.$//)
+  echo $(df /home | grep -w "/home" | awk '{print $5}' | sed s/.$//)
   sleep 20
 done
