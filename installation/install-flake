@@ -30,6 +30,8 @@ fi
 nixos-install --flake $current_path#$1
 
 if grep -qs '/mnt ' /proc/mounts; then
+  # create data drive mountpoint (required for X570AM)
+  mkdir -p /mnt/media/data
   # move flake folder to the new root
   mv /etc/nixos-config /mnt/etc/nixos-config
   echo "Moved flake into new root!"
