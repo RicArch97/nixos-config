@@ -3,6 +3,7 @@
   config,
   options,
   lib,
+  pkgs,
   ...
 }: let
   qtConfig = config.modules.desktop.themes.qt;
@@ -25,6 +26,11 @@ in {
   };
 
   config = lib.mkIf (qtConfig.enable) {
+    environment.variables = {
+      QT_QPA_PLATFORMTHEME = "gtk2";
+      QT_STYLE_OVERRIDE = qtConfig.theme.name;
+    };
+
     # home manager configuration
     home.manager.qt = {
       enable = true;
