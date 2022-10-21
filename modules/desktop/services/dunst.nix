@@ -105,7 +105,7 @@ in {
           background = ct.background-darker;
           foreground = ct.foreground;
           frame_color = ct.border;
-          timeout = 10;
+          timeout = 8;
         };
 
         urgency_critical = {
