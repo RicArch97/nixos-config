@@ -62,22 +62,22 @@ in {
       outdir="/tmp/gtklock"
       outputs=${outputs}
 
-      mkdir -p $outdir
+      ${pkgs.coreutils}/bin/mkdir -p $outdir
 
       convertImg() {
         ${pkgs.grim}/bin/grim -o $o "$outdir/$o.png"
-        size=$(identify -format "%wx%h" "$outdir/$o.png")
+        size=$(${pkgs.imagemagick}/bin/identify -format "%wx%h" "$outdir/$o.png")
 
-        convert "$outdir/$o.png" -filter Gaussian -resize 50% \
-          -define filter:sigma=3 -resize 200% "$outdir/$o.png"
+        ${pkgs.imagemagick}/bin/convert "$outdir/$o.png" -filter Gaussian \
+          -resize 50% -define filter:sigma=3 -resize 200% "$outdir/$o.png"
 
-        magick -size "$size" radial-gradient:black-white \
+        ${pkgs.imagemagick}/bin/magick -size "$size" radial-gradient:black-white \
           -contrast-stretch 3%x0% "$outdir/$o-gradient.png"
 
-        convert "$outdir/$o.png" "$outdir/$o-gradient.png" \
+        ${pkgs.imagemagick}/bin/convert "$outdir/$o.png" "$outdir/$o-gradient.png" \
           -compose multiply -composite "$outdir/$o.png"
 
-        rm "$outdir/$o-gradient.png"
+        ${pkgs.coreutils}/bin/rm "$outdir/$o-gradient.png"
       }
 
       for o in ''${outputs[@]}; do
@@ -90,9 +90,10 @@ in {
     '';
   in
     lib.mkIf (lockConfig.enable) {
-      # add script as binary to execute by other programs such as eww
+      # dependencies
       home.packages = [
         pkgs.custom.gtklock
+        pkgs.coreutils
         pkgs.at-spi2-core
         pkgs.grim
         pkgs.imagemagick
