@@ -50,7 +50,6 @@ Should not contain any gaming related stuff.
   # host specific user packages
   home.packages = [
     # multimedia
-    pkgs.discord
     pkgs.spotify
     pkgs.gimp
     pkgs.gimpPlugins.resynthesizer
@@ -83,6 +82,7 @@ Should not contain any gaming related stuff.
         thunar.enable = true;
         vscode.enable = true;
         zathura.enable = true;
+        webcord.enable = true;
       };
     };
   };

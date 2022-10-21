@@ -15,6 +15,7 @@
       url = "github:projekt0n/github-nvim-theme";
       flake = false;
     };
+    webcord.url = "github:fufexan/webcord-flake";
   };
 
   outputs = inputs @ {
@@ -51,7 +52,10 @@
             ];
         };
       };
-      overlays = [self.overlays.default];
+      overlays = [
+        self.overlays.default
+        inputs.webcord.overlays.default
+      ];
     };
   in {
     packages."${system}" =

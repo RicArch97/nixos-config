@@ -23,10 +23,4 @@ in {
   dunst = prev.dunst.overrideAttrs (old: {
     src = inputs.dunst-fork;
   });
-
-  # discord OpenAsar and NSS fix
-  discord = prev.discord.override {
-    withOpenASAR = true;
-    nss = prev.nss_latest;
-  };
 }

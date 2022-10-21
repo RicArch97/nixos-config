@@ -35,7 +35,6 @@ Created with multi monitor setup in mind.
   # host specific user packages
   home.packages = [
     # multimedia
-    pkgs.discord
     pkgs.spotify
     pkgs.gimp
     pkgs.gimpPlugins.resynthesizer
@@ -67,6 +66,7 @@ Created with multi monitor setup in mind.
         thunar.enable = true;
         vscode.enable = true;
         zathura.enable = true;
+        webcord.enable = true;
       };
     };
   };
