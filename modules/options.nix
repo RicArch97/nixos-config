@@ -96,8 +96,8 @@
 
     # home.manager is an alias for having to write home-manager.users.<user>
     home.manager = {
-      # link to home file
       home = {
+        homeDirectory = config.user.home;
         stateVersion = config.system.stateVersion;
         file = lib.mkAliasDefinitions options.home.file;
         packages = lib.mkAliasDefinitions options.home.packages;

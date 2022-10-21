@@ -86,7 +86,7 @@ in {
 
       wait
 
-      exec ${pkgs.custom.gtklock}/bin/gtklock -s ${gtklock-style}
+      ${pkgs.custom.gtklock}/bin/gtklock -d -s ${gtklock-style}
     '';
   in
     lib.mkIf (lockConfig.enable) {
@@ -101,7 +101,7 @@ in {
 
       modules.desktop.defaultApplications.apps.locker = {
         package = pkgs.custom.gtklock;
-        cmd = "gtklock-blur";
+        cmd = "${gtklock-blur}/bin/gtklock-blur";
         desktop = "gtklock";
       };
 
