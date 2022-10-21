@@ -3,7 +3,7 @@
 # Script to change the brightness, and send dunst notification with the change.
 # Using k-vernooy's dunst fork for better looks.
 
-# Requires: light, dunst
+# Requires: light, dunst, bc
 # Usage: set-brightness inc <value>
 #        set-brightness dec <value>
 

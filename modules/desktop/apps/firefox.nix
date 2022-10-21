@@ -26,8 +26,12 @@ in {
       cmd = "${package}/bin/firefox";
       desktop = "firefox";
     };
+
     # allows opening links in FF
     env.MOZ_DBUS_REMOTE = "1";
+
+    # xdg-open
+    home.packages = [pkgs.xdg-utils];
 
     # home manager configuration
     home.manager.programs.firefox = {

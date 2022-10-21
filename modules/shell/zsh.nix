@@ -21,17 +21,21 @@ in {
     environment.sessionVariables.SHELL = "zsh";
     environment.pathsToLink = ["/share/zsh"];
 
-    # shell specific packages
     home.packages = [
       pkgs.zsh-autocomplete
       pkgs.pure-prompt
-      pkgs.jq
+      # download stuff via the terminal
       pkgs.wget
       pkgs.curl
+      # global binary script dependencies
+      pkgs.coreutils
+      pkgs.gawk
       pkgs.psmisc
+      pkgs.procps
       pkgs.gnugrep
+      pkgs.bc
+      # util
       pkgs.htop
-      pkgs.xdg-utils
     ];
 
     # home manger configuration

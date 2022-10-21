@@ -2,7 +2,7 @@
 
 # Wrapper script to launch wlclock with a specific configuration.
 
-# Requires: wlclock, psmisc
+# Requires: wlclock, psmisc, procps, coreutils
 # Usage: launch-wlclock <output> <background-color> <clock-color> 
 
 # Terminate current instance

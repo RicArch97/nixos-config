@@ -3,7 +3,7 @@
 # Script to change the volume, and send dunst notification with the change. 
 # Using k-vernooy's dunst fork for better looks.
 
-# Requires: wireplumber, dunst
+# Requires: wireplumber, dunst, coreutils
 # Usage: set-volume inc <value>
 #        set-volume dec <value>
 #        set-volume toggle-mute

@@ -3,7 +3,7 @@
 # Set a wallpaper on Wayland compositors, or restore the one previously set.
 # Uses the location ~/.wallpaper
 
-# Requires: swaybg
+# Requires: swaybg, coreutils, procps
 # Usage: set-wallpaper-wayland image <file> [<mode>]
 #        set-wallpaper-wayland restore
 

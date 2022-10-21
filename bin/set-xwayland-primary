@@ -4,7 +4,7 @@
 # This is because Wayland has no concept of a primary monitor.
 # Used to make sure games use the correct output.
 
-# Requires: xrandr
+# Requires: xrandr, gawk, coreutils
 # Usage: set-xwayland-primary
 
 DSP=$(xrandr | awk '/3440x1440/ {print $1}' | head -n 1)
