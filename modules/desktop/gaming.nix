@@ -32,8 +32,8 @@ in {
             renice = 10;
           };
           custom = {
-            start = "${pkgs.libnotify}/bin/notify-send 'Gamemode started'";
-            end = "${pkgs.libnotify}/bin/notify-send 'Gamemode ended'";
+            start = "${pkgs.libnotify}/bin/notify-send -a 'Gamemode' 'Optimizations activated'";
+            end = "${pkgs.libnotify}/bin/notify-send -a 'Gamemode' 'Optimizations deactivated'";
           };
         };
       };
