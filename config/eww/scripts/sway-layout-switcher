@@ -24,8 +24,6 @@ update_eww_vars() {
 }
 
 set_floating() {
-  update_eww_vars "󰖲" "floating"
-
   local ws_active_nodes=$(swaymsg -t get_tree | jq -r '[.nodes | .[] | .nodes | .[] | select(has("num")) | select(.nodes != []) | .num] | @sh')
 
   for w in $ws_active_nodes; do
@@ -34,20 +32,22 @@ set_floating() {
 
   # set window rule float all new windows in every workspace
   swaymsg "for_window [workspace=^.*] floating enable"
+
+  update_eww_vars "󰖲" "floating"
 }
 
 set_tiling() {
-  update_eww_vars "󰕴" "tiling"
-
   # reset floating rule, right now there is no other way
   swaymsg reload
-  eww reload &
+  eww reload
 
   local ws_active_floats=$(swaymsg -t get_tree | jq -r '[.nodes | .[] | .nodes | .[] | select(has("num")) | select(.floating_nodes != []) | .num] | @sh')
 
   for w in $ws_active_floats; do
     swaymsg "[workspace=^$w\$] floating disable"
   done
+
+  update_eww_vars "󰕴" "tiling"
 }
 
 if [ "$1" == "tiling" ]; then
