@@ -23,4 +23,7 @@ in {
   dunst = prev.dunst.overrideAttrs (old: {
     src = inputs.dunst-fork;
   });
+
+  # Needed dependency for Overwatch 2
+  lutris = prev.lutris.override {extraPkgs = pkgs: [pkgs.jansson];};
 }
