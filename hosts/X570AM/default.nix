@@ -16,10 +16,8 @@ Created with multi monitor setup in mind.
   pkgs,
   ...
 }: {
-  # Use kernel with better scheduling for lower latency
+  # Allow SMBus access for OpenRGB device interaction
   boot = {
-    kernelPackages = lib.mkForce pkgs.linuxPackages_xanmod_stable;
-    # Allow SMBus access for OpenRGB device interaction
     kernelParams = ["acpi_enforce_resources=lax"];
     kernelModules = ["i2c-dev" "i2c-piix4"];
   };
