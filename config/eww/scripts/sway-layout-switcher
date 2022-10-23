@@ -37,10 +37,6 @@ set_floating() {
 }
 
 set_tiling() {
-  # reset floating rule, right now there is no other way
-  swaymsg reload
-  eww reload
-
   local ws_active_floats=$(swaymsg -t get_tree | jq -r '[.nodes | .[] | .nodes | .[] | select(has("num")) | select(.floating_nodes != []) | .num] | @sh')
 
   for w in $ws_active_floats; do
@@ -48,6 +44,10 @@ set_tiling() {
   done
 
   update_eww_vars "󰕴" "tiling"
+
+  # reset floating rule, right now there is no other way
+  swaymsg reload &
+  eww reload &
 }
 
 if [ "$1" == "tiling" ]; then
