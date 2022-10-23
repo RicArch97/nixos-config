@@ -29,7 +29,7 @@ in {
       wrapperFeatures.gtk = true;
     };
     # install gtkgreet
-    environment.systemPackages = [pkgs.greetd.gtkgreet];
+    environment.systemPackages = [pkgs.greetd.gtkgreet pkgs.dbus];
 
     # unlock GPG keyring upon login
     security.pam.services.greetd.gnupg = lib.mkIf (gpgConfig.enable) {
@@ -69,6 +69,7 @@ in {
           '';
           greetdSwayConfig = pkgs.writeText "greetd-sway-config" (
             ''
+              exec "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
               exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -s ${gtkgreetStyle}; swaymsg exit"
 
               xwayland disable
@@ -80,8 +81,6 @@ in {
                 -b 'Reboot' 'systemctl reboot'
 
               seat seat0 xcursor_theme ${gtkConfig.cursorTheme.name} ${toString gtkConfig.cursorTheme.size}
-
-              exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
             ''
             + lib.optionalString (!device.hasTouchpad) ''
               input * accel_profile flat

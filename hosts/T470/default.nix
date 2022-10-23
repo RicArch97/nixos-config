@@ -27,10 +27,6 @@ Should not contain any gaming related stuff.
       "i915.enable_fbc=1"
       "i915.enable_psr=2"
     ];
-    # RealTek sd card reader support
-    initrd.availableKernelModules = [
-      "rtsx_pci_sdmmc"
-    ];
   };
 
   # thinkpad trackpoint
@@ -39,8 +35,6 @@ Should not contain any gaming related stuff.
 
   # specific services
   services = {
-    # thinkpad fingerprint reader
-    fprintd.enable = true;
     # this device should be able to send docs to a printer
     printing.enable = true;
     # power management daemon
@@ -63,7 +57,7 @@ Should not contain any gaming related stuff.
       gpu = "intel";
       drive = "ssd"; # where the os is installed
       hasTouchpad = true;
-      hasFingerprint = true;
+      hasFingerprint = false; # requires specific drivers, disable for now
       supportsBrightness = true;
       supportsBluetooth = true;
       bigScreen = false;
