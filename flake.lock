@@ -306,7 +306,8 @@
         "github-nvim-theme": "github-nvim-theme",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "webcord": "webcord"
+        "webcord": "webcord",
+        "yuck-vim": "yuck-vim"
       }
     },
     "rust-analyzer-src": {
@@ -374,6 +375,22 @@
       "original": {
         "owner": "SpacingBat3",
         "repo": "WebCord",
+        "type": "github"
+      }
+    },
+    "yuck-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1628507071,
+        "narHash": "sha256-lp7qJWkvelVfoLCyI0aAiajTC+0W1BzDhmtta7tnICE=",
+        "owner": "elkowar",
+        "repo": "yuck.vim",
+        "rev": "6dc3da77c53820c32648cf67cbdbdfb6994f4e08",
+        "type": "github"
+      },
+      "original": {
+        "owner": "elkowar",
+        "repo": "yuck.vim",
         "type": "github"
       }
     }

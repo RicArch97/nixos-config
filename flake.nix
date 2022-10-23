@@ -7,6 +7,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    webcord.url = "github:fufexan/webcord-flake";
     dunst-fork = {
       url = "github:k-vernooy/dunst/progress-styling";
       flake = false;
@@ -15,7 +16,10 @@
       url = "github:projekt0n/github-nvim-theme";
       flake = false;
     };
-    webcord.url = "github:fufexan/webcord-flake";
+    yuck-vim = {
+      url = "github:elkowar/yuck.vim";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {

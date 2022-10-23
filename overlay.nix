@@ -8,6 +8,10 @@
     src = inputs.github-nvim-theme;
     dontBuild = true;
   };
+  yuck-vim = prev.vimUtils.buildVimPlugin {
+    name = "yuck.vim";
+    src = inputs.yuck-vim;
+  };
 in {
   # own packages
   custom = inputs.self.packages."${system}";
@@ -17,6 +21,7 @@ in {
     prev.vimPlugins
     // {
       inherit github-nvim-theme;
+      inherit yuck-vim;
     };
 
   # Dunst fork from k-vernooy that makes the progress bar look nicer
