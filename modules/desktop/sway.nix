@@ -204,8 +204,7 @@ in {
         };
 
         # Disable mouse acceleration on desktop for all inputs
-        # Laptop uses the default, which has acceleration
-        input = lib.mkIf (!device.hasTouchpad) {
+        input = {
           "*" = {
             accel_profile = "flat";
             pointer_accel = "0";
