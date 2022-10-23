@@ -8,10 +8,10 @@
        :hexpand true
        :halign "center"
     (eventbox :cursor "pointer"
-              :onclick "${layout_state == "tiling" ? "scripts/sway-layout-switcher floating" : "scripts/sway-layout-switcher tiling"}"
+              :onclick "${layout_state == "tiling" ? "scripts/sway-layout-switcher floating &" : "scripts/sway-layout-switcher tiling &"}"
               :tooltip layout_state
-              :onhover "${EWW_CMD} update layout_hover=true"
-              :onhoverlost "${EWW_CMD} update layout_hover=false"
+              :onhover "${EWW_CMD} update layout_hover=true &"
+              :onhoverlost "${EWW_CMD} update layout_hover=false &"
               :vexpand true
               :valign "start"
               :hexpand true
@@ -59,8 +59,8 @@
        :halign "center"
        :hexpand true
     (eventbox :cursor "pointer"
-              :onhover "${EWW_CMD} update controls_hover=true"
-              :onhoverlost "${EWW_CMD} update controls_hover=false"
+              :onhover "${EWW_CMD} update controls_hover=true &"
+              :onhoverlost "${EWW_CMD} update controls_hover=false &"
       (box :orientation "v"
            :space-evenly false
         (box :class "${controls_hover ? "notifications-hover" : "notifications"}"
@@ -82,8 +82,8 @@
           (label :class "volume-label"
                  :text "${volume.audio}%"))))
     (eventbox :cursor "pointer"
-              :onhover "${EWW_CMD} update tray_button_hover=true"
-              :onhoverlost "${EWW_CMD} update tray_button_hover=false"
+              :onhover "${EWW_CMD} update tray_button_hover=true &"
+              :onhoverlost "${EWW_CMD} update tray_button_hover=false &"
       (box :class "${tray_button_hover ? "tray-button-hover" : "tray-button"}"
            :orientation "v"
            :space-evenly false
@@ -142,7 +142,7 @@
 
 ;; the bar
 (defwidget bar-right []
-  (centerbox :class "bar-right" 
+  (centerbox :class "bar-right"
              :orientation "v"
     (top-right)
     (center-right)

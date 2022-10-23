@@ -1,8 +1,8 @@
 ;; launcher button 
 (defwidget launcher []
   (eventbox :cursor "pointer"
-            :onhover "${EWW_CMD} update launcher_hover=true"
-            :onhoverlost "${EWW_CMD} update launcher_hover=false"
+            :onhover "${EWW_CMD} update launcher_hover=true &"
+            :onhoverlost "${EWW_CMD} update launcher_hover=false &"
             :vexpand true
             :valign "start"
             :hexpand true 
@@ -15,7 +15,7 @@
 
 ;; workspaces
 (defwidget workspaces [screen]
-  (box :orientation "v" 
+  (box :orientation "v"
        :class "workspaces"
        :spacing 5
        :valign "center"
@@ -25,14 +25,13 @@
     (for ws in {screen == 0 ? workspaces_main : workspaces_side}
       (eventbox :cursor "pointer"
         (button :class {ws.class}
-                :onclick {ws.onclick}
-                         {ws.icon})))))
+                :onclick {ws.onclick} {ws.icon})))))
 
 ;; stats widget
 (defwidget stats []
   (eventbox :cursor "pointer"
-            :onhover "${EWW_CMD} update stats_hover=true"
-            :onhoverlost "${EWW_CMD} update stats_hover=false"
+            :onhover "${EWW_CMD} update stats_hover=true &"
+            :onhoverlost "${EWW_CMD} update stats_hover=false &"
             :valign "end"
             :vexpand true
             :halign "center"
@@ -123,7 +122,7 @@
 
 ;; the bar
 (defwidget bar-left [screen]
-  (centerbox :class "bar-left" 
+  (centerbox :class "bar-left"
              :orientation "v"
     (top-left :screen screen)
     (center-left)
