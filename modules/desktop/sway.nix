@@ -294,8 +294,8 @@ in {
           }
           # Set brightness keys for ThinkPad laptop
           // lib.optionalAttrs (device.supportsBrightness) {
-            "XF86MonBrightnessDown" = "exec set-brightness dec 5";
-            "XF86MonBrightnessUp" = "exec set-brightness inc 5";
+            "XF86MonBrightnessDown" = "exec set-brightness dec 1";
+            "XF86MonBrightnessUp" = "exec set-brightness inc 1";
           }
           # Merge number key to focus workspace number with keybind set
           // lib.listToAttrs (builtins.map
