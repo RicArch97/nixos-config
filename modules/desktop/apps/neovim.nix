@@ -65,6 +65,7 @@ in {
         vp.cmp-buffer
         vp.cmp-path
         vp.cmp-vsnip
+        vp.yuck-vim
         # Syntax
         vp.vim-nix
         vp.vim-markdown
