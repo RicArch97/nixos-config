@@ -50,20 +50,16 @@ in {
       wrapperFeatures.gtk = true;
     };
 
-    home.packages = lib.mkMerge [
-      # utilized packages in the config / util
-      [
-        pkgs.swaybg
-        pkgs.swaysome
-        pkgs.playerctl
-        pkgs.pamixer
-        pkgs.slurp
-        pkgs.dex
-        pkgs.wlclock
-        pkgs.wl-clipboard
-      ]
-      # brightness support
-      (lib.mkIf (device.supportsBrightness) [pkgs.light])
+    # utilized packages in the config / util
+    home.packages = [
+      pkgs.swaybg
+      pkgs.swaysome
+      pkgs.playerctl
+      pkgs.pamixer
+      pkgs.slurp
+      pkgs.dex
+      pkgs.wlclock
+      pkgs.wl-clipboard
     ];
 
     # set display protocol to Wayland for some specifics
@@ -80,6 +76,9 @@ in {
         };
       };
     };
+
+    # brightness support
+    programs.light.enable = lib.mkIf (device.supportsBrightness) true;
 
     # use gsettings
     modules.desktop.themes.gtk.gsettings.enable = true;
@@ -362,7 +361,12 @@ in {
             {command = "${pkgs.dex}/bin/dex -a -s ~/.config/autostart/";}
             {command = "configure-gtk";}
             {command = "set-wallpaper-wayland restore";}
-            {command = "eww open-many bar-left-main bar-right-main bar-left-side";}
+            {
+              command =
+                if device.name == "X570AM"
+                then "eww open-many bar-left-main bar-right-main bar-left-side"
+                else "eww open-many bar-left-main bar-right-main";
+            }
             {
               command = let
                 output =
