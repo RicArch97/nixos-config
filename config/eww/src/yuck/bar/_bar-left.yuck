@@ -15,7 +15,18 @@
 
 ;; workspaces
 (defwidget workspaces [screen]
-  (literal :content {screen == 0 ? workspaces_main : workspaces_side}))
+  (box :orientation "v" 
+       :class "workspaces"
+       :spacing 5
+       :valign "center"
+       :vexpand true
+       :halign "center"
+       :hexpand true
+    (for ws in {screen == 0 ? workspaces_main : workspaces_side}
+      (eventbox :cursor "pointer"
+        (button :class {ws.class}
+                :onclick {ws.onclick}
+                         {ws.icon})))))
 
 ;; stats widget
 (defwidget stats []
@@ -112,8 +123,8 @@
 
 ;; the bar
 (defwidget bar-left [screen]
-  (box :class "bar-left" 
-       :orientation "v"
+  (centerbox :class "bar-left" 
+             :orientation "v"
     (top-left :screen screen)
     (center-left)
     (bottom-left)))

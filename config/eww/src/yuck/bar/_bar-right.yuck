@@ -142,8 +142,8 @@
 
 ;; the bar
 (defwidget bar-right []
-  (box :class "bar-right" 
-       :orientation "v"
+  (centerbox :class "bar-right" 
+             :orientation "v"
     (top-right)
     (center-right)
     (bottom-right)))

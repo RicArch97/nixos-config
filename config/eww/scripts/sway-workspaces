@@ -5,15 +5,12 @@
 
 # Requires: sway, jq
 # Usage: sway-workspaces <workspaces>
-#        sway-workspaces 1-9
+#        sway-workspaces 1-8
 
 if [ $# -eq 0 ]; then
   echo "No arguments provided"
   exit 1
 fi
-
-bound1=$(echo $1 | cut -d '-' -f1)
-bound2=$(echo $1 | cut -d '-' -f2)
 
 contains() {
   for e in $1; do
@@ -22,16 +19,25 @@ contains() {
   echo 0
 }
 
-generate_workspace_syntax() {
-  cmd=""
-  # retrieve updates once
-  workspaces=$(swaymsg -t get_workspaces)
+wrap() {
+  local class="\"class\":\"$1\""
+  local onclick="\"onclick\":\"$2\""
+  local icon="\"icon\":\"$3\""
+  
+  echo "{$class,$onclick,$icon}"
+}
+
+query() {
+  local workspaces=$(swaymsg -t get_workspaces)
   # parse all info
   all=$(echo "$workspaces" | jq -r '[.[] | .num] | @sh')
   visible=$(echo "$workspaces" | jq -r '[.[] | select (.visible == true) | .num] | @sh')
   urgent=$(echo "$workspaces" | jq -r '[.[] | select (.urgent == true) | .num] | @sh')
-  
-  for (( w=$bound1; w<=$bound2; w++ )); do
+}
+
+generate() {
+  cmd="["
+  for (( w=$1; w<=$2; w++ )); do
     icon="󰋙"
     class="workspace-inactive"
     
@@ -52,14 +58,24 @@ generate_workspace_syntax() {
     # focus is always 0-9
     w_focus=$(expr $w % 10)
 
-    cmd="$cmd (eventbox :cursor \"pointer\" (button :class \"$class\" :onclick \"swaysome focus $w_focus\" \"$icon\"))"
+    cmd+="$(wrap "$class" "swaysome focus $w_focus" "$icon"),"
   done
 
-  echo "(box :orientation \"v\" :class \"workspaces\" :spacing 5 :valign \"center\" :vexpand true :halign \"center\" :hexpand true $cmd)"
+  cmd="${cmd::-1}]" # strip the trailing comma
+  echo "$cmd"
+}
+
+update_workspaces() {
+  query
+
+  bound1=$(echo $1 | cut -d '-' -f1)
+  bound2=$(echo $1 | cut -d '-' -f2)
+  
+  echo "$(generate bound1 bound2)"
 }
 
 # first run
-generate_workspace_syntax
+update_workspaces $1 &
 swaymsg -t subscribe -m '[ "workspace" ]' | while read -r _ ; do
-  generate_workspace_syntax &
+  update_workspaces $1 &
 done

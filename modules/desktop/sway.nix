@@ -361,12 +361,7 @@ in {
             {command = "${pkgs.dex}/bin/dex -a -s ~/.config/autostart/";}
             {command = "configure-gtk";}
             {command = "set-wallpaper-wayland restore";}
-            {
-              command =
-                if device.name == "X570AM"
-                then "eww open-many bar-left-main bar-right-main bar-left-side"
-                else "eww open-many bar-left-main bar-right-main";
-            }
+            {command = "eww open-many bar-left-main bar-right-main bar-left-side";}
             {
               command = let
                 output =
