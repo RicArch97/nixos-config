@@ -34,7 +34,14 @@ Should not contain any gaming related stuff.
   };
 
   # Increase file descriptors, installer complains that there aren't enough
-  systemd.extraConfig = "DefaultLimitNOFILE=1048576";
+  security.pam.loginLimits = [
+    {
+      domain = "*";
+      type = "soft";
+      item = "nofile";
+      value = "1048576";
+    }
+  ];
 
   # thinkpad trackpoint
   hardware.trackpoint.enable = true;
