@@ -8,6 +8,7 @@ vim.g.loaded_netrwPlugin = 1
 
 -- Undo files
 vim.opt.undofile = true
+vim.opt.undodir = "$HOME/.cache/"
 
 -- Indentation
 vim.opt.smartindent = true
