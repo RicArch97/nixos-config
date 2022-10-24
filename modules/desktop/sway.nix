@@ -65,16 +65,19 @@ in {
     # set display protocol to Wayland for some specifics
     modules.device.displayProtocol = "wayland";
 
-    # screensharing
-    xdg.portal.enable = true;
-    xdg.portal.wlr = {
+    # XDG portals for screensharing etc
+    xdg.portal = {
       enable = true;
-      settings = {
-        screencast = {
-          chooser_type = "simple";
-          chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
+      wlr = {
+        enable = true;
+        settings = {
+          screencast = {
+            chooser_type = "simple";
+            chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
+          };
         };
       };
+      extraPortals = [pkgs.xdg-desktop-portal-gtk];
     };
 
     # brightness support
