@@ -31,11 +31,6 @@ in {
     # install gtkgreet
     environment.systemPackages = [pkgs.greetd.gtkgreet pkgs.dbus];
 
-    # unlock GPG keyring upon login
-    security.pam.services.greetd.gnupg = lib.mkIf (gpgConfig.enable) {
-      enable = true;
-    };
-
     services.greetd = {
       enable = true;
       settings = {
@@ -69,7 +64,7 @@ in {
           '';
           greetdSwayConfig = pkgs.writeText "greetd-sway-config" (
             ''
-              exec "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+              exec "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
               exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -s ${gtkgreetStyle}; swaymsg exit"
 
               xwayland disable
