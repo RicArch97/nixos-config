@@ -7,6 +7,7 @@
   ...
 }: let
   kanshiConfig = config.modules.desktop.services.kanshi;
+  colorScheme = config.modules.desktop.themes.colors;
   device = config.modules.device;
 in {
   options.modules.desktop.services.kanshi = {
@@ -25,18 +26,19 @@ in {
           outputs = [
             {criteria = "eDP-1";}
           ];
-          exec = ["eww open-many bar-left-main bar-right-main"];
         };
         office = lib.mkIf (device.name == "T470") {
           outputs = [
-            {criteria = "eDP-1";}
             {
-              criteria = "HDMI-A-1";
+              criteria = "eDP-1";
+              position = "0,0";
+            }
+            {
+              criteria = "HDMI-A-2";
               mode = "1920x1080@60Hz";
               position = "1920,0";
             }
           ];
-          exec = ["eww open-many bar-left-main bar-left-side bar-right-side"];
         };
       };
     };

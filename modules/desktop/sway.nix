@@ -366,16 +366,9 @@ in {
             {command = "${pkgs.dex}/bin/dex -a -s ~/.config/autostart/";}
             {command = "configure-gtk";}
             {command = "set-wallpaper-wayland restore";}
-            {
-              command = let
-                output =
-                  if device.name == "X570AM"
-                  then "DP-1"
-                  else "eDP-1";
-              in "launch-wlclock '${output}' '${colorScheme.types.background-darker}' '${colorScheme.types.foreground}'";
-            }
           ]
           ++ lib.optionals (device.name == "X570AM") [
+            {command = "launch-wlclock 'DP-1' '${colorScheme.types.background-darker}' '${colorScheme.types.foreground}'";}
             {command = "eww open-many bar-left-main bar-right-main bar-left-side";}
             {command = "set-xwayland-primary";}
           ];
