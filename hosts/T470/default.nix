@@ -38,7 +38,12 @@ Should not contain any gaming related stuff.
     # this device should be able to send docs to a printer
     printing.enable = true;
     # power management daemon
-    tlp.enable = true;
+    tlp = {
+      enable = true;
+      settings = {
+        USB_AUTOSUSPEND = 0;
+      };
+    };
   };
 
   # host specific user packages
