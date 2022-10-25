@@ -124,6 +124,9 @@ in {
     # polkit auth agent for GUI authentication
     modules.desktop.services.polkit.enable = true;
 
+    # display configuration and bars for T470
+    modules.desktop.services.kanshi.enable = lib.mkIf (device.name == "T470") true;
+
     # make sure Electron apps use the Wayland backend by setting this flag
     env.NIXOS_OZONE_WL = "1";
 
@@ -363,7 +366,6 @@ in {
             {command = "${pkgs.dex}/bin/dex -a -s ~/.config/autostart/";}
             {command = "configure-gtk";}
             {command = "set-wallpaper-wayland restore";}
-            {command = "eww open-many bar-left-main bar-right-main bar-left-side";}
             {
               command = let
                 output =
@@ -373,7 +375,10 @@ in {
               in "launch-wlclock '${output}' '${colorScheme.types.background-darker}' '${colorScheme.types.foreground}'";
             }
           ]
-          ++ lib.optional (device.name == "X570AM") {command = "set-xwayland-primary";};
+          ++ lib.optionals (device.name == "X570AM") [
+            {command = "eww open-many bar-left-main bar-right-main bar-left-side";}
+            {command = "set-xwayland-primary";}
+          ];
 
         # Window settings / rules
         window = {
