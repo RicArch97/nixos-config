@@ -30,7 +30,7 @@ in {
       if (swayConfig.enable && device.name == "X570AM")
       then
         pkgs.writeShellScript "launch-rofi-menu-sway" ''
-          output=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused)' | jq -r '.name')
+          output=$(swaymsg -t get_outputs | ${pkgs.jq} -r '.[] | select(.focused)' | ${pkgs.jq} -r '.name')
 
           if [[ $output == "DP-1" ]]; then
             ${rofiConfig.package}/bin/rofi -show drun -config $XDG_CONFIG_HOME/rofi/menu.rasi -m 1
@@ -49,6 +49,8 @@ in {
           cmd = launch-rofi-menu;
           desktop = "rofi";
         };
+
+        home.packages = [pkgs.jq];
 
         home.configFile."rofi/menu.rasi".source = "${config.nixosConfig.configDir}/rofi/menu.rasi";
       })

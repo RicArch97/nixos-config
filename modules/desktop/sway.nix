@@ -105,7 +105,7 @@ in {
       enable = true;
       package = pkgs.firefox-wayland;
     };
-    modules.desktop.util.eww = {
+    modules.desktop.services.eww = {
       enable = true;
       package = pkgs.eww-wayland;
     };
@@ -366,6 +366,8 @@ in {
             {command = "${pkgs.dex}/bin/dex -a -s ~/.config/autostart/";}
             {command = "configure-gtk";}
             {command = "set-wallpaper-wayland restore";}
+            # Make sure systemd user services have access to these, currently used by eww
+            {command = "systemctl --user import-environment I3SOCK GDK_PIXBUF_MODULE_FILE";}
           ]
           ++ lib.optionals (device.name == "X570AM") [
             {command = "launch-wlclock 'DP-1' '${colorScheme.types.background-darker}' '${colorScheme.types.foreground}'";}
