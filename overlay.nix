@@ -29,6 +29,9 @@ in {
     src = inputs.dunst-fork;
   });
 
+  # Discord OpenASAR, better performance
+  discord = prev.discord.override {withOpenASAR = true;};
+
   # Needed dependency for Overwatch 2
   lutris = prev.lutris.override {extraPkgs = pkgs: [pkgs.jansson];};
 }
