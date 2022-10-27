@@ -21,7 +21,7 @@ in {
     outputs =
       if device.name == "X570AM"
       then "(DP-1 DP-2)"
-      else "(eDP-1)";
+      else "(eDP-1 HDMI-A-2)";
     gtklock-style = pkgs.writeText "gtklock-style.css" (
       ''
         #clock-label {
@@ -55,6 +55,9 @@ in {
       + lib.optionalString (device.name == "T470") ''
         window#eDP-1 {
           background-image: url("/tmp/gtklock/eDP-1.png");
+        }
+        window#HDMI-A-2 {
+          background-image: url("/tmp/gtklock/HDMI-A-2.png");
         }
       ''
     );
