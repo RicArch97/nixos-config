@@ -97,11 +97,13 @@ in {
       home.packages = [
         pkgs.custom.gtklock
         pkgs.coreutils
-        pkgs.at-spi2-core
         pkgs.grim
         pkgs.imagemagick
         gtklock-blur
       ];
+
+      # Enable org.a11y.Bus
+      services.gnome.at-spi2-core.enable = true;
 
       modules.desktop.defaultApplications.apps.locker = {
         package = pkgs.custom.gtklock;
