@@ -51,13 +51,14 @@ in {
       mutableExtensionsDir = true;
       userSettings = {
         "editor.fontFamily" = "${fontStyles.mono.family}";
-        "editor.fontSize" = "14";
+        "editor.fontSize" = 14;
         "workbench.colorTheme" = "GitHub Dark Default";
         "workbench.iconTheme" = "material-icon-theme";
         "nix.formatterPath" = "alejandra";
         "git.autofetch" = true;
         "security.workspace.trust.untrustedFiles" = "open";
         "files.autoSave" = "afterDelay";
+        "editor.inlineSuggest.enabled" = true;
       };
     };
   };
