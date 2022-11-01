@@ -52,6 +52,7 @@ in {
       [
         winepkg
         pkgs.lutris
+        pkgs.gamescope
         pkgs.obs-studio
         pkgs.obs-studio-plugins.obs-gstreamer
         pkgs.obs-studio-plugins.obs-pipewire-audio-capture
