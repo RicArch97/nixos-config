@@ -31,6 +31,9 @@ in {
       };
     };
 
+    # Create zip archives
+    home.packages = [pkgs.zip];
+
     services.dbus.packages = [pkgs.xfce.tumbler];
 
     programs.thunar = {
