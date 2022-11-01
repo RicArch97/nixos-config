@@ -35,6 +35,7 @@ Created with multi monitor setup in mind.
   # host specific user packages
   home.packages = [
     # multimedia
+    pkgs.google-chrome
     pkgs.discord
     pkgs.spotify
     pkgs.gimp

@@ -49,6 +49,7 @@ Should not contain any gaming related stuff.
   # host specific user packages
   home.packages = [
     # multimedia
+    pkgs.google-chrome
     pkgs.discord
     pkgs.spotify
     pkgs.gimp
