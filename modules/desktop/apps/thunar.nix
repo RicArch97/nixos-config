@@ -31,8 +31,8 @@ in {
       };
     };
 
-    # Create zip archives
-    home.packages = [pkgs.zip];
+    # Create and extract zip archives
+    home.packages = [pkgs.zip pkgs.unzip];
 
     services.dbus.packages = [pkgs.xfce.tumbler];
 

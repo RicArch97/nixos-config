@@ -35,9 +35,9 @@ in {
           command = "${defaultApps.locker.cmd}";
         }
         {
-          timeout = 3600;
-          command = "wlopm --off \*";
-          resumeCommand = "wlopm --on \*";
+          timeout = 1800;
+          command = "${pkgs.wlopm}/bin/wlopm --off \*";
+          resumeCommand = "${pkgs.wlopm}/bin/wlopm --on \*";
         }
       ];
     };
