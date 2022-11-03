@@ -83,7 +83,6 @@ Should not contain any gaming related stuff.
         thunar.enable = true;
         vscode.enable = true;
         zathura.enable = true;
-        webcord.enable = false;
       };
     };
   };

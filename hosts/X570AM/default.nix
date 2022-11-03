@@ -68,7 +68,6 @@ Created with multi monitor setup in mind.
         thunar.enable = true;
         vscode.enable = true;
         zathura.enable = true;
-        webcord.enable = true;
       };
     };
   };

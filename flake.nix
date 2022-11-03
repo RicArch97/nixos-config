@@ -7,7 +7,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    webcord.url = "github:fufexan/webcord-flake";
     dunst-fork = {
       url = "github:k-vernooy/dunst/progress-styling";
       flake = false;
@@ -56,10 +55,7 @@
             ];
         };
       };
-      overlays = [
-        self.overlays.default
-        inputs.webcord.overlays.default
-      ];
+      overlays = [self.overlays.default];
     };
   in {
     packages."${system}" =
