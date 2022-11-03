@@ -77,6 +77,7 @@ Should not contain any gaming related stuff.
       apps = {
         firefox.enable = true;
         vscode.enable = true;
+        zathura.enable = true;
       };
     };
   };
