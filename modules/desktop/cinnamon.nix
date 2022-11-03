@@ -23,6 +23,9 @@ in {
     # use PipeWire
     hardware.pulseaudio.enable = false;
 
+    # brightness support
+    programs.light.enable = lib.mkIf (device.supportsBrightness) true;
+
     # use home manager settings for QT
     qt5.enable = lib.mkForce false;
 
