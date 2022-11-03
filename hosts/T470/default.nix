@@ -69,20 +69,14 @@ Should not contain any gaming related stuff.
       supportsBluetooth = true;
       bigScreen = false;
     };
-    shell = {
-      git.enable = true;
-      gpg.enable = true;
-      passwords.enable = true;
-    };
-    services.greetd.enable = true;
+    shell.git.enable = true;
     hardware.filesystem.zfs.enable = true;
     desktop = {
-      sway.enable = true; # this enables various other components
+      cinnamon.enable = true;
       util.mpv.enable = true;
       apps = {
-        thunar.enable = true;
+        firefox.enable = true;
         vscode.enable = true;
-        zathura.enable = true;
       };
     };
   };

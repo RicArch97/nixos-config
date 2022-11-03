@@ -23,13 +23,9 @@ in {
     # use PipeWire
     hardware.pulseaudio.enable = false;
 
-    # browser
-    modules.desktop.apps.firefox.enable = true;
-    # app launcher
-    modules.desktop.util.rofi = {
-      enable = true;
-      menu.enable = true;
-    };
+    # use home manager settings for QT
+    qt5.enable = lib.mkForce false;
+
     # cinnamon image viewer, file manager and archive
     modules.desktop.defaultApplications.apps = {
       image-viewer = rec {
@@ -40,6 +36,7 @@ in {
       file-manager = rec {
         package = pkgs.cinnamon.nemo;
         cmd = "${package}/bin/nemo";
+        install = false; # installed by cinnamon module
         desktop = "nemo";
       };
       archive = rec {
@@ -63,12 +60,12 @@ in {
       desktopManager.cinnamon.enable = true;
     };
 
-    # power management
+    # power management abstraction layer
     services.upower.enable = lib.mkIf (device.name == "T470") true;
 
     home.packages = [
       pkgs.gettext
-      pkgs.gnome-screenshot
+      pkgs.gnome.gnome-screenshot
       pkgs.zip
       pkgs.unzip
     ];
