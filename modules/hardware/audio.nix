@@ -45,7 +45,7 @@ in {
       hardware.bluetooth = {
         enable = true;
         package = pkgs.bluez;
-        powerOnBoot = false;
+        powerOnBoot = true;
       };
 
       # enable SBC-XQ / mSBC in Wireplumber
