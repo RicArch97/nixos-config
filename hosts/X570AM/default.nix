@@ -16,8 +16,10 @@ Created with multi monitor setup in mind.
   pkgs,
   ...
 }: {
-  # Allow SMBus access for OpenRGB device interaction
   boot = {
+    # Use xanmod kernel for better performance
+    kernelPackages = lib.mkForce pkgs.linuxPackages_xanmod;
+    # Allow SMBus access for OpenRGB device interaction
     kernelParams = ["acpi_enforce_resources=lax"];
     kernelModules = ["i2c-dev" "i2c-piix4"];
   };
@@ -32,7 +34,7 @@ Created with multi monitor setup in mind.
     options = ["rw" "uid=1000"];
   };
 
-  # host specific user packages
+  # Host specific user packages
   home.packages = [
     # multimedia
     pkgs.google-chrome
