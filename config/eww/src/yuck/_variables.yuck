@@ -7,9 +7,6 @@
 (deflisten volume "scripts/volume")
 (deflisten network "scripts/network")
 (deflisten bluetooth "scripts/bluetooth")
-(deflisten cpu_temp "scripts/cpu-temp")
-(deflisten memory_usage "scripts/memory-usage")
-(deflisten disk_usage "scripts/disk-usage")
 
 ;; hover states
 (defvar layout_hover false)

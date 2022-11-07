@@ -96,7 +96,7 @@ in {
       image-viewer = rec {
         package = pkgs.imv;
         cmd = "${package}/bin/imv";
-        desktop = "imv-folder";
+        desktop = "imv";
       };
     };
 

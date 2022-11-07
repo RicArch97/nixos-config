@@ -32,20 +32,20 @@
                :text "ﮦ"))
       (circular-progress :class "cpu-temp"
                          :thickness 5
-                         :value cpu_temp
-                         :tooltip "CPU temp: ${cpu_temp}°C"
+                         :value {EWW_TEMPS["K10TEMP_TCTL"]}
+                         :tooltip "CPU temp: ${round(EWW_TEMPS["K10TEMP_TCTL"], 2)}°C"
         (label :class "cpu-temp-icon"
                :text "󰔐"))
       (circular-progress :class "ram-usage"
                          :thickness 5
-                         :value memory_usage 
-                         :tooltip "RAM usage: ${memory_usage}%"
+                         :value {EWW_RAM.used_mem_perc}
+                         :tooltip "RAM usage: ${round(EWW_RAM.used_mem_perc, 2)}%"
         (label :class "ram-usage-icon"
                :text ""))
       (circular-progress :class "disk-usage"
                          :thickness 5
-                         :value disk_usage
-                         :tooltip "Disk usage: ${disk_usage}%"
+                         :value {EWW_DISK["/home"].used_perc}
+                         :tooltip "Disk usage: ${round(EWW_DISK["/home"].used_perc, 2)}%"
         (label :class "disk-usage-icon"
                :text "󰋊")))))
    
