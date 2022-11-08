@@ -22,6 +22,8 @@ Should not contain any gaming related stuff.
   boot = {
     extraModulePackages = with config.boot.kernelPackages; [acpi_call];
     kernelModules = ["acpi_call"];
+    # Use xanmod kernel for better performance
+    kernelPackages = lib.mkForce pkgs.linuxPackages_xanmod;
     # this device has a kaby lake CPU, from nixos-hardware (both power saving features)
     kernelParams = [
       "i915.enable_fbc=1"
