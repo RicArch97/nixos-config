@@ -47,6 +47,7 @@ in {
         vscext.esbenp.prettier-vscode
         vscext.pkief.material-icon-theme
         vscext.github.github-vscode-theme
+        vscext.mkhl.direnv
       ];
       mutableExtensionsDir = true;
       userSettings = {
