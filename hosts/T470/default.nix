@@ -75,6 +75,7 @@ Should not contain any gaming related stuff.
     hardware.filesystem.zfs.enable = true;
     desktop = {
       cinnamon.enable = true;
+      gaming.enable = true; # lan party
       util.mpv.enable = true;
       apps = {
         firefox.enable = true;

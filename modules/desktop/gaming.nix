@@ -39,9 +39,6 @@ in {
       };
     };
 
-    # make sure, for gamemode notifications
-    modules.desktop.services.dunst.enable = true;
-
     # Lutris, Wine and OBS studio for game capture
     home.packages = let
       winepkg =
@@ -63,5 +60,8 @@ in {
 
     # extra file descriptors for esync
     systemd.extraConfig = "DefaultLimitNOFILE=1048576";
+
+    # i915 performance mode
+    boot.kernel.sysctl = lib.mkIf (device.cpu == "intel") {"dev.i915.perf_stream_paranoid" = 0;};
   };
 }
