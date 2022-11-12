@@ -78,7 +78,7 @@
                  :min 0
                  :max 101
                  :value {volume.audio}
-                 :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%")
+                 :onchange "scripts/volume set SINK {} &")
           (label :class "volume-label"
                  :text "${volume.audio}%"))))
     (eventbox :cursor "pointer"
