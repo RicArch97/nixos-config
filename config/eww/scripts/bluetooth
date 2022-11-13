@@ -29,7 +29,7 @@ while true; do
     tooltip="bluetooth off"
   fi
 
-  echo '{ "icon": "'"$icon"'", "tooltip": "'"$tooltip"'", "audio_headset": "'"$audio_headset"'" }'
+  echo '{"icon": "'"$icon"'", "tooltip": "'"$tooltip"'", "audio_headset": "'"$audio_headset"'"}'
 
   sleep 5
 done

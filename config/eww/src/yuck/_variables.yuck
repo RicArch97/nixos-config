@@ -1,12 +1,24 @@
 ;; pollers
-(defpoll time :interval "5s" `date +'{"date": "%b %d %Y", "hour": "%H", "minute": "%M"}'`)
+;; use start epoch as placeholder
+(defpoll time :interval "5s"
+              :initial '{"date": "Jan 1 1970", "hour": "00", "minute": "00"}'
+  `date +'{"date": "%b %d %Y", "hour": "%H", "minute": "%M"}'`)
 
 ;; listeners
-(deflisten workspaces_main "scripts/sway-workspaces 1-8")
-(deflisten workspaces_side "scripts/sway-workspaces 11-18")
-(deflisten volume "scripts/volume")
-(deflisten network "scripts/network")
-(deflisten bluetooth "scripts/bluetooth")
+;; initially the first workspace is focused and the only one active
+(deflisten workspaces_main :initial '[{"class":"workspace-visible","onclick":"swaysome focus 1","icon":"󰫈"},{"class":"workspace-inactive","onclick":"swaysome focus 2","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 3","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 4","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 5","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 6","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 7","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 8","icon":"󰋙"}]'
+  "scripts/sway-workspaces 1-8")
+(deflisten workspaces_side :initial '[{"class":"workspace-visible","onclick":"swaysome focus 1","icon":"󰫈"},{"class":"workspace-inactive","onclick":"swaysome focus 2","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 3","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 4","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 5","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 6","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 7","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 8","icon":"󰋙"}]'
+  "scripts/sway-workspaces 11-18")
+;; initially unmuted, init both volumes at 50
+(deflisten volume :initial '{"audio": "50", "audio_icon": "󰋋", "mic": "50", "mic_icon": "󰍬"}'
+  "scripts/volume")
+;; initially assume no network connection
+(deflisten network :initial '{"ethernet_icon": "󰪎", "ethernet_tooltip": "disconnected", "wifi_icon": "󰤭", "wifi_tooltip": "disconnected"}'
+  "scripts/network")
+;; bluetooth is powered on boot, no connections
+(deflisten bluetooth :initial '{ "icon": "", "tooltip": "disconnected", "audio_headset": "false" }'
+  "scripts/bluetooth")
 
 ;; hover states
 (defvar layout_hover false)

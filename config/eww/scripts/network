@@ -47,7 +47,7 @@ function make_content() {
     fi
   done
 
-  echo '{ "ethernet_icon": "'"$ethernet_icon"'", "ethernet_tooltip": "'"$ethernet_tooltip"'", "wifi_icon": "'"$wifi_icon"'", "wifi_tooltip": "'"$wifi_tooltip"'" }'
+  echo '{"ethernet_icon": "'"$ethernet_icon"'", "ethernet_tooltip": "'"$ethernet_tooltip"'", "wifi_icon": "'"$wifi_icon"'", "wifi_tooltip": "'"$wifi_tooltip"'"}'
 }
 
 # first run

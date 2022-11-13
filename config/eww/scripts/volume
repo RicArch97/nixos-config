@@ -70,7 +70,7 @@ gen_output() {
     mic_icon="󰍭"
   fi
 
-  echo '{ "audio": "'"$sink_volume"'", "audio_icon": "'"$audio_icon"'", "mic": "'"$mic_volume"'", "mic_icon": "'"$mic_icon"'" }'
+  echo '{"audio": "'"$sink_volume"'", "audio_icon": "'"$audio_icon"'", "mic": "'"$mic_volume"'", "mic_icon": "'"$mic_icon"'"}'
 }
 
 last_time=$(get_time_ms)
