@@ -155,27 +155,27 @@ in {
           background = ct.background;
           focused = {
             background = ct.background-darker;
-            border = ct.border;
-            childBorder = ct.border;
-            indicator = ct.border;
+            border = ct.background-darker;
+            childBorder = ct.background-darker;
+            indicator = ct.background-darker;
             text = ct.foreground;
           };
           focusedInactive = let
             alpha = "e6";
           in {
             background = "${ct.background-darker}${alpha}";
-            border = "${ct.border}${alpha}";
-            childBorder = "${ct.border}${alpha}";
-            indicator = ct.border;
+            border = "${ct.background-darker}${alpha}";
+            childBorder = "${ct.background-darker}${alpha}";
+            indicator = ct.background-darker;
             text = ct.foreground;
           };
           unfocused = let
             alpha = "cc";
           in {
             background = "${ct.background-darker}${alpha}";
-            border = "${ct.border}${alpha}";
-            childBorder = "${ct.border}${alpha}";
-            indicator = ct.border;
+            border = "${ct.background-darker}${alpha}";
+            childBorder = "${ct.background-darker}${alpha}";
+            indicator = ct.background-darker;
             text = ct.foreground;
           };
         };
