@@ -53,7 +53,7 @@ in {
         environment.systemPackages = [pkgs.ntfs3g];
 
         # permissions
-        user.extraGroups = ["storage"];
+        user.extraGroups = ["storage" "dialout"];
       }
 
       (lib.mkIf (device.drive == "nvme") {
