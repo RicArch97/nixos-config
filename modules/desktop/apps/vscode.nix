@@ -53,6 +53,7 @@ in {
       userSettings = {
         "editor.fontFamily" = "${fontStyles.mono.family}";
         "editor.fontSize" = 14;
+        "editor.tabSize" = 2;
         "workbench.colorTheme" = "GitHub Dark Default";
         "workbench.iconTheme" = "material-icon-theme";
         "nix.formatterPath" = "alejandra";
