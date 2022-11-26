@@ -101,10 +101,7 @@ in {
     };
 
     # enable firefox wayland, eww wayland & rofi
-    modules.desktop.apps.firefox = {
-      enable = true;
-      package = pkgs.firefox-wayland;
-    };
+    modules.desktop.apps.firefox.enable = true;
     modules.desktop.services.eww = {
       enable = true;
       package = pkgs.eww-wayland;

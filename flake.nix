@@ -15,10 +15,6 @@
       url = "github:projekt0n/github-nvim-theme";
       flake = false;
     };
-    yuck-vim = {
-      url = "github:elkowar/yuck.vim";
-      flake = false;
-    };
   };
 
   outputs = inputs @ {
@@ -38,23 +34,6 @@
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
-      config.packageOverrides = pkgs: {
-        steam = pkgs.steam.override {
-          extraPkgs = pkgs:
-            with pkgs; [
-              keyutils
-              libkrb5
-              libpng
-              libpulseaudio
-              libvorbis
-              stdenv.cc.cc.lib
-              xorg.libXcursor
-              xorg.libXi
-              xorg.libXinerama
-              xorg.libXScrnSaver
-            ];
-        };
-      };
       overlays = [self.overlays.default];
     };
   in {

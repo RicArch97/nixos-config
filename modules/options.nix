@@ -98,7 +98,7 @@
     home.manager = {
       home = {
         homeDirectory = config.user.home;
-        stateVersion = config.system.stateVersion;
+        stateVersion = "22.05";
         file = lib.mkAliasDefinitions options.home.file;
         packages = lib.mkAliasDefinitions options.home.packages;
       };
