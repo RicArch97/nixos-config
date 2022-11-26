@@ -63,8 +63,6 @@ Created with multi monitor setup in mind.
       enable = true;
       # until zfs 2.1.7 is officially released
       unstable = true;
-      # better for gaming workloads / multimedia
-      kernelPackages = pkgs.linuxPackages_zen;
     };
     desktop = {
       sway.enable = true; # this enables various other components

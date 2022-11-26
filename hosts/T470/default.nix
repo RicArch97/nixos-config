@@ -74,8 +74,6 @@ Should not contain any gaming related stuff.
       enable = true;
       # until zfs 2.1.7 is officially released
       unstable = true;
-      # better for gaming workloads / multimedia
-      kernelPackages = pkgs.linuxPackages_zen;
     };
     desktop = {
       cinnamon.enable = true;
