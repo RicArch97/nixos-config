@@ -22,8 +22,6 @@ Should not contain any gaming related stuff.
   boot = {
     extraModulePackages = with config.boot.kernelPackages; [acpi_call];
     kernelModules = ["acpi_call"];
-    # Use xanmod kernel for better performance
-    kernelPackages = lib.mkForce pkgs.linuxPackages_xanmod;
     # this device has a kaby lake CPU, from nixos-hardware (both power saving features)
     kernelParams = [
       "i915.enable_fbc=1"
@@ -72,7 +70,13 @@ Should not contain any gaming related stuff.
       bigScreen = false;
     };
     shell.git.enable = true;
-    hardware.filesystem.zfs.enable = true;
+    hardware.filesystem.zfs = {
+      enable = true;
+      # until zfs 2.1.7 is officially released
+      unstable = true;
+      # better for gaming workloads / multimedia
+      kernelPackages = pkgs.linuxPackages_zen;
+    };
     desktop = {
       cinnamon.enable = true;
       gaming.enable = true; # lan party

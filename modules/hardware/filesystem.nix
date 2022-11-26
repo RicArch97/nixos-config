@@ -19,6 +19,14 @@ in {
         type = lib.types.bool;
         default = false;
       };
+      unstable = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+      };
+      kernelPackages = lib.mkOption {
+        type = lib.types.nullOr lib.types.raw;
+        default = null;
+      };
     };
   };
 
@@ -81,9 +89,22 @@ in {
           boot = {
             supportedFilesystems = ["zfs"];
             kernelModules = ["zfs"];
-            # latest kernels with ZFS support
-            kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+            # kernels with ZFS support
+            kernelPackages = let
+              unstableKernelPkgs = kernelPkgs: (kernelPkgs.extend (_: prev: {
+                zfsUnstable = prev.zfsUnstable.overrideAttrs (self: {
+                  meta = self.meta // {broken = false;};
+                });
+              }));
+            in
+              if fsConfig.zfs.unstable
+              then
+                if fsConfig.zfs.kernelPackages != null
+                then unstableKernelPkgs fsConfig.zfs.kernelPackages
+                else unstableKernelPkgs pkgs.linuxPackages_latest
+              else config.boot.zfs.package.latestCompatibleLinuxPackages;
             zfs = {
+              enableUnstable = fsConfig.zfs.unstable;
               forceImportAll = false;
               forceImportRoot = false;
             };

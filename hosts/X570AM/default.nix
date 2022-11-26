@@ -16,10 +16,8 @@ Created with multi monitor setup in mind.
   pkgs,
   ...
 }: {
+  # Allow SMBus access for OpenRGB device interaction
   boot = {
-    # Use xanmod kernel for better performance
-    kernelPackages = lib.mkForce pkgs.linuxPackages_xanmod;
-    # Allow SMBus access for OpenRGB device interaction
     kernelParams = ["acpi_enforce_resources=lax"];
     kernelModules = ["i2c-dev" "i2c-piix4"];
   };
@@ -61,7 +59,13 @@ Created with multi monitor setup in mind.
       passwords.enable = true;
     };
     services.greetd.enable = true;
-    hardware.filesystem.zfs.enable = true;
+    hardware.filesystem.zfs = {
+      enable = true;
+      # until zfs 2.1.7 is officially released
+      unstable = true;
+      # better for gaming workloads / multimedia
+      kernelPackages = pkgs.linuxPackages_zen;
+    };
     desktop = {
       sway.enable = true; # this enables various other components
       gaming.enable = true;
