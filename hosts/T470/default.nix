@@ -38,12 +38,12 @@ Should not contain any gaming related stuff.
     # this device should be able to send docs to a printer
     printing.enable = true;
     # power management daemon
-    tlp = {
-      enable = true;
-      settings = {
-        USB_AUTOSUSPEND = 0;
-      };
-    };
+    # tlp = {
+    #   enable = true;
+    #   settings = {
+    #     USB_AUTOSUSPEND = 0;
+    #   };
+    # };
   };
 
   # host specific user packages
@@ -76,7 +76,7 @@ Should not contain any gaming related stuff.
       unstable = true;
     };
     desktop = {
-      cinnamon.enable = true;
+      kde.enable = true;
       gaming.enable = true; # lan party
       util.mpv.enable = true;
       apps = {
