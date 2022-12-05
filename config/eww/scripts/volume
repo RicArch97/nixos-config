@@ -44,8 +44,17 @@ gen_output() {
   if [ "$1" != "init" ]; then
     is_audio_muted=$(get_mute "SINK")
     is_mic_muted=$(get_mute "SOURCE")
-    sink_volume=$(get_volume "SINK")
-    mic_volume=$(get_volume "SOURCE")
+
+    # check volumes for error codes below 0
+    # else just use cache values or default
+    new_sink_volume=$(get_volume "SINK")
+    if [ ! $new_sink_volume -lt 0 ]; then
+      sink_volume="$new_sink_volume"
+    fi
+    new_mic_volume=$(get_volume "SOURCE")
+    if [ ! $new_mic_volume -lt 0 ]; then
+      mic_volume="$new_mic_volume"
+    fi
 
     # write to cache file
     if [ ! -d "$cache_dir" ]; then
