@@ -63,6 +63,11 @@ in {
     home.packages = [
       pkgs.zip
       pkgs.unzip
+      # system theme
+      pkgs.custom.orchis-kde-theme
+      (pkgs.tela-circle-icon-theme.override
+        {colorVariants = ["grey"];})
+      pkgs.bibata-cursors
     ];
   };
 }
