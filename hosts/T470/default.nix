@@ -70,11 +70,7 @@ Should not contain any gaming related stuff.
       bigScreen = false;
     };
     shell.git.enable = true;
-    hardware.filesystem.zfs = {
-      enable = true;
-      # until zfs 2.1.7 is officially released
-      unstable = true;
-    };
+    hardware.filesystem.zfs.enable = true;
     desktop = {
       kde.enable = true;
       gaming.enable = true; # lan party
