@@ -3,37 +3,90 @@
 # Set a wallpaper on Wayland compositors, or restore the one previously set.
 # Uses the location ~/.wallpaper
 
-# Requires: swaybg, coreutils, procps
+# Requires: swaybg, coreutils, psmisc, wlr-randr, imagemagick, gawk
 # Usage: set-wallpaper-wayland image <file> [<mode>]
 #        set-wallpaper-wayland restore
 
 ctl=swaybg
-wallpaperPath="$HOME/.wallpaper"
+wallpaper_dir="$HOME/.wallpaper"
+wallpaper_settings="$HOME/.wallpaper/settings"
+
+if [ ! -d "$wallpaper_dir" ]; then
+  mkdir -p "$wallpaper_dir"
+fi
 
 if [ "$1" == "image" ]; then
   if [ "$2" != '' ]; then
     mode="fill"
     if [ "$3" != '' ]; then mode="$3"; fi
-    # store new path
-    rm -f "$wallpaperPath"
-    touch "$wallpaperPath" && echo "$2:$mode" >> "$wallpaperPath"
+    # remove previous images
+    find "$wallpaper_dir" -name "*.jpg" -delete
+    # store settings
+    rm -f "$wallpaper_settings"
+    touch "$wallpaper_settings" && printf "%s\n" "$2:$mode" >> "$wallpaper_settings"
     # set wallpaper
-    pkill "$ctl"
+    killall -q "$ctl"
     "$ctl" -i "$2" -m "$mode" &
   else
     echo "error: no image provided"
   fi
-elif [ "$1" == "restore" ]; then
-  if test -f "$wallpaperPath"; then
-    # parse img path and mode
-    imgmode="$(cat "$wallpaperPath")"
-    img="$(cut -d ':' -f1 <<<"$imgmode")"
-    mode="$(cut -d ':' -f2 <<<"$imgmode")"
-    # set wallpaper
-    pkill "$ctl"
-    "$ctl" -i "$img" -m "$mode" &
+elif [ "$1" == "image-span" ]; then
+  if [ "$2" != '' ]; then
+    rm -f "$wallpaper_settings"
+    touch "$wallpaper_settings"
+    # remove previous images
+    find "$wallpaper_dir" -name "*.jpg" -delete
+    # terminate current instances
+    killall -q "$ctl"
+    # get positions using wlr-randr
+    positions=$(wlr-randr | grep Position | awk '{print $2}')
+    index=1
+    # iterate over get resolutions
+    wlr-randr | grep current | awk '{print $1}' | while read -r res; do
+      if [ $index -gt 1 ]; then
+        printf "%s" "," >> "$wallpaper_settings"
+      fi
+      # get width, height, x, y
+      width="$(cut -d 'x' -f1 <<< "$res")"
+      height="$(cut -d 'x' -f2 <<< "$res")"
+      x=$(echo "$positions" | awk 'NR=='$index'' | cut -d ',' -f1)
+      y=$(echo "$positions" | awk 'NR=='$index'' | cut -d ',' -f2)
+      # crop image using imagemagick
+      path="${wallpaper_dir}/${width}x${height}.jpg"
+      convert -crop "${width}x${height}+${x}+${y}" "$2" "$path"
+      # store wallpaper paths
+      printf "%s" "$path" >> "$wallpaper_settings"
+      # set wallpaper
+      "$ctl" -o "DP-$index" -i "$path" -m "fill" &
+      index=$(( index + 1 ))
+    done
+    # store settings
+    printf "%s\n" ":fill" >> "$wallpaper_settings"
   else
-    echo "error: could not find ~/.wallpaper"
+    echo "error: no image provided"
+  fi
+elif [ "$1" == "restore" ]; then
+  if test -f "$wallpaper_settings"; then
+    # parse img path and mode
+    img_mode="$(cat "$wallpaper_settings")"
+    img="$(cut -d ':' -f1 <<< "$img_mode")"
+    mode="$(cut -d ':' -f2 <<< "$img_mode")"
+    # terminate previous
+    killall -q "$ctl"
+    # check for delimiter for multiple wallpapers (image-span)
+    if [[ "$img" == *","* ]]; then
+      # by order, DP1 is first
+      dp1_img="$(cut -d ',' -f1 <<< "$img")"
+      dp2_img="$(cut -d ',' -f2 <<< "$img")"
+      # set both wallpapers
+      "$ctl" -o "DP-1" -i "$dp1_img" -m "$mode" &
+      "$ctl" -o "DP-2" -i "$dp2_img" -m "$mode" &
+    else
+      # set regular wallpaper
+      "$ctl" -i "$img" -m "$mode" &
+    fi
+  else
+    echo "error: could not find $wallpaper_settings"
   fi
 else
   echo "error: undefined option: $1"

@@ -34,6 +34,7 @@ in {
       pkgs.procps
       pkgs.gnugrep
       pkgs.bc
+      pkgs.imagemagick
       # util
       pkgs.htop
     ];

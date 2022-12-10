@@ -60,6 +60,7 @@ in {
       pkgs.dex
       pkgs.wlclock
       pkgs.wl-clipboard
+      pkgs.wlr-randr
     ];
 
     # set display protocol to Wayland for some specifics
