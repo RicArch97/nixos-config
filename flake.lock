@@ -17,6 +17,22 @@
         "type": "github"
       }
     },
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1650374568,
+        "narHash": "sha256-Z+s0J8/r907g149rllvwhb4pKi8Wam5ij0st8PwAh+E=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "github-nvim-theme": {
       "flake": false,
       "locked": {
@@ -75,7 +91,29 @@
         "dunst-fork": "dunst-fork",
         "github-nvim-theme": "github-nvim-theme",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "swayfx": "swayfx"
+      }
+    },
+    "swayfx": {
+      "inputs": {
+        "flake-compat": "flake-compat",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1670595260,
+        "narHash": "sha256-DEGSNN6sMMTzbIDvRxQgPlswqebfjR3HKEaKkNogJAM=",
+        "owner": "WillPower3309",
+        "repo": "swayfx",
+        "rev": "2f3e039029eb1ef9b703463af8c7a9dfa5b2cfe8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "WillPower3309",
+        "repo": "swayfx",
+        "type": "github"
       }
     },
     "utils": {

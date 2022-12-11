@@ -15,6 +15,10 @@
       url = "github:projekt0n/github-nvim-theme";
       flake = false;
     };
+    swayfx = {
+      url = "github:WillPower3309/swayfx";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -34,7 +38,10 @@
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
-      overlays = [self.overlays.default];
+      overlays = [
+        self.overlays.default
+        inputs.swayfx.overlays.default
+      ];
     };
   in {
     packages."${system}" =
