@@ -40,6 +40,7 @@ Created with multi monitor setup in mind.
     pkgs.spotify
     pkgs.gimp
     pkgs.gimpPlugins.resynthesizer
+    pkgs.drawing
     # utils
     pkgs.neofetch
     pkgs.openrgb

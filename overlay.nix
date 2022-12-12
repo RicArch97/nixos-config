@@ -29,4 +29,7 @@ in {
 
   # Needed dependency for Overwatch 2
   lutris = prev.lutris.override {extraPkgs = pkgs: [pkgs.jansson];};
+
+  # SwayFX
+  sway-unwrapped = inputs.swayfx.packages.${system}.default;
 }

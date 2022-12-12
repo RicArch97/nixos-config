@@ -423,6 +423,7 @@ in {
         title_align center
         titlebar_border_thickness 1
         titlebar_padding 7
+        corner_radius 10
       '';
       # XWayland support for legacy X11 apps (enabled from module options)
       xwayland = swayConfig.xwayland;
