@@ -32,4 +32,9 @@ in {
 
   # SwayFX
   sway-unwrapped = inputs.swayfx.packages.${system}.default;
+  
+  # Temporary vscode fix
+  vscode = prev.vscode.overrideAttrs (old: {
+    runtimeDependencies = old.runtimeDependencies ++ [prev.wayland];
+  });
 }
