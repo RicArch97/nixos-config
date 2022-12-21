@@ -5,7 +5,7 @@
 
 # Mostly taken from https://github.com/spikespaz/dotfiles/ (Thanks!)
 
-# Requirements: gawk, coreutils, zfs, bc
+# Requirements: gawk, coreutils, zfs
 # Usage: partition-disk <disk-id> (<disk-path>)
 
 set -eu
@@ -31,7 +31,7 @@ RAM_LIMIT=8000000 # 8GB
 if [ "$TOTAL_MEM" -lt "$RAM_LIMIT" ]; then
 	TOTAL_SWAP="$((TOTAL_MEM * 2))K"
 else
-	TOTAL_SWAP="$(($((TOTAL_MEM * 1.5)) | bc -l))K"
+	TOTAL_SWAP="$(awk "BEGIN {print $TOTAL_MEM * 1.5}")K"
 fi
 
 ##### PARTITIONING #####
