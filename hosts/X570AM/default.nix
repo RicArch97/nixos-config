@@ -44,6 +44,8 @@ Created with multi monitor setup in mind.
     # utils
     pkgs.neofetch
     pkgs.openrgb
+    # dev
+    pkgs.arduino
   ];
 
   modules = {

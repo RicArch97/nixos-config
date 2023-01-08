@@ -56,6 +56,8 @@ Should not contain any gaming related stuff.
     pkgs.gimpPlugins.resynthesizer
     # utils
     pkgs.neofetch
+    # dev
+    pkgs.arduino
   ];
 
   modules = {
