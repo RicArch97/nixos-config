@@ -5,6 +5,9 @@
   pkgs,
   ...
 }: {
+  # Prevent replacing the running kernel w/o reboot
+  security.protectKernelImage = true;
+
   # /tmp mounted on RAM, faster temp file management
   boot.tmpOnTmpfs = lib.mkDefault true;
   boot.cleanTmpDir = lib.mkDefault (!config.boot.tmpOnTmpfs);
