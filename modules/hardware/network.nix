@@ -25,15 +25,20 @@ in {
       networkmanager.enable = true;
       firewall = {
         enable = true;
-        allowedTCPPorts = [80 443];
+        # HTTP ports
+        allowedTCPPorts = [80 443 8080];
+        # random TCP port ranges for free use for own apps
+        allowedTCPPortRanges = [
+          {
+            from = 14415;
+            to = 14935;
+          }
+        ];
+        # random UDP port ranges for free use for own apps
         allowedUDPPortRanges = [
           {
-            from = 4000;
-            to = 4007;
-          }
-          {
-            from = 8000;
-            to = 8010;
+            from = 26490;
+            to = 26999;
           }
         ];
       };
