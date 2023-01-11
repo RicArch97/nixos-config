@@ -34,7 +34,8 @@ in {
     # Create and extract zip archives
     home.packages = [pkgs.zip pkgs.unzip];
 
-    services.dbus.packages = [pkgs.xfce.tumbler];
+    # file thumbnails
+    services.tumbler.enable = true;
 
     programs.thunar = {
       enable = true;
