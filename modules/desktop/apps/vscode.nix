@@ -61,6 +61,7 @@ in {
         "security.workspace.trust.untrustedFiles" = "open";
         "files.autoSave" = "afterDelay";
         "editor.inlineSuggest.enabled" = true;
+        "[python]"."editor.formatOnType" = true;
       };
     };
   };
