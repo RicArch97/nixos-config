@@ -16,10 +16,12 @@ Created with multi monitor setup in mind.
   pkgs,
   ...
 }: {
-  # Allow SMBus access for OpenRGB device interaction
   boot = {
+    # Allow SMBus access for OpenRGB device interaction
     kernelParams = ["acpi_enforce_resources=lax"];
     kernelModules = ["i2c-dev" "i2c-piix4"];
+    # kernel for better responsiveness
+    kernelPackages = lib.mkForce pkgs.linuxPackages_zen;
   };
 
   # Enable OpenRGB udev rules

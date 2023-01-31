@@ -1,30 +1,32 @@
 .launcher {
   font-family: "Material Design Icons";
-  font-size: 2.3rem;
-  background-color: $highlight;
-  color: $background-darker;
-  border-radius: 10px;
+  font-size: 2.6rem;
+  background-color: $background;
+  color: $label;
+  border-radius: 10px 10px 0px 0px;
   margin-top: 0.6rem;
   margin-right: 0.2rem;
-  padding: 0.4rem;
+  padding: 0.3rem 0.5rem 0.3rem 0.5rem;
 }
 .launcher-hover {
   @extend .launcher;
-  background-color: $highlight-focused;
+  background-color: $current-line;
 }
 
 .workspaces {
-  background-color: $background;
+  font-family: "Material Design Icons";
   font-size: 1.8rem;
-  border-radius: 10px;
+  background-color: $background;
+  border-radius: 0px 0px 10px 10px;
+  margin-top: 0.6rem;
   margin-right: 0.2rem;
-  padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+  padding: 0.3rem 0.9rem 0.3rem 0.9rem;
 }
 .workspace-visible {
   color: $highlight;
 }
 .workspace-invisible {
-  color: $label;
+  color: $string;
 }
 .workspace-inactive {
   color: $border;

@@ -61,6 +61,7 @@ in {
         "security.workspace.trust.untrustedFiles" = "open";
         "files.autoSave" = "afterDelay";
         "editor.inlineSuggest.enabled" = true;
+        "redhat.telemetry.enabled" = true;
         "[python]"."editor.formatOnType" = true;
       };
     };

@@ -424,6 +424,9 @@ in {
         titlebar_border_thickness 1
         titlebar_padding 7
         corner_radius 10
+        shadows on
+        shadow_blur_radius 15
+        shadow_color #000000FF
       '';
       # XWayland support for legacy X11 apps (enabled from module options)
       xwayland = swayConfig.xwayland;

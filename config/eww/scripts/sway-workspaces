@@ -38,7 +38,7 @@ query() {
 generate() {
   cmd="["
   for (( w=$1; w<=$2; w++ )); do
-    icon="󰋙"
+    icon="󰝦"
     class="workspace-inactive"
     
     if [ "$(contains "$all" "$w")" -eq 1 ]; then
@@ -46,7 +46,7 @@ generate() {
     fi
     
     if [ "$(contains "$visible" "$w")" -eq 1 ]; then
-      icon="󰫈"
+      icon="󰪥"
       class="workspace-visible"
     fi
     
