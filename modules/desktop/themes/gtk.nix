@@ -21,7 +21,10 @@ in {
     theme = {
       package = lib.mkOption {
         type = lib.types.package;
-        default = pkgs.orchis-theme.override {tweaks = ["black"];};
+        default = pkgs.orchis-theme.override {
+          border-radius = 12;
+          tweaks = ["black"];
+        };
       };
       name = lib.mkOption {
         type = lib.types.str;
