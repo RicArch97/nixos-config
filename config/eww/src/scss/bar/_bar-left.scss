@@ -3,7 +3,7 @@
   font-size: 2.6rem;
   background-color: $background;
   color: $label;
-  border-radius: 10px 10px 0px 0px;
+  border-radius: 12px 12px 0px 0px;
   margin-top: 0.6rem;
   margin-right: 0.2rem;
   padding: 0.3rem 0.5rem 0.3rem 0.5rem;
@@ -17,7 +17,7 @@
   font-family: "Material Design Icons";
   font-size: 1.8rem;
   background-color: $background;
-  border-radius: 0px 0px 10px 10px;
+  border-radius: 0px 0px 12px 12px;
   margin-top: 0.6rem;
   margin-right: 0.2rem;
   padding: 0.3rem 0.9rem 0.3rem 0.9rem;
@@ -43,7 +43,7 @@
   font-size: 1.8rem;
   background-color: $background;
   color: $foreground;
-  border-radius: 10px 10px 0px 0px;
+  border-radius: 12px 12px 0px 0px;
   margin-bottom: 0.6rem;
   padding: 0.3rem 0.9rem 0.3rem 0.9rem; 
 }
@@ -80,7 +80,7 @@
   font-size: 1.5rem;
   background-color: $background;
   color: $foreground;
-  border-radius: 0px 0px 10px 10px;
+  border-radius: 0px 0px 12px 12px;
   margin-bottom: 0.6rem;
   padding: 0.3rem 0.9rem 0.3rem 0.9rem; 
 }
@@ -99,7 +99,7 @@
 }
 .top-region-left {
   background-color: $background-darker;
-  border-top-right-radius: 10px;
+  border-top-right-radius: 12px;
 }
 .top-slanted-left {
   background-image: url("assets/logit-top-left.svg");
@@ -113,5 +113,5 @@
 }
 .bottom-region-left {
   background-color: $background-darker;
-  border-bottom-right-radius: 10px;
+  border-bottom-right-radius: 12px;
 }

@@ -56,7 +56,7 @@ in {
           horizontal_padding = 16;
           # border around notification
           frame_width = 0;
-          corner_radius = 10;
+          corner_radius = 12;
 
           sort = true;
           idle_threshold = 0;

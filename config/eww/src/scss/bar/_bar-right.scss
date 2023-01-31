@@ -6,7 +6,7 @@
   font-size: 2.2rem;
   background-color: $background;
   color: $foreground;
-  border-radius: 10px 10px 0px 0px;
+  border-radius: 12px 12px 0px 0px;
   margin-top: 0.6rem;
   padding: 0.5rem 0.7rem 0.5rem 0.7rem;
 }
@@ -16,7 +16,7 @@
 }
 .resources {
   background-color: $background;
-  border-radius: 0px 0px 10px 10px;
+  border-radius: 0px 0px 12px 12px;
   margin-top: 0.6rem;
 }
 .cpu-usage {
@@ -72,7 +72,7 @@
   font-family: "Material Design Icons";
   background-color: $background;
   color: $foreground;
-  border-radius: 10px 10px 0px 0px;
+  border-radius: 12px 12px 0px 0px;
   margin-bottom: 0.6rem;
   padding: 0.3rem 0.9rem 0.3rem 0.9rem; 
 }
@@ -96,12 +96,12 @@
 }
 .volume-slider {
   background-color: $selection;
-  border-radius: 10px;
+  border-radius: 12px;
   margin: 0.6rem 1.2rem 0.6rem 1.2rem;
   contents trough highlight {
     background-color: $highlight;
     padding: 0.6rem;
-    border-radius: 10px;
+    border-radius: 12px;
   }
 }
 .volume-label {
@@ -112,7 +112,7 @@
   font-size: 2.6rem;
   background-color: $background;
   color: $foreground;
-  border-radius: 0px 0px 10px 10px;
+  border-radius: 0px 0px 12px 12px;
   margin-bottom: 0.6rem;
   padding: 0.3rem 0.5rem 0.3rem 0.5rem; 
 }
@@ -131,7 +131,7 @@
 }
 .top-region-right {
   background-color: $background-darker;
-  border-top-left-radius: 10px;
+  border-top-left-radius: 12px;
 }
 .top-slanted-right {
   background-image: url("assets/logit-top-right.svg");
@@ -145,5 +145,5 @@
 }
 .bottom-region-right {
   background-color: $background-darker;
-  border-bottom-left-radius: 10px;
+  border-bottom-left-radius: 12px;
 }

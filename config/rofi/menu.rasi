@@ -49,7 +49,7 @@ window {
     margin:                      0px;
     padding:                     0px;
     border:                      0px solid;
-    border-radius:               10px;
+    border-radius:               12px;
     border-color:                @border-color;
     cursor:                      "default";
     background-color:            @background-darker-color;
@@ -154,7 +154,7 @@ listview {
 scrollbar {
     handle-width:                5px;
     handle-color:                @handle-color;
-    border-radius:               10px;
+    border-radius:               12px;
     background-color:            @alternate-background;
 }
 
@@ -164,7 +164,7 @@ element {
     margin:                      0px;
     padding:                     5px 10px;
     border:                      0px solid;
-    border-radius:               10px;
+    border-radius:               12px;
     border-color:                @border-color;
     background-color:            transparent;
     text-color:                  @foreground-color;
@@ -235,7 +235,7 @@ mode-switcher{
 button {
     padding:                     5px 10px;
     border:                      0px solid;
-    border-radius:               10px;
+    border-radius:               12px;
     border-color:                @border-color;
     background-color:            @background-color;
     text-color:                  inherit;
@@ -259,7 +259,7 @@ message {
 textbox {
     padding:                     8px 10px;
     border:                      0px solid;
-    border-radius:               10px;
+    border-radius:               12px;
     border-color:                @border-color;
     background-color:            @alternate-background;
     text-color:                  @foreground-color;
@@ -273,7 +273,7 @@ textbox {
 error-message {
     padding:                     10px;
     border:                      2px solid;
-    border-radius:               10px;
+    border-radius:               12px;
     border-color:                @border-color;
     background-color:            @background-darker-color;
     text-color:                  @foreground-color;

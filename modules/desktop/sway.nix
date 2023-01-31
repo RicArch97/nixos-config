@@ -423,7 +423,7 @@ in {
         title_align center
         titlebar_border_thickness 1
         titlebar_padding 7
-        corner_radius 10
+        corner_radius 12
         shadows on
         shadow_blur_radius 15
         shadow_color #000000FF
