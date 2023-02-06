@@ -55,7 +55,7 @@ in {
           padding = 16;
           horizontal_padding = 16;
           # border around notification
-          frame_width = 0;
+          frame_width = 1;
           corner_radius = 12;
 
           sort = true;
@@ -84,7 +84,7 @@ in {
           sticky_history = true;
           history_length = 100;
 
-          dmenu = "${defaultApps.menu.cmd} -p dunst";
+          dmenu = "${defaultApps.menu.cmd} -dmenu";
           browser = "${defaultApps.browser.cmd} -new-tab";
           always_run_script = true;
           ignore_dbusclose = false;

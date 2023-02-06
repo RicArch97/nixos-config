@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Script shat listens for new notifications and then calls dunstctl history get the data.
+# Requires: dunst, dbus, jq, gnugrep
+
+matcher="type='method_call',interface='org.freedesktop.Notifications',member='Notify'"
+
+# listen for notifications
+dbus-monitor "$matcher" | grep --line-buffered "method call" | while read -r _ ; do
+  echo "Notification received!"
+done
