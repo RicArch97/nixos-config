@@ -38,26 +38,28 @@ elif [ "$1" == "image-span" ]; then
     find "$wallpaper_dir" -name "*.jpg" -delete
     # terminate current instances
     killall -q "$ctl"
-    # get positions using wlr-randr
+    # get positions and display names using wlr-randr
     positions=$(wlr-randr | grep Position | awk '{print $2}')
+    displays=$(wlr-randr | grep "DP\|HDMI" | awk '{print $1}')
     index=1
     # iterate over get resolutions
     wlr-randr | grep current | awk '{print $1}' | while read -r res; do
       if [ $index -gt 1 ]; then
         printf "%s" "," >> "$wallpaper_settings"
       fi
-      # get width, height, x, y
+      # get width, height, x, y, display
       width="$(cut -d 'x' -f1 <<< "$res")"
       height="$(cut -d 'x' -f2 <<< "$res")"
       x=$(echo "$positions" | awk 'NR=='$index'' | cut -d ',' -f1)
       y=$(echo "$positions" | awk 'NR=='$index'' | cut -d ',' -f2)
+      display=$(echo "$displays" | awk 'NR=='$index'')
       # crop image using imagemagick
       path="${wallpaper_dir}/${width}x${height}.jpg"
       convert -crop "${width}x${height}+${x}+${y}" "$2" "$path"
       # store wallpaper paths
       printf "%s" "$path" >> "$wallpaper_settings"
       # set wallpaper
-      "$ctl" -o "DP-$index" -i "$path" -m "fill" &
+      "$ctl" -o "$display" -i "$path" -m "fill" &
       index=$(( index + 1 ))
     done
     # store settings
@@ -73,14 +75,17 @@ elif [ "$1" == "restore" ]; then
     mode="$(cut -d ':' -f2 <<< "$img_mode")"
     # terminate previous
     killall -q "$ctl"
+    # get display names and order using wlr-randr
+    displays=$(wlr-randr | grep "DP\|HDMI" | awk '{print $1}')
     # check for delimiter for multiple wallpapers (image-span)
     if [[ "$img" == *","* ]]; then
-      # by order, DP1 is first
-      dp1_img="$(cut -d ',' -f1 <<< "$img")"
-      dp2_img="$(cut -d ',' -f2 <<< "$img")"
+      img1="$(cut -d ',' -f1 <<< "$img")"
+      display1=$(echo "$displays" | awk 'NR==1')
+      img2="$(cut -d ',' -f2 <<< "$img")"
+      display2=$(echo "$displays" | awk 'NR==2')
       # set both wallpapers
-      "$ctl" -o "DP-1" -i "$dp1_img" -m "$mode" &
-      "$ctl" -o "DP-2" -i "$dp2_img" -m "$mode" &
+      "$ctl" -o "$display1" -i "$img1" -m "$mode" &
+      "$ctl" -o "$display2" -i "$img2" -m "$mode" &
     else
       # set regular wallpaper
       "$ctl" -i "$img" -m "$mode" &
