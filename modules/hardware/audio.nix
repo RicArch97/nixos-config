@@ -24,6 +24,9 @@ in {
 
   config = lib.mkIf (audioConfig.enable) (lib.mkMerge [
     {
+      sound.enable = true;
+      hardware.pulseaudio.enable = false;
+      
       # able to change scheduling policies, e.g. to SCHED_RR
       security.rtkit.enable = true;
 
