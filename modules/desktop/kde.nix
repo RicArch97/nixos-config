@@ -57,7 +57,10 @@ in {
         touchpad.accelProfile = lib.mkIf (device.hasTouchpad) "flat";
       };
       displayManager.sddm.enable = true;
-      desktopManager.plasma5.enable = true;
+      desktopManager.plasma5 = {
+        enable = true;
+        useQtScaling = true;
+      };
     };
 
     home.packages = [
