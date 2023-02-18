@@ -158,7 +158,7 @@ for _, lang in pairs(servers) do
 end
 
 -- Sepecific lua lsp settings
-nvim_lsp.sumneko_lua.setup {
+nvim_lsp.lua_ls.setup {
   cmd = { "lua-lsp" },
   root_dir = function()
     return vim.loop.cwd()
