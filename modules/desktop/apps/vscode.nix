@@ -36,6 +36,7 @@ in {
         vscext = pkgs.vscode-extensions;
       in [
         vscext.ms-vscode.cpptools
+        vscext.ms-vscode.cmake-tools
         vscext.ms-python.python
         vscext.ms-python.vscode-pylance
         vscext.haskell.haskell
