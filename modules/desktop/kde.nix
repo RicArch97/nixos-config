@@ -1,4 +1,4 @@
-# Configuration for the Cinnamon desktop environment
+# Configuration for the KDE desktop environment
 {
   config,
   options,
