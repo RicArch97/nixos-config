@@ -68,14 +68,25 @@
     in
       lib.custom.mapModules ./hosts (mkHost system);
 
-    devShells."${system}".default = pkgs.mkShell {
-      name = "nixos-config shell";
-      packages = [
-        pkgs.git
-        pkgs.alejandra
-        pkgs.nix-zsh-completions
-        pkgs.rnix-lsp
-      ];
-    };
+    devShells."${system}".default = let
+      haskellDeps = pkgs.ghc.withPackages (haskell-packages:
+        with haskell-packages; [
+          xmonad
+          xmonad-contrib
+          xmonad-extras
+          haskell-language-server
+        ]);
+    in
+      pkgs.mkShell {
+        name = "nixos-config shell";
+        buildInputs = [
+          pkgs.git
+          pkgs.alejandra
+          pkgs.nix-zsh-completions
+          pkgs.rnix-lsp
+          # Xmonad config
+          haskellDeps
+        ];
+      };
   };
 }
