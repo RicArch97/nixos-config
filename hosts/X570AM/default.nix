@@ -20,8 +20,8 @@ Created with multi monitor setup in mind.
     # Allow SMBus access for OpenRGB device interaction
     kernelParams = ["acpi_enforce_resources=lax"];
     kernelModules = ["i2c-dev" "i2c-piix4"];
-    # kernel for better responsiveness
-    kernelPackages = lib.mkForce pkgs.linuxPackages_zen;
+    # kernel for better responsiveness (linux 6.2 requires ZFS 2.1.10)
+    #kernelPackages = lib.mkForce pkgs.linuxPackages_zen;
   };
 
   # Enable OpenRGB udev rules
