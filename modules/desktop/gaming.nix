@@ -49,6 +49,7 @@ in {
       [
         winepkg
         pkgs.lutris
+        pkgs.bottles
         pkgs.gamescope
         pkgs.obs-studio
         pkgs.obs-studio-plugins.obs-gstreamer

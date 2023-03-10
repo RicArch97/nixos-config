@@ -200,6 +200,7 @@ in {
             {app_id = "engrampa";}
             {app_id = "openrgb";}
             {app_id = "lutris";}
+            {app_id = "com.usebottles.bottles";}
             {app_id = "pavucontrol";}
             {class = ".*.exe";} # Wine apps
             {class = "steam_app.*";} # Steam games
@@ -401,6 +402,10 @@ in {
             {
               command = "border csd";
               criteria = {app_id = "lutris";};
+            }
+            {
+              command = "resize set ${floatSize}";
+              criteria = {app_id = "com.usebottles.bottles";};
             }
             {
               command = "border none";
