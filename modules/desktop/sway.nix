@@ -154,23 +154,23 @@ in {
           background = ct.background;
           focused = {
             background = ct.background-darker;
-            border = ct.background-darker;
-            childBorder = ct.background-darker;
-            indicator = ct.background-darker;
+            border = ct.border;
+            childBorder = ct.border;
+            indicator = ct.border;
             text = cs.string;
           };
           focusedInactive = {
             background = ct.background-darker;
-            border = ct.background-darker;
-            childBorder = ct.background-darker;
-            indicator = ct.background-darker;
+            border = ct.border;
+            childBorder = ct.border;
+            indicator = ct.border;
             text = ct.foreground;
           };
           unfocused = {
             background = ct.background-darker;
-            border = ct.background-darker;
-            childBorder = ct.background-darker;
-            indicator = ct.background-darker;
+            border = ct.border;
+            childBorder = ct.border;
+            indicator = ct.border;
             text = ct.foreground;
           };
         };
@@ -425,6 +425,7 @@ in {
         title_align center
         titlebar_border_thickness 1
         titlebar_padding 7
+        titlebar_separator disable
         corner_radius 12
         shadows on
         shadow_blur_radius 15

@@ -103,11 +103,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1678506984,
-        "narHash": "sha256-nVy7GdAnheWhjevcCPE407xWSLN8F4Le0uq2RDwv/Zc=",
+        "lastModified": 1678605650,
+        "narHash": "sha256-ROy8sD8/W1Sv1vF5D0EBSBm6W0KiWsuJGnQMRk6zT3Y=",
         "owner": "WillPower3309",
         "repo": "swayfx",
-        "rev": "3b101734e67a0966026533ad224d9afa3672e434",
+        "rev": "ac31a612164828ca6ae5478332eee3cd2317ffdc",
         "type": "github"
       },
       "original": {
