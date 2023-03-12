@@ -149,6 +149,7 @@ in {
         # Theming
         colors = let
           ct = colorScheme.types;
+          cs = colorScheme.syntax;
         in {
           background = ct.background;
           focused = {
@@ -156,23 +157,19 @@ in {
             border = ct.background-darker;
             childBorder = ct.background-darker;
             indicator = ct.background-darker;
-            text = ct.foreground;
+            text = cs.string;
           };
-          focusedInactive = let
-            alpha = "e6";
-          in {
-            background = "${ct.background-darker}${alpha}";
-            border = "${ct.background-darker}${alpha}";
-            childBorder = "${ct.background-darker}${alpha}";
+          focusedInactive = {
+            background = ct.background-darker;
+            border = ct.background-darker;
+            childBorder = ct.background-darker;
             indicator = ct.background-darker;
             text = ct.foreground;
           };
-          unfocused = let
-            alpha = "cc";
-          in {
-            background = "${ct.background-darker}${alpha}";
-            border = "${ct.background-darker}${alpha}";
-            childBorder = "${ct.background-darker}${alpha}";
+          unfocused = {
+            background = ct.background-darker;
+            border = ct.background-darker;
+            childBorder = ct.background-darker;
             indicator = ct.background-darker;
             text = ct.foreground;
           };
