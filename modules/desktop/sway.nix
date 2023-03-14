@@ -420,7 +420,7 @@ in {
           titlebar = true;
         };
       };
-      # Config options that can't be declared
+      # SwayFX options / other
       extraConfig = ''
         title_align center
         titlebar_border_thickness 1
