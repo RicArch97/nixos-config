@@ -24,6 +24,9 @@ Created with multi monitor setup in mind.
     #kernelPackages = lib.mkForce pkgs.linuxPackages_zen;
   };
 
+  # Enable docker service to build stuff in containers
+  virtualisation.docker.enable = true;
+
   # Enable OpenRGB udev rules
   services.udev.packages = [pkgs.openrgb];
 
