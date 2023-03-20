@@ -149,7 +149,7 @@ in {
         # Theming
         colors = let
           ct = colorScheme.types;
-          cs = colorScheme.syntax;
+          cc = colorScheme.colors;
         in {
           background = ct.background;
           focused = {
@@ -157,7 +157,7 @@ in {
             border = ct.border;
             childBorder = ct.border;
             indicator = ct.border;
-            text = cs.string;
+            text = cc.color15;
           };
           focusedInactive = {
             background = ct.background-darker;
