@@ -67,7 +67,6 @@ in {
         };
       };
       enableDefaultFonts = true;
-      optimizeForVeryHighDPI = true;
     };
   };
 }
