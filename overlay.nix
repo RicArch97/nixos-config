@@ -19,11 +19,6 @@ in {
       inherit github-nvim-theme;
     };
 
-  # Dunst fork from k-vernooy that makes the progress bar look nicer
-  dunst = prev.dunst.overrideAttrs (old: {
-    src = inputs.dunst-fork;
-  });
-
   # Discord OpenASAR, better performance
   discord = prev.discord.override {withOpenASAR = true;};
 
