@@ -7,10 +7,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    dunst-fork = {
-      url = "github:k-vernooy/dunst/progress-styling";
-      flake = false;
-    };
     github-nvim-theme = {
       url = "github:projekt0n/github-nvim-theme";
       flake = false;
