@@ -53,7 +53,6 @@ Should not contain any gaming related stuff.
     pkgs.discord
     pkgs.spotify
     pkgs.gimp
-    pkgs.gimpPlugins.resynthesizer
     # utils
     pkgs.neofetch
     # dev
