@@ -14,11 +14,14 @@
 (deflisten volume :initial '{"audio": "50", "audio_icon": "󰋋", "mic": "50", "mic_icon": "󰍬"}'
   "scripts/volume")
 ;; initially assume no network connection
-(deflisten network :initial '{"ethernet_icon": "󰪎", "ethernet_tooltip": "disconnected", "wifi_icon": "󰤭", "wifi_tooltip": "disconnected"}'
-  "scripts/network")
+(deflisten network :initial '{"ethernet_icon": "󰕑", "ethernet_tooltip": "ethernet disconnected", "wifi_icon": "󰖪", "wifi_tooltip": "wifi powered off"}'
+  "scripts/connman")
 ;; bluetooth is powered on boot, no connections
 (deflisten bluetooth :initial '{ "icon": "", "tooltip": "disconnected", "audio_headset": "false" }'
   "scripts/bluetooth")
+;; temporary cpu temp script until next eww release, set to 0 initially
+(deflisten cpu_temp :initial 0
+  "scripts/cpu-temp")
 
 ;; hover states
 (defvar layout_hover false)

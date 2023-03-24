@@ -32,8 +32,8 @@
                :text "ﮦ"))
       (circular-progress :class "cpu-temp"
                          :thickness 5
-                         :value {EWW_TEMPS["K10TEMP_TCTL"]}
-                         :tooltip "CPU temp: ${round(EWW_TEMPS["K10TEMP_TCTL"], 2)}°C"
+                         :value cpu_temp
+                         :tooltip "CPU temp: ${cpu_temp}°C"
         (label :class "cpu-temp-icon"
                :text "󰔐"))
       (circular-progress :class "ram-usage"
