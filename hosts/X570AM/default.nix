@@ -64,6 +64,10 @@ Created with multi monitor setup in mind.
     };
     services.greetd.enable = true;
     hardware.filesystem.zfs.enable = true;
+    hardware.network = {
+      networkmanager.enable = false;
+      connman.enable = true;
+    };
     virtualisation.docker.enable = true;
     desktop = {
       sway.enable = true; # this enables various other components
