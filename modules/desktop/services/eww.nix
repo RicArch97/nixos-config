@@ -36,6 +36,7 @@ in {
       pkgs.findutils
       pkgs.jq
       pkgs.networkmanager
+      pkgs.connman
       pkgs.pulseaudio
       pkgs.wireplumber
     ];

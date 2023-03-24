@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+
+# Script to listen for connman updates and return an appriopriate icon and tooltip.
+# This script runs until it's manually terminated.
+
+# Requires: Connman, gawk
+# Usage: connman
+
+# get initial technology state output
+tech=$(connmanctl technologies)
+tech_eth="ethernet"
+tech_wifi="wifi"
+
+declare -A eth_dict
+declare -A wifi_dict
+# create bash dictionaries from the output
+while read line; do
+  if [[ $line == /net/connman/technology/* ]]; then
+    tech=${line##*/}
+  elif [[ $line == *"="* ]]; then
+    key=$(echo "${line%%=*}" | awk '{$1=$1};1')
+    value=$(echo "${line#*=}" | awk '{$1=$1};1')
+    # add to the correct dict
+    if [[ $tech == $tech_eth ]]; then
+      eth_dict[$key]="$value"
+    elif [[ $tech == $tech_wifi ]]; then
+      wifi_dict[$key]="$value"
+    fi
+  fi
+done <<< $tech
+
+function wifi_type() {
+  case "$1" in
+    "off") echo "󰖪";;
+    "disconnected") echo "󱛅";;
+    "connected") echo "󰖩";;
+  esac
+}
+
+function ethernet_type() {
+  case "$1" in
+    "off") echo "󰪎";;
+    "disconnected") echo "󰕑";;
+    "connected") echo "󰈀";;
+  esac
+}
+
+function make_content() {
+  # ethernet connection status
+  if [[ ${eth_dict[Connected]} == "True" ]]; then
+    ethernet_tooltip="ethernet connected"
+    ethernet_icon="$(ethernet_type "connected")"
+  else
+    ethernet_icon=$(ethernet_type "disconnected")
+    ethernet_tooltip="ethernet disconnected"
+  fi
+  # ethernet power status off
+  if [[ ${eth_dict[Powered]} == "False" ]]; then
+    ethernet_tooltip="ethernet powered off"
+    ethernet_icon="$(ethernet_type "off")"
+  fi
+
+  # wifi connection status
+  if [[ ${wifi_dict[Connected]} == "True" ]]; then
+    wifi_tooltip="wifi connected"
+    wifi_icon="$(wifi_type "connected")"
+  else
+    wifi_icon=$(wifi_type "disconnected")
+    wifi_tooltip="wifi disconnected"
+  fi
+  # wifi power status off
+  if [[ ${wifi_dict[Powered]} == "False" ]]; then
+    wifi_tooltip="wifi powered off"
+    wifi_icon="$(wifi_type "off")"
+  fi
+
+  echo '{"ethernet_icon": "'"$ethernet_icon"'", "ethernet_tooltip": "'"$ethernet_tooltip"'", "wifi_icon": "'"$wifi_icon"'", "wifi_tooltip": "'"$wifi_tooltip"'"}'
+}
+
+# first run
+make_content
+stdbuf -oL connmanctl monitor tech | while read -r data; do
+  changed_tech="$(echo $data | awk '{print $2}' | awk '{$1=$1};1')"
+  param="$(echo "${data%%=*}" | awk '{$1=$1};1' | awk '{print $NF}')"
+  state="$(echo "${data#*=}" | awk '{$1=$1};1')"
+
+  # update dictionaries
+  if [[ $changed_tech == $tech_eth ]]; then
+    eth_dict[$param]="$state"
+  elif [[ $changed_tech == $tech_wifi ]]; then
+    wifi_dict[$param]="$state"
+  fi
+
+  make_content
+done

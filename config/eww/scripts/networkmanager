@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-# Script to listen for workspace manager updates and return an appriopriate icon and tooltip.
+# Script to listen for networkmanager updates and return an appriopriate icon and tooltip.
 # This script runs until it's manually terminated.
 
 # Requires: NetworkManager, gawk
-# Usage: network
+# Usage: networkmanager
 
 # get initialize network device info and states
 nm_devices=($(echo "$(nmcli -g DEVICE d)" | tr ' ' '\n'))
