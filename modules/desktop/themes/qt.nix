@@ -13,32 +13,13 @@ in {
       type = lib.types.bool;
       default = true;
     };
-    theme = {
-      package = lib.mkOption {
-        type = lib.types.package;
-        default = null;
-      };
-      name = lib.mkOption {
-        type = lib.types.str;
-        default = "gtk2";
-      };
-    };
   };
 
   config = lib.mkIf (qtConfig.enable) {
-    environment.variables = {
-      QT_QPA_PLATFORMTHEME = "gtk2";
-      QT_STYLE_OVERRIDE = qtConfig.theme.name;
-    };
-
-    # home manager configuration
-    home.manager.qt = {
+    qt = {
       enable = true;
-      platformTheme = "gtk";
-      style = {
-        package = qtConfig.theme.package;
-        name = qtConfig.theme.name;
-      };
+      platformTheme = "gnome";
+      style = "adwaita-dark";
     };
   };
 }
