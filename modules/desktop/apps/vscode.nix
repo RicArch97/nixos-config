@@ -50,7 +50,7 @@ in {
         vscext.github.github-vscode-theme
         vscext.mkhl.direnv
       ];
-      mutableExtensionsDir = false;
+      mutableExtensionsDir = true;
       userSettings = {
         "editor.fontFamily" = "${fontStyles.mono.family}";
         "editor.fontSize" = 14;
