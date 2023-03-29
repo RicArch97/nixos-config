@@ -21,7 +21,7 @@ Created with multi monitor setup in mind.
     kernelParams = ["acpi_enforce_resources=lax"];
     kernelModules = ["i2c-dev" "i2c-piix4"];
     # kernel for better responsiveness (linux 6.2 requires ZFS 2.1.10)
-    #kernelPackages = lib.mkForce pkgs.linuxPackages_zen;
+    kernelPackages = lib.mkForce pkgs.linuxPackages_xanmod;
   };
 
   # Enable OpenRGB udev rules
