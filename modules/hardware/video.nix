@@ -23,7 +23,9 @@ in {
           enable = true;
           # enables Mesa (OpenGL and Vulkan)
           driSupport = true;
+          mesaPackage = pkgs.mesa_23;
           driSupport32Bit = true;
+          mesaPackage32 = pkgs.pkgsi686Linux.mesa_23;
         };
       };
 
