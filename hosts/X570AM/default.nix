@@ -68,10 +68,6 @@ Created with multi monitor setup in mind.
       networkmanager.enable = false;
       connman.enable = true;
     };
-    virtualisation.vbox = {
-      enable = true;
-      package = pkgs.stable.virtualbox;
-    };
     desktop = {
       sway.enable = true; # this enables various other components
       gaming.enable = true;
