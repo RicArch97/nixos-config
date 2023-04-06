@@ -19,11 +19,11 @@
     "github-nvim-theme": {
       "flake": false,
       "locked": {
-        "lastModified": 1680262659,
-        "narHash": "sha256-oPGgc5Y2/yfmb0whdpjCyXiAkMaW65c5n4OF78wvvvw=",
+        "lastModified": 1680773490,
+        "narHash": "sha256-BLjkfGU0DfC0yGim3KzeChbkvzXnpqOyfoVbcrCkH4c=",
         "owner": "projekt0n",
         "repo": "github-nvim-theme",
-        "rev": "b888267d71bfbccd70672f748a4f02c415fbe817",
+        "rev": "88d43731d8cdded23fbf7dbdf314ae3934b84d82",
         "type": "github"
       },
       "original": {
@@ -69,11 +69,28 @@
         "type": "github"
       }
     },
+    "nixpkgs-stable": {
+      "locked": {
+        "lastModified": 1680665430,
+        "narHash": "sha256-MTVhTukwza1Jlq2gECITZPFnhROmylP2uv3O3cSqQCE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "5233fd2ba76a3accb5aaa999c00509a11fd0793c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-22.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "github-nvim-theme": "github-nvim-theme",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-stable": "nixpkgs-stable",
         "swayfx": "swayfx"
       }
     },

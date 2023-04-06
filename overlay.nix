@@ -9,6 +9,11 @@
     dontBuild = true;
   };
 in {
+  # stable packages
+  stable = import inputs.nixpkgs-stable {
+    inherit system;
+    config.allowUnfree = true;
+  };
   # own packages
   custom = inputs.self.packages."${system}";
 
