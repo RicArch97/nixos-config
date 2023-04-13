@@ -6,6 +6,9 @@ vim.g.mapleader = " "
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+-- colorscheme
+vim.cmd.colorscheme('github_dark_default')
+
 -- Undo files
 vim.opt.undofile = true
 
