@@ -37,8 +37,7 @@ Created with multi monitor setup in mind.
   # Host specific user packages
   home.packages = [
     # multimedia
-    pkgs.google-chrome
-    pkgs.discord
+    pkgs.discord-canary
     pkgs.spotify
     pkgs.gimp
     pkgs.drawing
@@ -73,6 +72,10 @@ Created with multi monitor setup in mind.
       gaming.enable = true;
       util.mpv.enable = true;
       apps = {
+        browsers = {
+          chrome.enable = true;
+          firefox.setDefault = false;
+        };
         thunar.enable = true;
         vscode.enable = true;
         zathura.enable = true;

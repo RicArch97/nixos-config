@@ -49,7 +49,6 @@ Should not contain any gaming related stuff.
   # host specific user packages
   home.packages = [
     # multimedia
-    pkgs.google-chrome
     pkgs.discord
     pkgs.spotify
     pkgs.gimp
@@ -77,7 +76,13 @@ Should not contain any gaming related stuff.
       gaming.enable = true; # lan party
       util.mpv.enable = true;
       apps = {
-        firefox.enable = true;
+        browsers = {
+          firefox = {
+            enable = true;
+            setDefault = false;
+          };
+          chrome.enable = true;
+        };
         vscode.enable = true;
         zathura.enable = true;
       };

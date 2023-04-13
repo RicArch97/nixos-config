@@ -19,11 +19,11 @@
     "github-nvim-theme": {
       "flake": false,
       "locked": {
-        "lastModified": 1680773490,
-        "narHash": "sha256-BLjkfGU0DfC0yGim3KzeChbkvzXnpqOyfoVbcrCkH4c=",
+        "lastModified": 1681385932,
+        "narHash": "sha256-PyzjJ9dEnrwiQccOKY+Lw4Vg2boT4o1me4EBbeSwEpc=",
         "owner": "projekt0n",
         "repo": "github-nvim-theme",
-        "rev": "88d43731d8cdded23fbf7dbdf314ae3934b84d82",
+        "rev": "f3e3ae3cddc814fc09a0001f186be2531abbeccb",
         "type": "github"
       },
       "original": {
@@ -40,11 +40,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1680597706,
-        "narHash": "sha256-ZqJ3T+BxzjPH9TnmeUwS4Uu9ZQPeBXAFC9sUWlharT4=",
+        "lastModified": 1681250798,
+        "narHash": "sha256-fQMROyKzPFBPqJy9J4ffywm02ZuqAI0GW1O1QibVpdQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "ec06f419af79207b33d797064dfb3fc9dbe1df4a",
+        "rev": "28698126bd825aff21cae9ffd15cf83e169051b0",
         "type": "github"
       },
       "original": {
@@ -55,11 +55,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1680669251,
-        "narHash": "sha256-AVNE+0u4HlI3v96KCXE9risH7NKqj0QDLLfSckYXIbA=",
+        "lastModified": 1681303793,
+        "narHash": "sha256-JEdQHsYuCfRL2PICHlOiH/2ue3DwoxUX7DJ6zZxZXFk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "9c8ff8b426a8b07b9e0a131ac3218740dc85ba1e",
+        "rev": "fe2ecaf706a5907b5e54d979fbde4924d84b65fc",
         "type": "github"
       },
       "original": {
@@ -71,11 +71,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1680665430,
-        "narHash": "sha256-MTVhTukwza1Jlq2gECITZPFnhROmylP2uv3O3cSqQCE=",
+        "lastModified": 1681269223,
+        "narHash": "sha256-i6OeI2f7qGvmLfD07l1Az5iBL+bFeP0RHixisWtpUGo=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5233fd2ba76a3accb5aaa999c00509a11fd0793c",
+        "rev": "87edbd74246ccdfa64503f334ed86fa04010bab9",
         "type": "github"
       },
       "original": {
@@ -102,11 +102,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1680616721,
-        "narHash": "sha256-v+bFJbrfaaFS5XVXhKEzc8tZ12L5scVK0HbLfd7I8Eg=",
+        "lastModified": 1680841583,
+        "narHash": "sha256-KdVmPs1GDpsa6DGAPLwHIlMMNfScFUC5jF1cYqwwjrY=",
         "owner": "WillPower3309",
         "repo": "swayfx",
-        "rev": "c24fccd45c4bc69c968a09ae5b953672a29bac12",
+        "rev": "f74c0fedb2e1cd8e23f52b6817d5819c4e66c843",
         "type": "github"
       },
       "original": {
