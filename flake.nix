@@ -75,7 +75,7 @@
         ]);
     in
       pkgs.mkShell {
-        name = "nixos-config shell";
+        name = "nixos-config";
         buildInputs = [
           pkgs.git
           pkgs.alejandra
