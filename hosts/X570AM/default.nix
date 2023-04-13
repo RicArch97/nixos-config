@@ -38,6 +38,7 @@ Created with multi monitor setup in mind.
   home.packages = [
     # multimedia
     pkgs.discord-canary
+    pkgs.betterdiscordctl
     pkgs.spotify
     pkgs.gimp
     pkgs.drawing
