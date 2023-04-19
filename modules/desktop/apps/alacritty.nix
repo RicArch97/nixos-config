@@ -36,7 +36,7 @@ in {
             y = 10;
           };
           dynamic_padding = true;
-          opacity = 0.95;
+          opacity = 0.8;
         };
 
         # max lines in buffer

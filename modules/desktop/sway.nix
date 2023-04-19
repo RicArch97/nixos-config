@@ -425,6 +425,7 @@ in {
         shadows on
         shadow_blur_radius 15
         shadow_color #000000FF
+        blur on
       '';
       # XWayland support for legacy X11 apps (enabled from module options)
       xwayland = swayConfig.xwayland;
