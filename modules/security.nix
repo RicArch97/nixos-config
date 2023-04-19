@@ -9,8 +9,10 @@
   security.protectKernelImage = true;
 
   # /tmp mounted on RAM, faster temp file management
-  boot.tmpOnTmpfs = lib.mkDefault true;
-  boot.cleanTmpDir = lib.mkDefault (!config.boot.tmpOnTmpfs);
+  boot.tmp = {
+    useTmpfs = lib.mkDefault true;
+    cleanOnBoot = lib.mkDefault (!config.boot.tmpOnTmpfs);
+  };
   # extra security
   boot.loader.systemd-boot.editor = false;
 
