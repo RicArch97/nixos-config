@@ -20,6 +20,10 @@ Created with multi monitor setup in mind.
     # Allow SMBus access for OpenRGB device interaction
     kernelParams = ["acpi_enforce_resources=lax"];
     kernelModules = ["i2c-dev" "i2c-piix4"];
+    # set mouse polling to 1000hz
+    extraModprobeConfig = ''
+      options usbhid mousepoll=1
+    '';
     # kernel for better responsiveness (linux 6.2 requires ZFS 2.1.10)
     #kernelPackages = lib.mkForce pkgs.linuxPackages_zen;
   };
