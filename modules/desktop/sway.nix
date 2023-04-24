@@ -338,13 +338,13 @@ in {
           DP-2 = {
             pos = "0 0";
             mode = "2560x1440@165Hz";
-            max_render_time = "2";
+            max_render_time = "3";
             adaptive_sync = "on";
           };
           DP-1 = {
             pos = "2560 0";
             mode = "3440x1440@160Hz";
-            max_render_time = "2";
+            max_render_time = "3";
             adaptive_sync = "on";
           };
         };
