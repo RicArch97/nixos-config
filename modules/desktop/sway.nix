@@ -422,10 +422,10 @@ in {
         titlebar_padding 7
         titlebar_separator disable
         corner_radius 12
-        shadows on
+        shadows enable
         shadow_blur_radius 15
         shadow_color #000000FF
-        blur on
+        blur enable
       '';
       # XWayland support for legacy X11 apps (enabled from module options)
       xwayland = swayConfig.xwayland;
