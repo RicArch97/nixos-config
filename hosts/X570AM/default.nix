@@ -24,8 +24,8 @@ Created with multi monitor setup in mind.
     extraModprobeConfig = ''
       options usbhid mousepoll=1
     '';
-    # kernel for better responsiveness (linux 6.2 requires ZFS 2.1.10)
-    #kernelPackages = lib.mkForce pkgs.linuxPackages_zen;
+    # kernel for better responsiveness
+    kernelPackages = lib.mkForce pkgs.linuxPackages_zen;
   };
 
   # Enable OpenRGB udev rules
