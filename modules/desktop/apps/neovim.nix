@@ -70,9 +70,7 @@ in {
         vp.vim-nix
         vp.vim-markdown
         vp.vim-vsnip
-        (pkgs.vimPlugins.nvim-treesitter.withPlugins (
-          _: pkgs.tree-sitter.allGrammars
-        ))
+        vp.nvim-treesitter.withAllGrammars
         vp.neoformat
         vp.gitsigns-nvim
         # Addons
