@@ -9,7 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     github-nvim-theme = {
-      url = "github:projekt0n/github-nvim-theme";
+      url = "github:projekt0n/github-nvim-theme/v0.0.7";
       flake = false;
     };
     swayfx = {

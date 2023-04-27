@@ -2,15 +2,9 @@
 
 -- projeckt0n/github-nvim-theme
 require("github-theme").setup({
-  options = {
-    darken = {
-      floats = true,
-      sidebars = {
-        enable = true,
-        list = { "terminal" },
-      },
-    },
-  },
+  dark_float = true,
+  dark_sidebar = true,
+  sidebars = { "terminal" },
 })
 
 -- nvim tree
