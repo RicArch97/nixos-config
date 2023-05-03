@@ -34,7 +34,7 @@ Created with multi monitor setup in mind.
   # Mount Data drive
   fileSystems."/media/data" = {
     device = "/dev/disk/by-label/Data";
-    fsType = "ntfs";
+    fsType = "ntfs3";
     options = ["rw" "uid=1000"];
   };
 

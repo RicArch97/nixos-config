@@ -409,7 +409,7 @@ in {
             } # Steam games
             {
               command = "border none";
-              criteria = {class = "^Steam$";};
+              criteria = {class = "^steam$";};
             } # Steam itself
           ];
           titlebar = true;
