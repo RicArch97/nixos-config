@@ -24,8 +24,6 @@ Created with multi monitor setup in mind.
     extraModprobeConfig = ''
       options usbhid mousepoll=1
     '';
-    # kernel for better responsiveness
-    kernelPackages = lib.mkForce pkgs.linuxPackages_zen;
   };
 
   # Enable OpenRGB udev rules
@@ -41,8 +39,6 @@ Created with multi monitor setup in mind.
   # Host specific user packages
   home.packages = [
     # multimedia
-    pkgs.discord-canary
-    pkgs.betterdiscordctl
     pkgs.spotify
     pkgs.gimp
     pkgs.drawing
@@ -81,6 +77,7 @@ Created with multi monitor setup in mind.
           chrome.enable = true;
           firefox.setDefault = false;
         };
+        discord.enable = true;
         thunar.enable = true;
         vscode.enable = true;
         zathura.enable = true;

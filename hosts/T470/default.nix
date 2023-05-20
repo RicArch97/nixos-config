@@ -49,7 +49,6 @@ Should not contain any gaming related stuff.
   # host specific user packages
   home.packages = [
     # multimedia
-    pkgs.discord
     pkgs.spotify
     pkgs.gimp
     # utils
@@ -83,6 +82,7 @@ Should not contain any gaming related stuff.
           };
           chrome.enable = true;
         };
+        discord.enable = true;
         vscode.enable = true;
         zathura.enable = true;
       };
