@@ -40,14 +40,10 @@ in {
     };
 
     # Lutris, Wine and OBS studio for game capture
-    home.packages = let
-      winepkg =
-        if device.displayProtocol == "wayland"
-        then pkgs.wine-wayland
-        else pkgs.wine;
-    in
+    home.packages =
       [
-        winepkg
+        pkgs.wineWowPackages.stable
+        pkgs.winetricks
         pkgs.lutris
         pkgs.gamescope
         pkgs.obs-studio
