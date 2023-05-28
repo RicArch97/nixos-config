@@ -30,10 +30,17 @@ Created with multi monitor setup in mind.
   services.udev.packages = [pkgs.openrgb];
 
   # Mount Data drive
-  fileSystems."/media/data" = {
-    device = "/dev/disk/by-label/Data";
-    fsType = "ntfs3";
-    options = ["rw" "uid=1000"];
+  fileSystems = {
+    "/media/data" = {
+      device = "/dev/disk/by-label/Data";
+      fsType = "ntfs3";
+      options = ["rw" "uid=1000"];
+    };
+    "/media/data2" = {
+      device = "/dev/disk/by-label/DataTwo";
+      fsType = "ext4";
+      options = ["defaults"];
+    };
   };
 
   # Host specific user packages
