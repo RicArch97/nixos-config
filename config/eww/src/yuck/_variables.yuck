@@ -7,9 +7,9 @@
 ;; listeners
 ;; initially the first workspace is focused and the only one active
 (deflisten workspaces_main :initial '[{"class":"workspace-visible","onclick":"swaysome focus 1","icon":"󰫈"},{"class":"workspace-inactive","onclick":"swaysome focus 2","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 3","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 4","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 5","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 6","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 7","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 8","icon":"󰋙"}]'
-  "scripts/sway-workspaces 1-8")
-(deflisten workspaces_side :initial '[{"class":"workspace-visible","onclick":"swaysome focus 1","icon":"󰫈"},{"class":"workspace-inactive","onclick":"swaysome focus 2","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 3","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 4","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 5","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 6","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 7","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 8","icon":"󰋙"}]'
   "scripts/sway-workspaces 11-18")
+(deflisten workspaces_side :initial '[{"class":"workspace-visible","onclick":"swaysome focus 1","icon":"󰫈"},{"class":"workspace-inactive","onclick":"swaysome focus 2","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 3","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 4","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 5","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 6","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 7","icon":"󰋙"},{"class":"workspace-inactive","onclick":"swaysome focus 8","icon":"󰋙"}]'
+  "scripts/sway-workspaces 21-28")
 ;; initially unmuted, init both volumes at 50
 (deflisten volume :initial '{"audio": "50", "audio_icon": "󰋋", "mic": "50", "mic_icon": "󰍬"}'
   "scripts/volume")

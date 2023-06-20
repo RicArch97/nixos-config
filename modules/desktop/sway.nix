@@ -250,9 +250,9 @@ in {
             # Workspaces
             #
             # Move focused container to next output
-            "${mod}+o" = "exec ${pkgs.swaysome}/bin/swaysome next_output";
+            "${mod}+o" = "exec ${pkgs.swaysome}/bin/swaysome next-output";
             # Move focused container to previous output
-            "${mod}+Shift+o" = "exec ${pkgs.swaysome}/bin/swaysome prev_output";
+            "${mod}+Shift+o" = "exec ${pkgs.swaysome}/bin/swaysome prev-output";
 
             # Layout stuff
             #
@@ -409,7 +409,7 @@ in {
             } # Steam games
             {
               command = "border none";
-              criteria = {class = "^steam$";};
+              criteria = {class = "steam";};
             } # Steam itself
           ];
           titlebar = true;
@@ -426,6 +426,7 @@ in {
         shadow_blur_radius 15
         shadow_color #000000FF
         blur enable
+        blur_passes 3
       '';
       # XWayland support for legacy X11 apps (enabled from module options)
       xwayland = swayConfig.xwayland;
