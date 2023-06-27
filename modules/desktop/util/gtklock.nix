@@ -89,13 +89,13 @@ in {
 
       wait
 
-      ${pkgs.custom.gtklock}/bin/gtklock -d -s ${gtklock-style}
+      ${pkgs.gtklock}/bin/gtklock -d -s ${gtklock-style}
     '';
   in
     lib.mkIf (lockConfig.enable) {
       # dependencies
       home.packages = [
-        pkgs.custom.gtklock
+        pkgs.gtklock
         pkgs.coreutils
         pkgs.grim
         pkgs.imagemagick
@@ -106,7 +106,7 @@ in {
       services.gnome.at-spi2-core.enable = true;
 
       modules.desktop.defaultApplications.apps.locker = {
-        package = pkgs.custom.gtklock;
+        package = pkgs.gtklock;
         cmd = "${gtklock-blur}/bin/gtklock-blur";
         desktop = "gtklock";
       };

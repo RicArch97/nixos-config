@@ -31,9 +31,11 @@ in {
   sway-unwrapped = inputs.swayfx.packages.${system}.default;
 
   # XWayland uncapped FPS patch
-  xwayland = prev.xwayland.overrideAttrs (_: {
-    patches = [
-      ./patches/xwayland-vsync.patch
-    ];
+  xwayland = prev.xwayland.overrideAttrs (old: {
+    patches =
+      (old.patches or [])
+      ++ [
+        ./patches/xwayland-vsync.patch
+      ];
   });
 }

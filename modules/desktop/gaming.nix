@@ -57,8 +57,8 @@ in {
     # extra file descriptors for esync
     systemd.extraConfig = "DefaultLimitNOFILE=1048576";
 
-    # improvement for games using lots of mmaps (same as steam deck)
-    boot.kernel.sysctl."vm.max_map_count" = 2147483642;
+    # improvement for games using lots of mmaps
+    boot.kernel.sysctl."vm.max_map_count" = 1048576;
 
     # i915 performance mode
     boot.kernel.sysctl."dev.i915.perf_stream_paranoid" = lib.mkIf (device.cpu == "intel") 0;

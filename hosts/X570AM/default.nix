@@ -20,10 +20,6 @@ Created with multi monitor setup in mind.
     # Allow SMBus access for OpenRGB device interaction
     kernelParams = ["acpi_enforce_resources=lax"];
     kernelModules = ["i2c-dev" "i2c-piix4"];
-    # set mouse polling to 1000hz
-    extraModprobeConfig = ''
-      options usbhid mousepoll=1
-    '';
   };
 
   # Enable OpenRGB udev rules
@@ -31,7 +27,7 @@ Created with multi monitor setup in mind.
 
   # Mount Data drive
   fileSystems = {
-    "/media/data" = {
+    "/media/data" = { 
       device = "/dev/disk/by-label/Data";
       fsType = "ntfs3";
       options = ["rw" "uid=1000"];
