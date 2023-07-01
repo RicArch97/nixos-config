@@ -1,5 +1,5 @@
 /*
-T470 - Office laptop.
+T470 - Personal laptop.
 
 Lenovo ThinkPad T470
 Intel i5-7200U processor
@@ -38,12 +38,12 @@ Should not contain any gaming related stuff.
     # this device should be able to send docs to a printer
     printing.enable = true;
     # power management daemon
-    # tlp = {
-    #   enable = true;
-    #   settings = {
-    #     USB_AUTOSUSPEND = 0;
-    #   };
-    # };
+    tlp = {
+      enable = true;
+      settings = {
+        USB_AUTOSUSPEND = 0;
+      };
+    };
   };
 
   # host specific user packages
@@ -68,21 +68,23 @@ Should not contain any gaming related stuff.
       supportsBluetooth = true;
       bigScreen = false;
     };
-    shell.git.enable = true;
+    shell = {
+      git.enable = true;
+      gpg.enable = true;
+      passwords.enable = true;
+    };
+    services.greetd.enable = true;
     hardware.filesystem.zfs.enable = true;
     desktop = {
-      kde.enable = true;
-      gaming.enable = true; # lan party
+      sway.enable = true;
       util.mpv.enable = true;
       apps = {
         browsers = {
-          firefox = {
-            enable = true;
-            setDefault = false;
-          };
           chrome.enable = true;
+          firefox.setDefault = false;
         };
         discord.enable = true;
+        thunar.enable = true;
         vscode.enable = true;
         zathura.enable = true;
       };
