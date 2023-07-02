@@ -11,7 +11,7 @@
   # /tmp mounted on RAM, faster temp file management
   boot.tmp = {
     useTmpfs = lib.mkDefault true;
-    cleanOnBoot = lib.mkDefault (!config.boot.tmpOnTmpfs);
+    cleanOnBoot = lib.mkDefault (!config.boot.tmp.useTmpfs);
   };
   # extra security
   boot.loader.systemd-boot.editor = false;
