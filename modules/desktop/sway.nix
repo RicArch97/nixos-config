@@ -200,7 +200,7 @@ in {
             {app_id = "pavucontrol";}
             {class = ".*.exe";} # Wine apps
             {class = "steam_app.*";} # Steam games
-            {class = "^Steam$";} # Steam itself
+            {class = "steam";} # Steam itself
           ];
         };
 
@@ -407,10 +407,6 @@ in {
               command = "border none";
               criteria = {class = "steam_app.*";};
             } # Steam games
-            {
-              command = "border none";
-              criteria = {class = "steam";};
-            } # Steam itself
           ];
           titlebar = true;
         };
