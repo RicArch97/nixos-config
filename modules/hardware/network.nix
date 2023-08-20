@@ -34,7 +34,7 @@ in {
         firewall = {
           enable = true;
           # HTTP ports
-          allowedTCPPorts = [80 443 8080];
+          allowedTCPPorts = [22 80 443 8080];
           # random TCP port ranges for free use for own apps
           allowedTCPPortRanges = [
             {
