@@ -35,7 +35,7 @@ in {
 
   config = lib.mkIf (fontConf.enable) {
     fonts = {
-      fonts = [
+      packages = [
         pkgs.custom.product-sans
         pkgs.custom.phosphor
         pkgs.inter
@@ -66,7 +66,7 @@ in {
           emoji = ["${styles.emoji.family} ${toString styles.emoji.size}"];
         };
       };
-      enableDefaultFonts = true;
+      enableDefaultPackages = true;
     };
   };
 }

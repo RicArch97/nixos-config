@@ -49,7 +49,6 @@ Should not contain any gaming related stuff.
   # host specific user packages
   home.packages = [
     # multimedia
-    pkgs.spotify
     pkgs.gimp
     # utils
     pkgs.neofetch

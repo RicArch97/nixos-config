@@ -32,24 +32,16 @@ Created with multi monitor setup in mind.
       fsType = "ntfs3";
       options = ["rw" "uid=1000"];
     };
-    "/media/data2" = {
-      device = "/dev/disk/by-label/DataTwo";
-      fsType = "ext4";
-      options = ["defaults"];
-    };
   };
 
   # Host specific user packages
   home.packages = [
     # multimedia
-    pkgs.spotify
     pkgs.gimp
     pkgs.drawing
     # utils
     pkgs.neofetch
     pkgs.openrgb
-    # dev
-    pkgs.arduino
   ];
 
   modules = {
