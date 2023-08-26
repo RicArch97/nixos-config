@@ -62,9 +62,7 @@ in {
     })
 
     (lib.mkIf (device.gpu == "nvidia") {
-      # use the Nvidia open source driver
-      # should work better with Wayland
-      hardware.nvidia.open = true;
+      services.xserver.videoDrivers = ["nvidia"];
 
       # hardware acceleration
       hardware.opengl.extraPackages = [pkgs.vaapiVdpau];

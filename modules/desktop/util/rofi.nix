@@ -27,14 +27,15 @@ in {
 
   config = let
     launch-rofi-menu =
-      if (swayConfig.enable && device.name == "X570AM")
+      if (rofiConfig.package != pkgs.rofi-wayland && swayConfig.enable && device.name == "X570AM")
       then
+        # XWayland version doesn't detect focussed output properly
         pkgs.writeShellScript "launch-rofi-menu-sway" ''
           output=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused)' | jq -r '.name')
 
-          if [[ $output == "DP-1" ]]; then
+          if [[ $output == "${device.monitors.main.wayland_name}" ]]; then
             ${rofiConfig.package}/bin/rofi -show drun -config $XDG_CONFIG_HOME/rofi/menu.rasi -m 1
-          elif [[ $output == "DP-2" ]]; then
+          elif [[ $output == "${device.monitors.side.wayland_name}" ]]; then
             ${rofiConfig.package}/bin/rofi -show drun -config $XDG_CONFIG_HOME/rofi/menu.rasi -m 0
           else
            echo "Error getting focused display"

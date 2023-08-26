@@ -16,6 +16,14 @@
       url = "github:WillPower3309/swayfx";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    awesome = {
+      url = "github:awesomeWM/awesome";
+      flake = false;
+    };
+    awesome-code-doc = {
+      url = "github:kosorin/awesome-code-doc";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {
@@ -72,6 +80,7 @@
         pkgs.alejandra
         pkgs.nix-zsh-completions
         pkgs.rnix-lsp
+        pkgs.luajit
       ];
     };
   };

@@ -27,7 +27,7 @@ Created with multi monitor setup in mind.
 
   # Mount Data drive
   fileSystems = {
-    "/media/data" = { 
+    "/media/data" = {
       device = "/dev/disk/by-label/Data";
       fsType = "ntfs3";
       options = ["rw" "uid=1000"];
@@ -48,30 +48,51 @@ Created with multi monitor setup in mind.
     device = {
       cpu = "amd";
       gpu = "amd";
-      drive = "nvme"; # where the os is installed
+      drive = "ssd"; # where the os is installed
       supportsBrightness = false;
       supportsBluetooth = true;
+      monitors = {
+        main = {
+          x11_name = "DisplayPort-0";
+          wayland_name = "DP-1";
+          resolution = "3440x1440";
+          position = {
+            x = 2560;
+            y = 0;
+          };
+          refresh_rate = 160;
+          adaptive_sync = true;
+          primary = true;
+        };
+        side = {
+          x11_name = "DisplayPort-1";
+          wayland_name = "DP-2";
+          resolution = "2650x1440";
+          position = {
+            x = 0;
+            y = 0;
+          };
+          refresh_rate = 165;
+          adaptive_sync = true;
+        };
+      };
     };
     shell = {
       git.enable = true;
       gpg.enable = true;
       passwords.enable = true;
     };
-    services.greetd.enable = true;
     hardware.filesystem.zfs.enable = true;
     hardware.network = {
       networkmanager.enable = false;
       connman.enable = true;
     };
     desktop = {
-      sway.enable = true; # this enables various other components
+      awesome.enable = true;
       gaming.enable = true;
       util.mpv.enable = true;
       apps = {
-        browsers = {
-          chrome.enable = true;
-          firefox.setDefault = false;
-        };
+        browsers.firefox.enable = true;
         discord.enable = true;
         thunar.enable = true;
         vscode.enable = true;

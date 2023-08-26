@@ -13,7 +13,6 @@
   fontConfig = config.modules.desktop.themes.fonts.styles;
   gtkConfig = config.modules.desktop.themes.gtk;
 in {
-  # Per-host options
   options.modules.desktop.sway = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -26,7 +25,6 @@ in {
     };
   };
 
-  # Configuration for the Sway package
   config = lib.mkIf (swayConfig.enable) {
     programs.sway = {
       enable = true;
@@ -333,21 +331,22 @@ in {
           };
         };
 
-        # Configure monitors on specifc host
-        output = lib.mkIf (device.name == "X570AM") {
-          DP-2 = {
-            pos = "0 0";
-            mode = "2560x1440@165Hz";
-            max_render_time = "3";
-            adaptive_sync = "on";
-          };
-          DP-1 = {
-            pos = "2560 0";
-            mode = "3440x1440@160Hz";
-            max_render_time = "3";
-            adaptive_sync = "on";
-          };
-        };
+        output =
+          lib.foldl'
+          (item: acc: acc // item) {} (
+            lib.mapAttrsToList (_: monitor: {
+              "${monitor.wayland_name}" = {
+                pos = "${toString monitor.position.x} ${toString monitor.position.y}";
+                mode = "${monitor.resolution}@${toString monitor.refresh_rate}Hz";
+                max_render_time = "3";
+                adaptive_sync =
+                  if monitor.adaptive_sync
+                  then "on"
+                  else "off";
+              };
+            })
+            device.monitors
+          );
 
         # Seat configuration
         seat = {

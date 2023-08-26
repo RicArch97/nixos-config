@@ -36,7 +36,7 @@ in {
         vscext = pkgs.vscode-extensions;
       in [
         vscext.ms-vscode.cpptools
-        vscext.ms-vscode.cmake-tools
+        vscext.twxs.cmake
         vscext.ms-python.python
         vscext.ms-python.vscode-pylance
         vscext.haskell.haskell
@@ -49,6 +49,7 @@ in {
         vscext.pkief.material-icon-theme
         vscext.github.github-vscode-theme
         vscext.mkhl.direnv
+        vscext.sumneko.lua
       ];
       mutableExtensionsDir = false;
       userSettings = {

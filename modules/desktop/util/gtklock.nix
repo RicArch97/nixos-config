@@ -102,9 +102,6 @@ in {
         gtklock-blur
       ];
 
-      # Enable org.a11y.Bus
-      services.gnome.at-spi2-core.enable = true;
-
       modules.desktop.defaultApplications.apps.locker = {
         package = pkgs.gtklock;
         cmd = "${gtklock-blur}/bin/gtklock-blur";

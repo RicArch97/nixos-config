@@ -1,5 +1,37 @@
 {
   "nodes": {
+    "awesome": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1692292715,
+        "narHash": "sha256-p2cpQhKj/mhd8904MnjGbXf70cT/coG4XdIB5P/hvW4=",
+        "owner": "awesomeWM",
+        "repo": "awesome",
+        "rev": "28381d2792856419d4860dd6b9ed9b94b457c7f2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "awesomeWM",
+        "repo": "awesome",
+        "type": "github"
+      }
+    },
+    "awesome-code-doc": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1691106295,
+        "narHash": "sha256-cRb3apvVVlgD0XQO61Mx6ArkAEOejRrEvoFVjtrQ+ZI=",
+        "owner": "kosorin",
+        "repo": "awesome-code-doc",
+        "rev": "f14d84e7e1baf3c628777feab05c2bc4b54814d4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kosorin",
+        "repo": "awesome-code-doc",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -87,6 +119,8 @@
     },
     "root": {
       "inputs": {
+        "awesome": "awesome",
+        "awesome-code-doc": "awesome-code-doc",
         "github-nvim-theme": "github-nvim-theme",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",

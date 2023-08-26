@@ -66,6 +66,20 @@ Should not contain any gaming related stuff.
       supportsBrightness = true;
       supportsBluetooth = true;
       bigScreen = false;
+      monitors = {
+        main = {
+          x11_name = "eDP-1";
+          wayland_name = "eDP-1";
+          resolution = "192x1080";
+          position = {
+            x = 0;
+            y = 0;
+          };
+          refresh_rate = 60;
+          adaptive_sync = false;
+          primary = true;
+        };
+      };
     };
     shell = {
       git.enable = true;

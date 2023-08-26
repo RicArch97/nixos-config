@@ -8,6 +8,7 @@
 }: let
   gtkConfig = config.modules.desktop.themes.gtk;
   fontConfig = config.modules.desktop.themes.fonts.styles;
+  device = config.modules.device;
 in {
   options.modules.desktop.themes.gtk = {
     enable = lib.mkOption {
@@ -59,6 +60,12 @@ in {
 
   config = lib.mkIf (gtkConfig.enable) (lib.mkMerge [
     {
+      # Used by lots of GTK / Gnome apps
+      programs.dconf.enable = true;
+
+      # Enable org.a11y.Bus required by some GTK / Gnome apps
+      services.gnome.at-spi2-core.enable = true;
+
       # install default adwaita theme for fallback
       home.packages = [pkgs.gnome.gnome-themes-extra];
 
@@ -85,7 +92,7 @@ in {
         };
       };
 
-      # Systemwide GTK theming (e.g. for greetd)
+      # Systemwide GTK theming (e.g. for greeters)
       environment = {
         systemPackages = [
           gtkConfig.theme.package
@@ -102,18 +109,15 @@ in {
         '';
       };
 
-      # XDG spec cursor theme
-      home.file.".local/share/icons/default/index.theme".text = ''
-        [icon theme]
-        Name=Default
-        Comment=Default Cursor Theme
-        Inherits=${gtkConfig.cursorTheme.name}
-      '';
+      home.manager.home.pointerCursor = {
+        package = gtkConfig.cursorTheme.package;
+        name = gtkConfig.cursorTheme.name;
+        size = gtkConfig.cursorTheme.size;
+        x11.enable = lib.mkIf (device.displayProtocol == "x11") true;
+      };
     }
 
     (lib.mkIf (gtkConfig.gsettings.enable) {
-      # GSettings API backend
-      programs.dconf.enable = true;
       # make this globally available so it can be used by gtkgreet
       home.packages = let
         configure-gtk = pkgs.writeShellScriptBin "configure-gtk" ''
