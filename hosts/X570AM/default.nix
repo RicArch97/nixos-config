@@ -56,6 +56,7 @@ Created with multi monitor setup in mind.
           x11_name = "DisplayPort-0";
           wayland_name = "DP-1";
           resolution = "3440x1440";
+          modeline = "889.09 3440 3584 3616 3680 1440 1443 1453 1510 +hsync -vsync";
           position = {
             x = 2560;
             y = 0;
@@ -82,13 +83,14 @@ Created with multi monitor setup in mind.
       gpg.enable = true;
       passwords.enable = true;
     };
+    services.greetd.enable = true;
     hardware.filesystem.zfs.enable = true;
     hardware.network = {
       networkmanager.enable = false;
       connman.enable = true;
     };
     desktop = {
-      awesome.enable = true;
+      sway.enable = true;
       gaming.enable = true;
       util.mpv.enable = true;
       apps = {

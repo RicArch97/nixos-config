@@ -37,6 +37,10 @@
             x = lib.mkOption {type = lib.types.int;};
             y = lib.mkOption {type = lib.types.int;};
           };
+          modeline = lib.mkOption {
+            type = lib.types.nullOr lib.types.str;
+            default = null;
+          };
           primary = lib.mkOption {
             type = lib.types.bool;
             default = false;

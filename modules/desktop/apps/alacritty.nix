@@ -31,6 +31,10 @@ in {
       settings = {
         # window settings
         window = {
+          dimensions = {
+            columns = 180;
+            lines = 45;
+          };
           padding = {
             x = 10;
             y = 10;

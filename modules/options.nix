@@ -35,6 +35,10 @@
       };
     };
     home = {
+      activation = lib.mkOption {
+        type = lib.types.attrs;
+        default = {};
+      };
       file = lib.mkOption {
         type = lib.types.attrs;
         default = {};
@@ -99,6 +103,7 @@
       home = {
         homeDirectory = config.user.home;
         stateVersion = config.system.stateVersion;
+        activation = lib.mkAliasDefinitions options.home.activation;
         file = lib.mkAliasDefinitions options.home.file;
         packages = lib.mkAliasDefinitions options.home.packages;
       };

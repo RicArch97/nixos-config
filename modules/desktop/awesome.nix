@@ -25,6 +25,9 @@ in {
     # set display protocol to X11 for some specifics
     modules.device.displayProtocol = "x11";
 
+    # extra utilities required for normal use
+    home.packages = [pkgs.xclip];
+
     # XDG portal for GTK apps
     xdg.portal = {
       enable = true;
@@ -70,17 +73,37 @@ in {
       in
         builtins.map (monitor: {
           output = monitor.x11_name;
-          monitorConfig = ''
-            Option "PreferredMode" "${monitor.resolution}"
-          '';
+          monitorConfig = let
+            mode = "${monitor.resolution}_${toString monitor.refresh_rate}";
+          in
+            if monitor.modeline != null
+            then ''
+              Modeline "${mode}" ${monitor.modeline}
+              Option "PreferredMode" "${mode}"
+            ''
+            else ''
+              Option "PreferredMode" "${monitor.resolution}"
+            '';
           primary = monitor.primary;
         })
         sortedMonitors;
 
+      # enable variable refresh rate if the primary monitor has it set
+      deviceSection =
+        lib.mkIf (lib.any (
+          monitor: monitor.adaptive_sync && monitor.primary
+        ) (lib.attrValues device.monitors)) ''
+          Option "VariableRefresh" "true"
+          Option "AsyncFlipSecondaries" "true"
+        '';
+
       # disable mouse acceleration
       libinput = {
         enable = true;
-        mouse.accelProfile = "flat";
+        mouse = {
+          accelProfile = "flat";
+          accelSpeed = "0";
+        };
       };
 
       # use custom awesome
@@ -128,10 +151,27 @@ in {
       };
     };
 
-    # link awesome configs
-    home.configFile."awesome" = {
-      source = "${config.nixosConfig.configDir}/awesome";
-      recursive = true;
+    # link awesome Lua config files
+    home.configFile = {
+      "awesome" = {
+        source = "${config.nixosConfig.configDir}/awesome";
+        recursive = true;
+      };
+      "awesome/globals.lua" = {
+        text = ''
+          -------------------------------------------------
+          -- Global variables used throughout the config --
+          -------------------------------------------------
+
+          modkey = "Mod4"
+          terminal = "${defaultApps.terminal.cmd}"
+          file_manager = "${defaultApps.file-manager.cmd}"
+          browser = "${defaultApps.browser.cmd}"
+          editor = "${defaultApps.editor.cmd}"
+          visual_editor = "${defaultApps.ide.cmd}"
+          launcher = "${defaultApps.menu.cmd}"
+        '';
+      };
     };
 
     # awesome code intellisense, link to a known location so

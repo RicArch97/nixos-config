@@ -24,6 +24,9 @@ in {
       inherit github-nvim-theme;
     };
 
+  # Battle.net dependency
+  lutris = prev.lutris.override {extraPkgs = pkgs: [pkgs.jansson];};
+
   # SwayFX
   sway-unwrapped = inputs.swayfx.packages.${system}.default;
 

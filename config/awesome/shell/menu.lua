@@ -12,8 +12,7 @@ local menu = {}
 
 -- {{{ Right click menu
 menu.awesome = {
-    { "Edit Config",       editor_cmd .. " " .. awesome.conffile },
-    { "Edit Config (GUI)", visual_editor .. " " .. awesome.conffile },
+    { "Edit Config",       visual_editor .. " " .. "/etc/nixos-config" },
     { "Restart",           awesome.restart },
     { "Quit",              function() awesome.quit() end }
 }
@@ -21,10 +20,9 @@ menu.awesome = {
 menu.main = awful.menu {
     items = {
         { "Terminal",   terminal },
-        { "Explorer",   explorer },
+        { "Explorer",   file_manager },
         { "Browser",    browser },
-        { "Editor",     editor_cmd },
-        { "GUI Editor", visual_editor },
+        { "Editor",     visual_editor },
         { "Awesome",    menu.awesome },
     }
 }
