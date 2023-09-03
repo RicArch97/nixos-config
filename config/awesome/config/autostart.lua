@@ -1,3 +1,3 @@
-local awful = require "awful"
-
---- autostart programs
+-----------------------------
+-- Autostart configuration --
+-----------------------------

@@ -1,9 +1,9 @@
---------------------
--- Mouse settings --
---------------------
+-------------------------
+-- Mouse configuration --
+-------------------------
 
-local awful = require "awful"
-local menu = require "shell.menu"
+local awful = require("awful")
+local menu = require("shell.menu")
 
 -- {{{ Mouse bindings
 awful.mouse.append_global_mousebindings({

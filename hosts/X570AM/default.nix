@@ -83,14 +83,13 @@ Created with multi monitor setup in mind.
       gpg.enable = true;
       passwords.enable = true;
     };
-    services.greetd.enable = true;
     hardware.filesystem.zfs.enable = true;
     hardware.network = {
       networkmanager.enable = false;
       connman.enable = true;
     };
     desktop = {
-      sway.enable = true;
+      awesome.enable = true;
       gaming.enable = true;
       util.mpv.enable = true;
       apps = {

@@ -97,12 +97,16 @@ in {
           Option "AsyncFlipSecondaries" "true"
         '';
 
-      # disable mouse acceleration
+      # disable mouse acceleration, latency improvement
       libinput = {
         enable = true;
         mouse = {
           accelProfile = "flat";
           accelSpeed = "0";
+          middleEmulation = false;
+          tappingDragLock = false;
+          tapping = false;
+          horizontalScrolling = false;
         };
       };
 

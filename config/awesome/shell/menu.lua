@@ -1,6 +1,6 @@
-----------------------------------
--- Right click menu and menubar --
-----------------------------------
+------------------------------------------------------
+-- Right click menu and menubar shell configuration --
+------------------------------------------------------
 
 local awful = require("awful")
 local beautiful = require("beautiful")

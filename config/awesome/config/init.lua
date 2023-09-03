@@ -1,3 +1,7 @@
-require "config.autostart"
-require "config.theme"
-require "config.mouse"
+require("config.theme")
+require("config.mouse")
+require("config.keybinds")
+require("config.rules")
+require("config.layouts")
+require("config.wallpaper")
+require("config.autostart")

@@ -1,5 +1,9 @@
-local awful = require "awful"
-local naughty = require "naughty"
+--------------------------------------
+-- Notification shell configuration --
+--------------------------------------
+
+local awful = require("awful")
+local naughty = require("naughty")
 local ruled = require("ruled")
 
 -- Error handling

@@ -75,7 +75,7 @@ in {
       ++ [
         (prev.fetchpatch {
           url = "https://patch-diff.githubusercontent.com/raw/mlvzk/discocss/pull/28.diff";
-          sha256 = "sha256-IqMIQmg4qzLXhH401bSYF/lOMK0x+n6x4aN2jVbxTEY=";
+          sha256 = "sha256-79ftKCIZGFp/7blp7pKpr3w3fHfWkN31yGOncm3Yp2A=";
         })
       ];
   });
