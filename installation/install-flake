@@ -39,4 +39,7 @@ if grep -qs '/mnt ' /proc/mounts; then
   umount -Rl /mnt
 fi
 
-zpool export -a
+# export zpools if ZFS is enabled and zpools exist
+if command -v zpool &>/dev/null && zpool list &>/dev/null; then
+  zpool export -a
+fi
