@@ -61,6 +61,9 @@ formatWithExt4() {
 	# Format to EXT4 using mkfs
 	mkfs.ext4 -L nixos $ROOT_PART
 
+	# Pause to allow the filesystem to be created
+	sleep 3s
+
 	# Mount the root partition to /mnt
 	mount /dev/disk/by-label/nixos /mnt
 }
