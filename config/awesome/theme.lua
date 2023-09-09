@@ -9,7 +9,7 @@ local dpi                                       = xresources.apply_dpi
 
 local gfs                                       = require("gears.filesystem")
 local themes_path                               = gfs.get_themes_dir()
-local wallpaper_path                            = "/home/ricardo/Pictures/Wallpapers/"
+local wallpaper_path                            = "/media/data/Wallpapers/"
 
 local theme                                     = {}
 
