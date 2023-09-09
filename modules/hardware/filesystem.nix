@@ -49,12 +49,14 @@ in {
         };
         swapDevices = [{device = "/dev/disk/by-label/swap";}];
 
+        # save storage by hardlinking duplicate files to a single copy
+        nix.settings.auto-optimise-store = lib.mkDefault true;
+
         # filesystem mounting
         services.gvfs.enable = true;
 
-        # for expansion drives / data drive
+        # for NTFS expansion drives
         boot.supportedFilesystems = ["ntfs"];
-        environment.systemPackages = [pkgs.ntfs3g];
 
         # permissions
         user.extraGroups = ["storage" "dialout"];

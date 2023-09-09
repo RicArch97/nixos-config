@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-# Partition disk and create a zpool and datasets for the ZFS filesystem.
+# Partition disk, format and mount partitions.
 # Should be used in a Nixos live environment.
-
-# Mostly taken from https://github.com/spikespaz/dotfiles/ (Thanks!)
 
 # Requirements: gawk, coreutils, zfs
 # Usage: partition-disk <disk-id> (<disk-path>)
@@ -22,7 +20,6 @@ TARGET_DISK="/dev/disk/by-id/$1"
 BOOT_PART="${TARGET_DISK}-part1"
 SWAP_PART="${TARGET_DISK}-part2"
 ROOT_PART="${TARGET_DISK}-part3"
-POOL_NAME="rpool"
 
 # Calculate preferred swap partition size for hibernation
 TOTAL_MEM=$(awk '{if ($1 == "MemTotal:") print $2}' /proc/meminfo)
@@ -49,8 +46,8 @@ sgdisk  -n1:1M:+512M        -t1:ef00  $TARGET_DISK
 # Create swap partition (8200 = Linux swap)
 # shellcheck disable=SC2086
 sgdisk  -n2:0:+$TOTAL_SWAP  -t2:8200  $TARGET_DISK
-# Create primary partition (bf00 = Solaris root)
-sgdisk  -n3:0:0             -t3:bf00  $TARGET_DISK
+# Create primary partition (8304 = Linux x86-64 root)
+sgdisk  -n3:0:0             -t3:8304  $TARGET_DISK
 
 # Notify the kernel
 partprobe $TARGET_DISK
@@ -60,42 +57,75 @@ sleep 1s
 
 ##### FORMATTING #####
 
-# Create the root pool
-zpool create \
-	-o ashift=12 \
-	-o autotrim=on \
-	-O acltype=posixacl \
-	-O dnodesize=auto \
-	-O normalization=formD \
-	-O atime=off \
-	-O relatime=on \
-	-O xattr=sa \
-	-O compression=zstd-3 \
-	-O canmount=off \
-	-O mountpoint=none \
-	-R /mnt \
-	-f \
-	$POOL_NAME \
-	$ROOT_PART
+formatWithExt4() {
+	# Format to EXT4 using mkfs
+	mkfs.ext4 -L nixos $ROOT_PART
 
-# Create system datasets
-zfs create  -o canmount=on   -o mountpoint=/      -o compression=zstd-fast                                $POOL_NAME/root
-zfs create  -o canmount=off  -o mountpoint=/var                             -o relatime=off               $POOL_NAME/var
-zfs create  -o canmount=on                                                                                $POOL_NAME/var/lib
-zfs create  -o canmount=on                        -o compression=zstd-fast                                $POOL_NAME/var/log
-zfs create  -o canmount=on                        -o compression=zstd-fast                                $POOL_NAME/var/cache
-zfs create  -o canmount=on   -o mountpoint=/nix   -o compression=zstd-5     -o relatime=off  -o dedup=on  $POOL_NAME/nix
-zfs create  -o canmount=on   -o mountpoint=/home                                                          $POOL_NAME/home
+	# Mount the root partition to /mnt
+	mount /dev/disk/by-label/nixos /mnt
+}
+
+formatWithZfs() {
+	POOL_NAME="rpool"
+
+	# Create the root pool
+	zpool create \
+		-o ashift=12 \
+		-o autotrim=on \
+		-O acltype=posixacl \
+		-O dnodesize=auto \
+		-O normalization=formD \
+		-O atime=off \
+		-O relatime=on \
+		-O xattr=sa \
+		-O compression=zstd-3 \
+		-O canmount=off \
+		-O mountpoint=none \
+		-R /mnt \
+		-f \
+		$POOL_NAME \
+		$ROOT_PART
+
+	# Create system datasets
+	zfs create  -o canmount=on   -o mountpoint=/      -o compression=zstd-fast                                $POOL_NAME/root
+	zfs create  -o canmount=off  -o mountpoint=/var                             -o relatime=off               $POOL_NAME/var
+	zfs create  -o canmount=on                                                                                $POOL_NAME/var/lib
+	zfs create  -o canmount=on                        -o compression=zstd-fast                                $POOL_NAME/var/log
+	zfs create  -o canmount=on                        -o compression=zstd-fast                                $POOL_NAME/var/cache
+	zfs create  -o canmount=on   -o mountpoint=/nix   -o compression=zstd-5     -o relatime=off  -o dedup=on  $POOL_NAME/nix
+	zfs create  -o canmount=on   -o mountpoint=/home                                                          $POOL_NAME/home
+}
+
+# Format the root partition
+while true; do
+  read -p "Choose a filesystem for the root partition (ext4/zfs): " choice
+  case "$choice" in 
+    ext4|EXT4 ) 
+      formatWithExt4
+      break
+      ;;
+    zfs|ZFS ) 
+      formatWithZfs
+      break
+      ;;
+    * ) 
+      echo "Not a valid choice: $choice"
+      ;;
+  esac
+done
 
 # Format boot partition
-mkfs.vfat -F32 -n boot $BOOT_PART
+mkfs.fat -F 32 -n boot $BOOT_PART
 
-# Format the swap partition
+# Format and enable the swap partition
 mkswap -L swap $SWAP_PART
 
 # Pause to allow device changes
 sleep 1s
 
 # Mount the boot partition
-mkdir /mnt/boot
-mount -t vfat /dev/disk/by-label/boot /mnt/boot
+mkdir -p /mnt/boot
+mount /dev/disk/by-label/boot /mnt/boot
+
+# Enable swap now just in case (for low RAM devices)
+swapon $SWAP_PART

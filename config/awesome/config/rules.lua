@@ -34,7 +34,7 @@ ruled.client.connect_signal("request::rules", function()
   -- Add titlebars to normal clients
   ruled.client.append_rule {
     id         = "titlebars",
-    rule_any   = { type = { "normal" } },
+    rule_any   = { type = { "normal", "dialog" } },
     properties = { titlebars_enabled = true }
   }
 end)

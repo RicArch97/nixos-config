@@ -1,5 +1,5 @@
 /*
-X570AM - Full AMD work and gaming system.
+X570AM - Full AMD entertainment / gaming system.
 
 Gigabyte X570 Aorus Master motherboard
 AMD Ryzen 9 5950X processor
@@ -17,6 +17,7 @@ Created with multi monitor setup in mind.
   ...
 }: {
   boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
     # Allow SMBus access for OpenRGB device interaction
     kernelParams = ["acpi_enforce_resources=lax"];
     kernelModules = ["i2c-dev" "i2c-piix4"];
@@ -25,12 +26,12 @@ Created with multi monitor setup in mind.
   # Enable OpenRGB udev rules
   services.udev.packages = [pkgs.openrgb];
 
-  # Mount Data drive
+  # Mount additional drives
   fileSystems = {
     "/media/data" = {
-      device = "/dev/disk/by-label/Data";
-      fsType = "ntfs3";
-      options = ["rw" "uid=1000"];
+      device = "/dev/disk/by-label/data";
+      fsType = "ext4";
+      options = ["defaults"];
     };
   };
 
@@ -48,7 +49,7 @@ Created with multi monitor setup in mind.
     device = {
       cpu = "amd";
       gpu = "amd";
-      drive = "ssd"; # where the os is installed
+      drive = "nvme"; # where the os is installed
       supportsBrightness = false;
       supportsBluetooth = true;
       monitors = {
@@ -83,7 +84,6 @@ Created with multi monitor setup in mind.
       gpg.enable = true;
       passwords.enable = true;
     };
-    hardware.filesystem.zfs.enable = true;
     hardware.network = {
       networkmanager.enable = false;
       connman.enable = true;
