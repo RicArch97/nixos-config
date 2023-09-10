@@ -35,11 +35,11 @@ in {
     iconTheme = {
       package = lib.mkOption {
         type = lib.types.package;
-        default = pkgs.tela-circle-icon-theme.override {colorVariants = ["grey"];};
+        default = pkgs.papirus-icon-theme.override {color = "grey";};
       };
       name = lib.mkOption {
         type = lib.types.str;
-        default = "Tela-circle-grey-dark";
+        default = "Papirus-Dark";
       };
     };
     cursorTheme = {
