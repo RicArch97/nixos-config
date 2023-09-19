@@ -5,8 +5,6 @@
 # Used to make sure games use the correct output.
 
 # Requires: xrandr, gawk, coreutils
-# Usage: set-xwayland-primary
+# Usage: set-xwayland-primary <output>
 
-DSP=$(xrandr | awk '/3440x1440/ {print $1}' | head -n 1)
-
-xrandr --output $DSP --primary
+xrandr --output $1 --primary

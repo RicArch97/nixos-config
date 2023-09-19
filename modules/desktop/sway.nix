@@ -366,7 +366,7 @@ in {
           ++ lib.optionals (device.name == "X570AM") [
             {command = "launch-wlclock 'DP-1' '${colorScheme.types.background-darker}' '${colorScheme.types.foreground}'";}
             {command = "eww open-many bar-left-main bar-right-main bar-left-side";}
-            {command = "set-xwayland-primary";}
+            {command = "set-xwayland-primary ${device.monitors.main.wayland_name}";}
           ];
 
         # Window settings / rules

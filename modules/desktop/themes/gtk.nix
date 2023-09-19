@@ -92,23 +92,6 @@ in {
         };
       };
 
-      # Systemwide GTK theming (e.g. for greeters)
-      environment = {
-        systemPackages = [
-          gtkConfig.theme.package
-          gtkConfig.iconTheme.package
-          gtkConfig.cursorTheme.package
-        ];
-        etc."xdg/gtk-3.0/settings.ini".text = ''
-          [Settings]
-          gtk-cursor-theme-name=${gtkConfig.cursorTheme.name}
-          gtk-cursor-theme-size=${toString gtkConfig.cursorTheme.size}
-          gtk-font-name=${fontConfig.main.family} ${toString fontConfig.main.size}
-          gtk-icon-theme-name=${gtkConfig.iconTheme.name}
-          gtk-theme-name=${gtkConfig.theme.name}
-        '';
-      };
-
       home.manager.home.pointerCursor = {
         package = gtkConfig.cursorTheme.package;
         name = gtkConfig.cursorTheme.name;

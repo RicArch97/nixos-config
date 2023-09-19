@@ -44,8 +44,8 @@
                :text ""))
       (circular-progress :class "disk-usage"
                          :thickness 5
-                         :value {EWW_DISK["/home"].used_perc}
-                         :tooltip "Disk usage: ${round(EWW_DISK["/home"].used_perc, 2)}%"
+                         :value {EWW_DISK["/"].used_perc}
+                         :tooltip "Disk usage: ${round(EWW_DISK["/"].used_perc, 2)}%"
         (label :class "disk-usage-icon"
                :text "󰋊")))))
    
