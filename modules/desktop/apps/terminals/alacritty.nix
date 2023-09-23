@@ -6,11 +6,11 @@
   pkgs,
   ...
 }: let
-  alaConfig = config.modules.desktop.apps.alacritty;
+  alaConfig = config.modules.desktop.apps.terminals.alacritty;
   colorScheme = config.modules.desktop.themes.colors;
   fontStyles = config.modules.desktop.themes.fonts.styles;
 in {
-  options.modules.desktop.apps.alacritty = {
+  options.modules.desktop.apps.terminals.alacritty = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;

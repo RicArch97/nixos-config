@@ -32,7 +32,7 @@ in {
   # configure default apps and mimeapps
   config = lib.mkIf (appsConf.enable) {
     # set default terminal and editor
-    modules.desktop.apps.alacritty.enable = true;
+    modules.desktop.apps.terminals.wezterm.enable = true;
     modules.desktop.apps.neovim.enable = true;
 
     # set term and editor as envvars as well

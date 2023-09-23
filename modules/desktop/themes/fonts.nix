@@ -27,7 +27,7 @@ in {
       main = font "Product Sans" 11;
       sub = font "Inter" 11;
       serif = font "IBM Plex Serif" 11;
-      mono = font "JuliaMono" 12;
+      mono = font "JuliaMono" 13;
       icons = font "Material Design Icons" 12;
       emoji = font "Noto Color Emoji" 12;
     };
