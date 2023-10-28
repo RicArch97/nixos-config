@@ -37,8 +37,8 @@ in {
       in [
         vscext.ms-vscode.cpptools
         vscext.twxs.cmake
-        vscext.ms-python.python
-        vscext.ms-python.vscode-pylance
+        #vscext.ms-python.python
+        #vscext.ms-python.vscode-pylance
         vscext.haskell.haskell
         vscext.justusadam.language-haskell
         vscext.jnoortheen.nix-ide

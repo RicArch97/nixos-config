@@ -93,7 +93,13 @@ Created with multi monitor setup in mind.
       gaming.enable = true;
       util.mpv.enable = true;
       apps = {
-        browsers.firefox.enable = true;
+        browsers = {
+          firefox.enable = true;
+          chrome = {
+            enable = true;
+            setDefault = false;
+          };
+        };
         discord.enable = true;
         thunar.enable = true;
         vscode.enable = true;

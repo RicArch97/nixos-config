@@ -37,6 +37,10 @@ in {
     # brightness support
     programs.light.enable = lib.mkIf (device.supportsBrightness) true;
 
+    # set wezterm as the preferred terminal for awesome
+    modules.desktop.apps.terminals.alacritty.enable = false;
+    modules.desktop.apps.terminals.wezterm.enable = true;
+
     # some default X utility apps
     modules.desktop.defaultApplications.apps = {
       screenshot = rec {

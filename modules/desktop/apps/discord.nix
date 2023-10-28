@@ -16,12 +16,6 @@ in {
   };
 
   config = lib.mkIf (discordConfig.enable) {
-    home.manager.programs.discocss = {
-      enable = true;
-      package = pkgs.discocss;
-      discordPackage = pkgs.discord;
-      discordAlias = true;
-      css = builtins.readFile "${config.nixosConfig.configDir}/discord/GitHub-Dark.theme.css";
-    };
+    home.packages = [pkgs.discord];
   };
 }

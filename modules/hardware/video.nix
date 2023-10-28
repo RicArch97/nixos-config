@@ -38,8 +38,8 @@ in {
 
       # enables OpenCL support
       hardware.opengl.extraPackages = [
-        pkgs.rocm-opencl-icd
-        pkgs.rocm-opencl-runtime
+        pkgs.rocmPackages.clr.icd
+        pkgs.rocmPackages.clr
       ];
     })
 
