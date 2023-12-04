@@ -9,10 +9,8 @@
   gtkConfig = config.modules.desktop.themes.gtk;
   swayConfig = config.modules.desktop.sway;
   gpgConfig = config.modules.shell.gpg;
-  zshConfig = config.modules.shell.zsh;
   device = config.modules.device;
   fontConfig = config.modules.desktop.themes.fonts.styles;
-  colorScheme = config.modules.desktop.themes.colors;
 in {
   options.modules.services.greetd = {
     enable = lib.mkOption {
@@ -22,87 +20,61 @@ in {
   };
 
   config = lib.mkIf (greetdConfig.enable) {
-    # Sway is used to run gtkgreet,
+    # Sway is used to run regreet,
     # independent from whether Sway is used as desktop window manager
     programs.sway = lib.mkIf (!swayConfig.enable) {
       enable = true;
       wrapperFeatures.gtk = true;
     };
-    # install gtkgreet
-    environment.systemPackages = [pkgs.greetd.gtkgreet pkgs.dbus];
 
     # unlock GPG keyring upon login
     security.pam.services.greetd.gnupg = lib.mkIf (gpgConfig.enable) {
       enable = true;
     };
 
-    services.greetd = {
+    programs.regreet = {
       enable = true;
       settings = {
-        default_session.command = let
-          gtkgreetStyle = pkgs.writeText "greetd-gtkgreet.css" ''
-            window {
-              background-size: cover;
-              background-repeat: no-repeat;
-              background-position: center;
-              background-image: url("${config.nixosConfig.configDir}/wallpaper.jpg");
-            }
-
-            #body > box > box > label {
-              text-shadow: 0 0 3px ${colorScheme.types.border};
-              color: ${colorScheme.types.foreground};
-            }
-
-            entry {
-              color: ${colorScheme.types.foreground};
-              background: ${colorScheme.types.background-darker};
-              border-radius: 12px;
-              box-shadow: 0 0 5px ${colorScheme.types.border};
-            }
-
-            #clock {
-              color: ${colorScheme.types.foreground};
-              text-shadow: 0 0 3px ${colorScheme.types.border};
-            }
-
-            .text-button { border-radius: 10px; }
-          '';
-          greetdSwayConfig = pkgs.writeText "greetd-sway-config" (
-            ''
-              exec "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-              exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -s ${gtkgreetStyle}; swaymsg exit"
-
-              xwayland disable
-
-              bindsym Mod4+shift+e exec swaynag \
-                -t warning \
-                -m 'What do you want to do?' \
-                -b 'Poweroff' 'systemctl poweroff' \
-                -b 'Reboot' 'systemctl reboot'
-
-              seat seat0 xcursor_theme ${gtkConfig.cursorTheme.name} ${toString gtkConfig.cursorTheme.size}
-            ''
-            + lib.optionalString (!device.hasTouchpad) ''
-              input * accel_profile flat
-
-            ''
-            + lib.optionalString (device.name == "X570AM") ''
-              output DP-2 pos 0 0 mode 2560x1440@165Hz
-              output DP-1 pos 2560 0 mode 3440x1440@160Hz
-            ''
-          );
-        in "${pkgs.sway}/bin/sway --config ${greetdSwayConfig}";
+        background = {
+          path = "${config.nixosConfig.configDir}/wallpaper.jpg";
+          fit = "Cover";
+        };
+        GTK = {
+          cursor_theme_name = gtkConfig.cursorTheme.name;
+          font_name = "${fontConfig.main.family} ${toString fontConfig.main.size}";
+          icon_theme_name = gtkConfig.iconTheme.name;
+          theme_name = gtkConfig.theme.name;
+        };
       };
     };
 
-    environment.etc."greetd/environments".text = let
-      shell =
-        if zshConfig.enable
-        then "zsh"
-        else "bash";
-    in ''
-      sway
-      ${shell}
-    '';
+    services.greetd.settings.default_session.command = let
+      greetdSwayConfig = pkgs.writeText "greetd-sway-config" (
+        ''
+          exec "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+          exec "${lib.getExe config.programs.regreet.package}; swaymsg exit"
+
+          xwayland disable
+
+          bindsym Mod4+shift+e exec swaynag \
+            -t warning \
+            -m 'What do you want to do?' \
+            -b 'Poweroff' 'systemctl poweroff' \
+            -b 'Reboot' 'systemctl reboot'
+
+          seat seat0 xcursor_theme ${gtkConfig.cursorTheme.name} ${toString gtkConfig.cursorTheme.size}
+
+          output * bg "${config.nixosConfig.configDir}/wallpaper.jpg" fill
+        ''
+        + lib.optionalString (!device.hasTouchpad) ''
+          input * accel_profile flat
+
+        ''
+        + lib.optionalString (device.name == "X570AM") ''
+          output DP-2 pos 0 0 mode 2560x1440@165Hz
+          output DP-1 pos 2560 0 mode 3440x1440@160Hz
+        ''
+      );
+    in "${pkgs.sway}/bin/sway --config ${greetdSwayConfig}";
   };
 }

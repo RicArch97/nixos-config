@@ -77,6 +77,7 @@ in {
         };
       };
       extraPortals = [pkgs.xdg-desktop-portal-gtk];
+      config.common.default = ["wlr" "gtk"];
     };
 
     # brightness support
@@ -116,6 +117,9 @@ in {
     # enable swayidle and gtklock modules
     modules.desktop.services.swayidle.enable = true;
     modules.desktop.util.gtklock.enable = true;
+
+    # enable greetd as display manager for Sway
+    modules.services.greetd.enable = true;
 
     # polkit auth agent for GUI authentication
     modules.desktop.services.polkit.enable = true;

@@ -66,8 +66,14 @@ in {
       # Enable org.a11y.Bus required by some GTK / Gnome apps
       services.gnome.at-spi2-core.enable = true;
 
-      # install default adwaita theme for fallback
-      home.packages = [pkgs.gnome.gnome-themes-extra];
+      # install default adwaita theme for fallback,
+      # add themes to system packages for greeters
+      environment.systemPackages = [
+        pkgs.gnome.gnome-themes-extra
+        gtkConfig.theme.package
+        gtkConfig.iconTheme.package
+        gtkConfig.cursorTheme.package
+      ];
 
       # home manager configuration
       home.manager.gtk = {

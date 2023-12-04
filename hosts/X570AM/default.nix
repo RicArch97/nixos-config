@@ -89,7 +89,7 @@ Created with multi monitor setup in mind.
       connman.enable = true;
     };
     desktop = {
-      awesome.enable = true;
+      sway.enable = true;
       gaming.enable = true;
       util.mpv.enable = true;
       apps = {

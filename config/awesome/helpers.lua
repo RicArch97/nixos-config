@@ -23,18 +23,4 @@ function helpers.title_style_capitalize(string)
   return string:gsub('-', ' '):gsub("(%S+)", capitalize)
 end
 
--- Set a wallpaper on a specific sceen
-function helpers.set_wallpaper(screen, stretch)
-  if stretch ~= nil then
-    stretch = type(stretch) == "boolean" and stretch or false
-  else
-    stretch = false
-  end
-
-  if beautiful.wallpaper then
-    local offsets = { x = 0, y = 0 }
-    gears.wallpaper.maximized(beautiful.wallpaper, screen, stretch, offsets)
-  end
-end
-
 return helpers

@@ -14,7 +14,7 @@ while true; do
   
   audio_headset="false"
   if [ "$powered" = "yes" ]; then
-    if [ "$status" != "Missing device address argument" ]; then
+    if [ "$name" ]; then
       tooltip="$name"
       icon=""
       if [ "$type" = "audio-headset" ]; then

@@ -32,6 +32,7 @@ in {
     xdg.portal = {
       enable = true;
       extraPortals = [pkgs.xdg-desktop-portal-gtk];
+      config.common.default = ["gtk"];
     };
 
     # brightness support
@@ -92,13 +93,11 @@ in {
         })
         sortedMonitors;
 
-      # enable variable refresh rate if the primary monitor has it set
       deviceSection =
         lib.mkIf (lib.any (
-          monitor: monitor.adaptive_sync && monitor.primary
+          monitor: monitor.adaptive_sync
         ) (lib.attrValues device.monitors)) ''
           Option "VariableRefresh" "true"
-          Option "AsyncFlipSecondaries" "true"
         '';
 
       # disable mouse acceleration, latency improvement

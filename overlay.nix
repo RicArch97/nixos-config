@@ -66,17 +66,4 @@ in {
       in
         prev.lib.concatStringsSep ":" (extraGITypeLibPaths ++ [(mkTypeLibPath prev.pango.out)]);
     });
-
-  # broken as of Discord 0.0.28
-  # https://github.com/mlvzk/discocss/issues/26
-  discocss = prev.discocss.overrideAttrs (old: {
-    patches =
-      (old.patches or [])
-      ++ [
-        (prev.fetchpatch {
-          url = "https://patch-diff.githubusercontent.com/raw/mlvzk/discocss/pull/28.diff";
-          sha256 = "sha256-79ftKCIZGFp/7blp7pKpr3w3fHfWkN31yGOncm3Yp2A=";
-        })
-      ];
-  });
 }
