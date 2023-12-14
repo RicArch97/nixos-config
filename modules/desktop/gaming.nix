@@ -23,7 +23,6 @@ in {
     # Steam and gamemode (optimization)
     programs = {
       steam.enable = true;
-      corectrl.enable = true;
       gamemode = {
         enable = true;
         enableRenice = true;
@@ -39,9 +38,6 @@ in {
         };
       };
     };
-
-    # launch corectrl without password
-    user.extraGroups = ["corectrl"];
 
     # Lutris, Wine and OBS studio for game capture
     home.packages =

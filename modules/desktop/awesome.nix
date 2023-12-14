@@ -26,7 +26,7 @@ in {
     modules.device.displayProtocol = "x11";
 
     # extra utilities required for normal use
-    home.packages = [pkgs.xclip];
+    home.packages = [pkgs.xclip pkgs.nitrogen];
 
     # XDG portal for GTK apps
     xdg.portal = {
@@ -93,11 +93,13 @@ in {
         })
         sortedMonitors;
 
+      # enable variable refresh rate if the primary monitor has it set
       deviceSection =
         lib.mkIf (lib.any (
-          monitor: monitor.adaptive_sync
+          monitor: monitor.adaptive_sync && monitor.primary
         ) (lib.attrValues device.monitors)) ''
           Option "VariableRefresh" "true"
+          Option "AsyncFlipSecondaries" "true"
         '';
 
       # disable mouse acceleration, latency improvement

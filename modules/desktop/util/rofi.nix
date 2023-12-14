@@ -29,7 +29,7 @@ in {
     launch-rofi-menu =
       if (rofiConfig.package != pkgs.rofi-wayland && swayConfig.enable && device.name == "X570AM")
       then
-        # XWayland version doesn't detect focussed output properly
+        # XWayland version doesn't detect focused output properly
         pkgs.writeShellScript "launch-rofi-menu-sway" ''
           output=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused)' | jq -r '.name')
 

@@ -108,6 +108,7 @@ in {
     };
     modules.desktop.util.rofi = {
       enable = true;
+      package = pkgs.rofi-wayland;
       menu.enable = true;
     };
 
@@ -415,18 +416,22 @@ in {
         };
       };
       # SwayFX options / other
-      extraConfig = ''
-        title_align center
-        titlebar_border_thickness 1
-        titlebar_padding 7
-        titlebar_separator disable
-        corner_radius 12
-        shadows enable
-        shadow_blur_radius 15
-        shadow_color #000000FF
-        blur enable
-        blur_passes 3
-      '';
+      extraConfig =
+        ''
+          title_align center
+          titlebar_border_thickness 1
+          titlebar_padding 7
+          titlebar_separator disable
+          corner_radius 12
+          shadows enable
+          shadow_blur_radius 15
+          shadow_color #000000FF
+          blur enable
+          blur_passes 3
+        ''
+        + lib.optionalString (swayConfig.xwayland) ''
+          xwayland force
+        '';
       # XWayland support for legacy X11 apps (enabled from module options)
       xwayland = swayConfig.xwayland;
     };

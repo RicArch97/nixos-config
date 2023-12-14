@@ -86,7 +86,6 @@ Should not contain any gaming related stuff.
       gpg.enable = true;
       passwords.enable = true;
     };
-    services.greetd.enable = true;
     hardware.filesystem.zfs.enable = true;
     desktop = {
       sway.enable = true;
