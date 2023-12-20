@@ -28,6 +28,7 @@ in {
   config = lib.mkIf (swayConfig.enable) {
     programs.sway = {
       enable = true;
+      package = pkgs.swayfx;
       extraPackages = lib.mkMerge [
         (lib.mkIf (swayConfig.xwayland) [
           pkgs.xwayland
