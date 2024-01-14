@@ -44,7 +44,7 @@ in {
         };
 
         # max lines in buffer
-        scolling.history = 10000;
+        scrolling.history = 10000;
 
         # font config
         font = let
@@ -68,8 +68,6 @@ in {
           };
           size = mono.size;
         };
-
-        draw_bold_text_with_bright_colors = true;
 
         # colorscheme
         colors = let
@@ -100,6 +98,8 @@ in {
             cyan = cc.color14;
             white = cc.color15;
           };
+
+          draw_bold_text_with_bright_colors = true;
         };
 
         # selection settings
@@ -108,11 +108,11 @@ in {
         # cursor settings
         cursor = {
           style.shape = "Underline";
-          unfocused_follow = false;
+          unfocused_hollow = false;
         };
 
         # mouse settings
-        mouse_bindings = [
+        mouse.bindings = [
           {
             mouse = "Middle";
             action = "PasteSelection";
@@ -120,7 +120,7 @@ in {
         ];
 
         # key bindings
-        key_bindings = [
+        keyboard.bindings = [
           {
             key = "V";
             mods = "Control|Shift";

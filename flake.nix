@@ -12,10 +12,6 @@
       url = "github:projekt0n/github-nvim-theme/v0.0.7";
       flake = false;
     };
-    swayfx = {
-      url = "github:WillPower3309/swayfx";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     awesome = {
       url = "github:awesomeWM/awesome";
       flake = false;
