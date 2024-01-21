@@ -132,6 +132,7 @@
 .top-region-right {
   background-color: $background-darker;
   border-top-left-radius: 12px;
+  border-left: 1px solid $border;
 }
 .top-slanted-right {
   background-image: url("assets/logit-top-right.svg");
@@ -146,4 +147,5 @@
 .bottom-region-right {
   background-color: $background-darker;
   border-bottom-left-radius: 12px;
+  border-left: 1px solid $border;
 }

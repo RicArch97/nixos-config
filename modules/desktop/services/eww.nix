@@ -37,7 +37,7 @@ in {
       pkgs.jq
       pkgs.networkmanager
       pkgs.connman
-      pkgs.pulseaudioFull
+      pkgs.pulseaudio
       pkgs.wireplumber
     ];
   in
