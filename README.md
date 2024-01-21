@@ -7,7 +7,7 @@
 * X570AM --- X570 Aorus Master, which is the name of the motherboard, powerful multi-monitor desktop powered by AMD's Ryzen 9 5950X and Radeon RX 6900XT. Used for work, entertainment (video's / movies) and gaming.
 * T470 --- Lenovo Thinkpad T470, powered by an Intel Kaby Lake CPU, used as office laptop for writing documents and programming.
 
-![2023-02-21T15:06:11,116362605+01:00](https://user-images.githubusercontent.com/61013287/220374702-6bce9bd2-05cd-4023-8a66-d1c6beb18cb6.png)
+![2024-01-21T19:05:14,760450837+01:00](https://github.com/RicArch97/nixos-config/assets/61013287/92cc6906-6a10-4e49-9e51-f47ea6598424)
 
 # Contents
 
