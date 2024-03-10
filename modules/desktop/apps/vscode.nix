@@ -36,6 +36,7 @@ in {
         vscext = pkgs.vscode-extensions;
       in [
         vscext.ms-vscode.cpptools
+        vscext.ms-vscode-remote.remote-containers
         vscext.twxs.cmake
         vscext.ms-python.python
         vscext.ms-python.vscode-pylance
@@ -51,7 +52,7 @@ in {
         vscext.mkhl.direnv
         vscext.sumneko.lua
       ];
-      mutableExtensionsDir = false;
+      mutableExtensionsDir = true;
       userSettings = {
         "editor.fontFamily" = "${fontStyles.mono.family}";
         "editor.fontSize" = 14;

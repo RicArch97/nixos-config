@@ -9,6 +9,7 @@
   gtkConfig = config.modules.desktop.themes.gtk;
   swayConfig = config.modules.desktop.sway;
   gpgConfig = config.modules.shell.gpg;
+  passwordConfig = config.modules.shell.passwords;
   device = config.modules.device;
   fontConfig = config.modules.desktop.themes.fonts.styles;
 in {
@@ -27,9 +28,10 @@ in {
       wrapperFeatures.gtk = true;
     };
 
-    # unlock GPG keyring upon login
-    security.pam.services.greetd.gnupg = lib.mkIf (gpgConfig.enable) {
-      enable = true;
+    # unlock GPG keyring upon login or/and enable gnome keyring upon login
+    security.pam.services.greetd = {
+      enableGnomeKeyring = lib.mkIf (passwordConfig.enable && passwordConfig.gnome-keyring.enable) true;
+      gnupg.enable = lib.mkIf (gpgConfig.enable) true;
     };
 
     programs.regreet = {

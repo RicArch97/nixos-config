@@ -39,6 +39,10 @@
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
+      config.permittedInsecurePackages = [
+        "segger-jlink-qt4-794a"
+      ];
+      config.segger-jlink.acceptLicense = true;
       overlays = [self.overlays.default];
     };
   in {

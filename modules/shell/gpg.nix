@@ -34,6 +34,7 @@ in {
     home.manager.programs.gpg.enable = true;
     home.manager.services.gpg-agent = {
       enable = true;
+      enableExtraSocket = true;
       defaultCacheTtl = gpgConfig.cacheTtl.default;
       maxCacheTtl = gpgConfig.cacheTtl.max;
       pinentryFlavor = "gnome3";

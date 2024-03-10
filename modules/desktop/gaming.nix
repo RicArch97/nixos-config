@@ -39,19 +39,11 @@ in {
       };
     };
 
-    # Lutris, Wine and OBS studio for game capture
-    home.packages =
-      [
-        pkgs.wineWowPackages.stable
-        pkgs.winetricks
-        pkgs.lutris
-        pkgs.obs-studio
-        pkgs.obs-studio-plugins.obs-gstreamer
-        pkgs.obs-studio-plugins.obs-pipewire-audio-capture
-        pkgs.obs-studio-plugins.obs-vkcapture
-      ]
-      ++ lib.optional (device.displayProtocol == "wayland")
-      pkgs.obs-studio-plugins.wlrobs;
+    # required since gamemode 1.8 to change CPU governor
+    user.extraGroups = ["gamemode"];
+
+    # lutris for non-steam games
+    home.packages = [pkgs.lutris];
 
     # extra file descriptors for esync
     systemd.extraConfig = "DefaultLimitNOFILE=1048576";

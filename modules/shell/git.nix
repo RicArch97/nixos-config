@@ -20,9 +20,40 @@ in {
       type = lib.types.str;
       default = "ricardo.steijn97@gmail.com";
     };
-    signingKey = lib.mkOption {
+    signCommits = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
+    sshKeyPath = lib.mkOption {
       type = lib.types.str;
-      default = "29B7BEAA63ED5796A6F65D6153DD1C9C800B4A5B";
+      default = "~/.ssh/id_ed25519";
+    };
+    remoteUrl = lib.mkOption {
+      type = lib.types.str;
+      default = "github.com";
+    };
+
+    workAccount = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+      };
+      userEmail = lib.mkOption {
+        type = lib.types.str;
+        default = "r.steijn@hde.nl";
+      };
+      signCommits = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+      };
+      sshKeyPath = lib.mkOption {
+        type = lib.types.str;
+        default = "~/.ssh/id_ed25519_work";
+      };
+      remoteUrl = lib.mkOption {
+        type = lib.types.str;
+        default = "gitlab.hunterdouglas.com";
+      };
     };
   };
 
@@ -32,12 +63,20 @@ in {
       enable = true;
       userName = gitConfig.userName;
       userEmail = gitConfig.userEmail;
-      signing = {
-        key = gitConfig.signingKey;
-        signByDefault = false;
-      };
       ignores = ["/.vscode" "/.pio" "/__pycache__" ".envrc" ".direnv"];
       delta.enable = true;
+      includes = lib.mkIf (gitConfig.workAccount.enable) [
+        {
+          contents = {
+            user = {
+              name = gitConfig.userName;
+              email = gitConfig.workAccount.userEmail;
+            };
+            commit.gpgSign = gitConfig.workAccount.signCommits;
+          };
+          condition = "hasconfig:remote.*.url:git@${gitConfig.workAccount.remoteUrl}:*/**";
+        }
+      ];
     };
   };
 }

@@ -20,11 +20,10 @@ Created with multi monitor setup in mind.
     kernelPackages = pkgs.linuxPackages_latest;
     # Allow SMBus access for OpenRGB device interaction
     kernelParams = ["acpi_enforce_resources=lax"];
-    kernelModules = ["i2c-dev" "i2c-piix4"];
   };
 
-  # Enable OpenRGB udev rules
-  services.udev.packages = [pkgs.openrgb];
+  # Enable OpenRGB for LED control
+  services.hardware.openrgb.enable = true;
 
   # Mount additional drives
   fileSystems = {
@@ -37,12 +36,11 @@ Created with multi monitor setup in mind.
 
   # Host specific user packages
   home.packages = [
-    # multimedia
     pkgs.gimp
     pkgs.drawing
-    # utils
+    pkgs.teams-for-linux
+    pkgs.slack
     pkgs.neofetch
-    pkgs.openrgb
   ];
 
   modules = {
@@ -80,7 +78,14 @@ Created with multi monitor setup in mind.
       };
     };
     shell = {
-      git.enable = true;
+      git = {
+        enable = true;
+        signCommits = true;
+        workAccount = {
+          enable = true;
+          signCommits = true;
+        };
+      };
       gpg.enable = true;
       passwords.enable = true;
     };
@@ -88,6 +93,7 @@ Created with multi monitor setup in mind.
       networkmanager.enable = false;
       connman.enable = true;
     };
+    virtualisation.docker.enable = true;
     desktop = {
       sway.enable = true;
       gaming.enable = true;
@@ -104,6 +110,7 @@ Created with multi monitor setup in mind.
         thunar.enable = true;
         vscode.enable = true;
         zathura.enable = true;
+        tools.nrf.enable = true;
       };
     };
   };
