@@ -26,7 +26,7 @@ in {
 
     # language servers
     home.packages = [
-      pkgs.rnix-lsp
+      pkgs.nil
       pkgs.ccls
       pkgs.nodePackages.pyright
       pkgs.nodePackages.typescript-language-server

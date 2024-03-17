@@ -40,7 +40,7 @@
       inherit system;
       config.allowUnfree = true;
       config.permittedInsecurePackages = [
-        "segger-jlink-qt4-794a"
+        "segger-jlink-qt4-794l"
       ];
       config.segger-jlink.acceptLicense = true;
       overlays = [self.overlays.default];
@@ -79,7 +79,7 @@
         pkgs.git
         pkgs.alejandra
         pkgs.nix-zsh-completions
-        pkgs.rnix-lsp
+        pkgs.nil
         pkgs.luajit
       ];
     };
