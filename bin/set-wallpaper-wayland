@@ -48,7 +48,7 @@ elif [ "$1" == "image-span" ]; then
     max_height=$(echo "$resolutions" | cut -d 'x' -f2 | sort -n -r | head -n1)
     # resize the image to ensure dimensions match the total width and height
     resize_path="${wallpaper_dir}/resized.jpg"
-    convert -resize "${total_width}x${max_height}!" "$2" "$resize_path"
+    magick convert -resize "${total_width}x${max_height}!" "$2" "$resize_path"
     index=1
     # iterate over the resolutions
     while read -r res; do
@@ -63,7 +63,7 @@ elif [ "$1" == "image-span" ]; then
       display=$(echo "$displays" | awk 'NR=='$index'')
       # crop image using imagemagick
       crop_path="${wallpaper_dir}/${width}x${height}.jpg"
-      convert -crop "${width}x${height}+${x}+${y}" "$resize_path" "$crop_path"
+      magick convert -crop "${width}x${height}+${x}+${y}" "$resize_path" "$crop_path"
       # store wallpaper paths
       printf "%s" "$crop_path" >> "$wallpaper_settings"
       # set wallpaper

@@ -69,7 +69,7 @@ in {
       # install default adwaita theme for fallback,
       # add themes to system packages for greeters
       environment.systemPackages = [
-        pkgs.gnome.gnome-themes-extra
+        pkgs.gnome-themes-extra
         gtkConfig.theme.package
         gtkConfig.iconTheme.package
         gtkConfig.cursorTheme.package

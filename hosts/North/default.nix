@@ -1,14 +1,13 @@
 /*
-X570AM - Full AMD entertainment / gaming system.
+North - Fully watercooled black, gold and wood build for work and gaming.
 
-Gigabyte X570 Aorus Master motherboard
-AMD Ryzen 9 5950X processor
-AMD Radeon RX 6900XT graphics card
-32 GB RAM
-Multiple NVMe drives and one SSD
+AsRock X670E Taichi motherboard
+AMD Ryzen 9 7950X3D processor
+Nvidia GeForce RTX 4090 graphics card
+64 GB DDR5 RAM
+Multiple NVMe drives
 
-Should contain gaming related apps and services like Steam, Lutris, Wine.
-Created with multi monitor setup in mind.
+Used with multi monitor setup.
 */
 {
   inputs,
@@ -16,11 +15,7 @@ Created with multi monitor setup in mind.
   pkgs,
   ...
 }: {
-  boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
-    # Allow SMBus access for OpenRGB device interaction
-    kernelParams = ["acpi_enforce_resources=lax"];
-  };
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Enable OpenRGB for LED control
   services.hardware.openrgb.enable = true;
@@ -36,8 +31,6 @@ Created with multi monitor setup in mind.
 
   # Host specific user packages
   home.packages = [
-    pkgs.gimp
-    pkgs.drawing
     pkgs.teams-for-linux
     pkgs.slack
     pkgs.fastfetch
@@ -46,8 +39,8 @@ Created with multi monitor setup in mind.
   modules = {
     device = {
       cpu = "amd";
-      gpu = "amd";
-      drive = "nvme"; # where the os is installed
+      gpu = "nvidia";
+      drive = "nvme";
       supportsBrightness = false;
       supportsBluetooth = true;
       monitors = {
@@ -86,13 +79,9 @@ Created with multi monitor setup in mind.
       gpg.enable = true;
       passwords.enable = true;
     };
-    hardware.network = {
-      networkmanager.enable = false;
-      connman.enable = true;
-    };
     virtualisation.docker.enable = true;
     desktop = {
-      sway.enable = true;
+      labwc.enable = true;
       gaming.enable = true;
       util.mpv.enable = true;
       apps = {

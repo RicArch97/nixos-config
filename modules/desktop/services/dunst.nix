@@ -38,7 +38,7 @@ in {
         global = {
           follow = "mouse";
           width = 350;
-          height = 350;
+          height = 175;
           origin = "bottom-right";
           offset = "24x24";
 

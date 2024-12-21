@@ -1,4 +1,4 @@
-# Configuration for the Sway window manager
+# Configuration for the Sway wayland compositor
 {
   config,
   options,
@@ -106,7 +106,6 @@ in {
     modules.desktop.services.eww.enable = true;
     modules.desktop.util.rofi = {
       enable = true;
-      package = pkgs.rofi-wayland;
       menu.enable = true;
     };
 
@@ -123,16 +122,24 @@ in {
     # polkit auth agent for GUI authentication
     modules.desktop.services.polkit.enable = true;
 
-    # display configuration and bars for T470
-    modules.desktop.services.kanshi.enable = lib.mkIf (device.name == "T470") true;
-
     # make sure Electron apps use the Wayland backend by setting this flag
     env.NIXOS_OZONE_WL = "1";
+
+    # allows sway to request real-time priority
+    security.pam.loginLimits = [
+      {
+        domain = "@users";
+        item = "rtprio";
+        type = "-";
+        value = 1;
+      }
+    ];
 
     # Home manager configuration
     home.manager.wayland.windowManager.sway = {
       enable = true;
       package = null; # don't override system-installed one
+      checkConfig = false; # doesn't work with new SwayFX options
       config = {
         # Modifier (super key)
         modifier = "Mod4";
@@ -178,7 +185,7 @@ in {
         fonts = {
           names = [fontConfig.sub.family];
           style = "Bold";
-          size = 10.0;
+          size = 10.5;
         };
 
         # Window properties
@@ -210,6 +217,7 @@ in {
           "*" = {
             accel_profile = "flat";
             pointer_accel = "0";
+            middle_emulation = "disabled";
           };
         };
 
@@ -338,10 +346,10 @@ in {
           lib.foldl'
           (item: acc: acc // item) {} (
             lib.mapAttrsToList (_: monitor: {
-              "${monitor.wayland_name}" = {
+              "${monitor.name}" = {
                 pos = "${toString monitor.position.x} ${toString monitor.position.y}";
                 mode = "${monitor.resolution}@${toString monitor.refresh_rate}Hz";
-                max_render_time = "3";
+                max_render_time = "2";
                 adaptive_sync =
                   if monitor.adaptive_sync
                   then "on"
@@ -366,10 +374,10 @@ in {
             # Make sure systemd user services have access to these, currently used by eww
             {command = "systemctl --user import-environment I3SOCK GDK_PIXBUF_MODULE_FILE";}
           ]
-          ++ lib.optionals (device.name == "X570AM") [
+          ++ lib.optionals (device.name == "North" || device.name == "X570AM") [
             {command = "launch-wlclock 'DP-1' '${colorScheme.types.background-darker}' '${colorScheme.types.foreground}'";}
             {command = "eww open-many bar-left-main bar-right-main bar-left-side";}
-            {command = "set-xwayland-primary ${device.monitors.main.wayland_name}";}
+            {command = "set-xwayland-primary ${device.monitors.main.name}";}
           ];
 
         # Window settings / rules

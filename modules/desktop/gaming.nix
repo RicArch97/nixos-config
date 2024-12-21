@@ -20,7 +20,7 @@ in {
     # Steam hardware (just in case)
     hardware.steam-hardware.enable = true;
 
-    # Steam and gamemode (optimization)
+    # Steam, Gamemode
     programs = {
       steam.enable = true;
       gamemode = {
@@ -42,8 +42,16 @@ in {
     # required since gamemode 1.8 to change CPU governor
     user.extraGroups = ["gamemode"];
 
-    # lutris for non-steam games
-    home.packages = [pkgs.lutris];
+    # lutris for non-steam games, wine, vulkan tools for driver checks
+    home.packages = [
+      (pkgs.lutris.override {
+        extraPkgs = pkgs: [
+          pkgs.jansson
+        ];
+      })
+      pkgs.wineWowPackages.stable
+      pkgs.vulkan-tools
+    ];
 
     # extra file descriptors for esync
     systemd.extraConfig = "DefaultLimitNOFILE=1048576";

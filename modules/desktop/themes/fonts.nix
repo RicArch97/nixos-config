@@ -25,7 +25,7 @@ in {
     };
     styles = {
       main = font "Product Sans" 11;
-      sub = font "Inter" 11;
+      sub = font "Inter Display" 11;
       serif = font "IBM Plex Serif" 11;
       mono = font "JuliaMono" 13;
       icons = font "Material Design Icons" 12;
@@ -39,11 +39,10 @@ in {
         pkgs.custom.product-sans
         pkgs.custom.phosphor
         pkgs.inter
-        pkgs.nerdfonts
         pkgs.julia-mono
         pkgs.ibm-plex
         pkgs.noto-fonts
-        pkgs.noto-fonts-cjk
+        pkgs.noto-fonts-cjk-sans
         pkgs.noto-fonts-emoji
         pkgs.material-design-icons
         pkgs.material-icons

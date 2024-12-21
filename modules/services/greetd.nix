@@ -36,16 +36,27 @@ in {
 
     programs.regreet = {
       enable = true;
+      theme = {
+        name = gtkConfig.theme.name;
+        package = gtkConfig.theme.package;
+      };
+      font = {
+        name = fontConfig.main.family;
+        size = fontConfig.main.size;
+        package = pkgs.custom.product-sans;
+      };
+      iconTheme = {
+        name = gtkConfig.iconTheme.name;
+        package = gtkConfig.iconTheme.package;
+      };
+      cursorTheme = {
+        name = gtkConfig.cursorTheme.name;
+        package = gtkConfig.cursorTheme.package;
+      };
       settings = {
         background = {
           path = "${config.nixosConfig.configDir}/wallpaper.jpg";
           fit = "Cover";
-        };
-        GTK = {
-          cursor_theme_name = gtkConfig.cursorTheme.name;
-          font_name = "${fontConfig.main.family} ${toString fontConfig.main.size}";
-          icon_theme_name = gtkConfig.iconTheme.name;
-          theme_name = gtkConfig.theme.name;
         };
       };
     };
@@ -72,11 +83,11 @@ in {
           input * accel_profile flat
 
         ''
-        + lib.optionalString (device.name == "X570AM") ''
+        + lib.optionalString (device.name == "North" || device.name == "X570AM") ''
           output DP-2 pos 0 0 mode 2560x1440@165Hz
           output DP-1 pos 2560 0 mode 3440x1440@160Hz
         ''
       );
-    in "${pkgs.sway}/bin/sway --config ${greetdSwayConfig}";
+    in "sway --config ${greetdSwayConfig}";
   };
 }

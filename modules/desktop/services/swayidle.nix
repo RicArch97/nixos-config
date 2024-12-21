@@ -17,9 +17,6 @@ in {
   };
 
   config = lib.mkIf (idleConfig.enable) {
-    # Wayland output management
-    home.packages = [pkgs.wlopm];
-
     # home manager configuration
     home.manager.services.swayidle = {
       enable = true;
@@ -33,11 +30,6 @@ in {
         {
           timeout = 600;
           command = "${defaultApps.locker.cmd}";
-        }
-        {
-          timeout = 1800;
-          command = "${pkgs.wlopm}/bin/wlopm --off \*";
-          resumeCommand = "${pkgs.wlopm}/bin/wlopm --on \*";
         }
       ];
     };

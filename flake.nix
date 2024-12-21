@@ -3,21 +3,13 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     github-nvim-theme = {
       url = "github:projekt0n/github-nvim-theme/v0.0.7";
-      flake = false;
-    };
-    awesome = {
-      url = "github:awesomeWM/awesome";
-      flake = false;
-    };
-    awesome-code-doc = {
-      url = "github:kosorin/awesome-code-doc";
       flake = false;
     };
   };
@@ -29,20 +21,14 @@
   }: let
     system = "x86_64-linux";
 
-    # own functions
-    lib = nixpkgs.lib.extend (
-      final: prev: {
-        custom = import ./lib.nix nixpkgs.lib;
-      }
-    );
+    lib = import ./lib {
+      inherit pkgs inputs;
+      lib = nixpkgs.lib;
+    };
 
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
-      config.permittedInsecurePackages = [
-        "segger-jlink-qt4-794l"
-      ];
-      config.segger-jlink.acceptLicense = true;
       overlays = [self.overlays.default];
     };
   in {
@@ -80,7 +66,6 @@
         pkgs.alejandra
         pkgs.nix-zsh-completions
         pkgs.nil
-        pkgs.luajit
       ];
     };
   };

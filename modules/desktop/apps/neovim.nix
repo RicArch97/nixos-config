@@ -28,7 +28,7 @@ in {
     home.packages = [
       pkgs.nil
       pkgs.ccls
-      pkgs.nodePackages.pyright
+      pkgs.pyright
       pkgs.nodePackages.typescript-language-server
       pkgs.nodePackages.bash-language-server
       pkgs.sumneko-lua-language-server

@@ -18,49 +18,33 @@ in {
   };
 
   config = let
-    outputs =
-      if device.name == "X570AM"
-      then "(DP-1 DP-2)"
-      else "(eDP-1 HDMI-A-2)";
-    gtklock-style = pkgs.writeText "gtklock-style.css" (
-      ''
-        #clock-label {
-          margin-bottom: 50px;
-          font-size: 800%;
-          font-weight: bold;
-          color: ${colorScheme.types.foreground};
-        }
-        #body {
-          margin-top: 50px;
-        }
-        #input-label {
-          color: ${colorScheme.types.foreground};
-        }
-        window {
-          background-size: cover;
-          background-repeat: no-repeat;
-          background-position: center;
-          background-color: ${colorScheme.types.background};
-        }
-
-      ''
-      + lib.optionalString (device.name == "X570AM") ''
-        window#DP-1 {
-          background-image: url("/tmp/gtklock/DP-1.png");
-        }
-        window#DP-2 {
-          background-image: url("/tmp/gtklock/DP-2.png");
-        }
-      ''
-      + lib.optionalString (device.name == "T470") ''
-        window#eDP-1 {
-          background-image: url("/tmp/gtklock/eDP-1.png");
-        }
-        window#HDMI-A-2 {
-          background-image: url("/tmp/gtklock/HDMI-A-2.png");
-        }
-      ''
-    );
+    outputs = "(DP-1 DP-2)";
+    gtklock-style = pkgs.writeText "gtklock-style.css" ''
+      #clock-label {
+        margin-bottom: 50px;
+        font-size: 800%;
+        font-weight: bold;
+        color: ${colorScheme.types.foreground};
+      }
+      #body {
+        margin-top: 50px;
+      }
+      #input-label {
+        color: ${colorScheme.types.foreground};
+      }
+      window {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: ${colorScheme.types.background};
+      }
+      window#DP-1 {
+        background-image: url("/tmp/gtklock/DP-1.png");
+      }
+      window#DP-2 {
+        background-image: url("/tmp/gtklock/DP-2.png");
+      }
+    '';
     gtklock-blur = pkgs.writeShellScriptBin "gtklock-blur" ''
       outdir="/tmp/gtklock"
       outputs=${outputs}
@@ -71,13 +55,13 @@ in {
         ${pkgs.grim}/bin/grim -o $o "$outdir/$o.png"
         size=$(${pkgs.imagemagick}/bin/identify -format "%wx%h" "$outdir/$o.png")
 
-        ${pkgs.imagemagick}/bin/convert "$outdir/$o.png" -filter Gaussian \
-          -resize 50% -define filter:sigma=3 -resize 200% "$outdir/$o.png"
+        ${pkgs.imagemagick}/bin/magick convert "$outdir/$o.png" -filter Gaussian \
+          -resize 50% -define filter:sigma=4 -resize 200% "$outdir/$o.png"
 
-        ${pkgs.imagemagick}/bin/magick -size "$size" radial-gradient:black-white \
+        ${pkgs.imagemagick}/bin/magick convert -size "$size" radial-gradient:black-white \
           -contrast-stretch 3%x0% "$outdir/$o-gradient.png"
 
-        ${pkgs.imagemagick}/bin/convert "$outdir/$o.png" "$outdir/$o-gradient.png" \
+        ${pkgs.imagemagick}/bin/magick convert "$outdir/$o.png" "$outdir/$o-gradient.png" \
           -compose multiply -composite "$outdir/$o.png"
 
         ${pkgs.coreutils}/bin/rm "$outdir/$o-gradient.png"
@@ -89,7 +73,7 @@ in {
 
       wait
 
-      ${pkgs.gtklock}/bin/gtklock -d -s ${gtklock-style}
+      ${pkgs.gtklock}/bin/gtklock -d -s ${gtklock-style} -M ${device.monitors.main.name}
     '';
   in
     lib.mkIf (lockConfig.enable) {

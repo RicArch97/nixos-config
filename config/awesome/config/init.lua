@@ -1,6 +1,0 @@
-require("config.theme")
-require("config.mouse")
-require("config.keybinds")
-require("config.rules")
-require("config.layouts")
-require("config.autostart")

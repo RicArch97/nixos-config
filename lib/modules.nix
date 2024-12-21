@@ -1,7 +1,10 @@
-# functions to map a function over modules
-# used to import all modules at once
-# from hlissner
-lib: rec {
+# functions to map a function over modules to import all modules at once
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}: rec {
   mapModules = dir: func:
     lib.filterAttrs (_: v: v != null) (lib.mapAttrs'
       (n: v: let

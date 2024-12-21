@@ -147,7 +147,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Enable language servers
-local servers = { "rnix", "ccls", "pyright", "tsserver", "bashls", "hls", "rust_analyzer", "texlab" }
+local servers = { "ccls", "pyright", "ts_ls", "bashls", "hls", "rust_analyzer", "texlab" }
 
 for _, lang in pairs(servers) do
   nvim_lsp[lang].setup({

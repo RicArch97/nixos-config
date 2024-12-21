@@ -29,17 +29,12 @@
     monitors = lib.mkOption {
       type = lib.types.attrsOf (lib.types.submodule ({name, ...}: {
         options = {
-          x11_name = lib.mkOption {type = lib.types.str;};
-          wayland_name = lib.mkOption {type = lib.types.str;};
+          name = lib.mkOption {type = lib.types.str;};
           resolution = lib.mkOption {type = lib.types.str;};
           refresh_rate = lib.mkOption {type = lib.types.int;};
           position = {
             x = lib.mkOption {type = lib.types.int;};
             y = lib.mkOption {type = lib.types.int;};
-          };
-          modeline = lib.mkOption {
-            type = lib.types.nullOr lib.types.str;
-            default = null;
           };
           primary = lib.mkOption {
             type = lib.types.bool;

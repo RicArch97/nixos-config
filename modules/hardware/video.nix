@@ -19,11 +19,10 @@ in {
   config = lib.mkIf (videoConfig.enable) (lib.mkMerge [
     {
       hardware = {
-        opengl = {
-          enable = true;
+        graphics = {
           # enables Mesa (OpenGL and Vulkan)
-          driSupport = true;
-          driSupport32Bit = true;
+          enable = true;
+          enable32Bit = true;
         };
       };
 
@@ -37,7 +36,7 @@ in {
       services.xserver.videoDrivers = ["amdgpu"];
 
       # enables OpenCL support
-      hardware.opengl.extraPackages = [
+      hardware.graphics.extraPackages = [
         pkgs.rocmPackages.clr.icd
         pkgs.rocmPackages.clr
       ];
@@ -50,7 +49,7 @@ in {
       services.xserver.videoDrivers = ["modesetting"];
 
       # OpenCL support and VAAPI
-      hardware.opengl.extraPackages = [
+      hardware.graphics.extraPackages = [
         pkgs.intel-compute-runtime
         pkgs.intel-media-driver
         pkgs.vaapiIntel
@@ -64,8 +63,12 @@ in {
     (lib.mkIf (device.gpu == "nvidia") {
       services.xserver.videoDrivers = ["nvidia"];
 
-      # hardware acceleration
-      hardware.opengl.extraPackages = [pkgs.vaapiVdpau];
+      hardware.nvidia = {
+        package = config.boot.kernelPackages.nvidiaPackages.stable;
+        modesetting.enable = true;
+        open = true;
+        nvidiaSettings = false;
+      };
     })
   ]);
 }

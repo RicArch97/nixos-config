@@ -17,14 +17,15 @@ in {
 
   config = lib.mkIf (nrfConfig.enable) {
     home.packages = [
-      pkgs.nrf-command-line-tools
-      pkgs.segger-jlink
+      pkgs.master.nrf-command-line-tools
+      pkgs.master.segger-jlink
+      pkgs.master.nrfconnect
     ];
 
     # ensure we can connect to J-Link devices
     services.udev.packages = [
-      pkgs.nrf-command-line-tools
-      pkgs.segger-jlink
+      pkgs.master.segger-jlink
+      pkgs.master.nrf-udev
     ];
   };
 }
