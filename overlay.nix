@@ -14,7 +14,7 @@ in {
     inherit system;
     config.allowUnfree = true;
     config.permittedInsecurePackages = [
-      "segger-jlink-qt4-796s"
+      "segger-jlink-qt4-874"
     ];
     config.segger-jlink.acceptLicense = true;
   };

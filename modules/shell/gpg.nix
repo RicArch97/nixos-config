@@ -37,7 +37,7 @@ in {
       enableExtraSocket = true;
       defaultCacheTtl = gpgConfig.cacheTtl.default;
       maxCacheTtl = gpgConfig.cacheTtl.max;
-      pinentryPackage = pkgs.pinentry-gnome3;
+      pinentry.package = pkgs.pinentry-gnome3;
       extraConfig = ''
         allow-preset-passphrase
       '';

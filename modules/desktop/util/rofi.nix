@@ -15,7 +15,7 @@ in {
     };
     package = lib.mkOption {
       type = lib.types.package;
-      default = pkgs.rofi-wayland;
+      default = pkgs.rofi;
     };
     menu.enable = lib.mkOption {
       type = lib.types.bool;

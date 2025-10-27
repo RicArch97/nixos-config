@@ -374,7 +374,7 @@ in {
             # Make sure systemd user services have access to these, currently used by eww
             {command = "systemctl --user import-environment I3SOCK GDK_PIXBUF_MODULE_FILE";}
           ]
-          ++ lib.optionals (device.name == "North" || device.name == "X570AM") [
+          ++ lib.optionals (device.name == "North") [
             {command = "launch-wlclock 'DP-1' '${colorScheme.types.background-darker}' '${colorScheme.types.foreground}'";}
             {command = "eww open-many bar-left-main bar-right-main bar-left-side";}
             {command = "set-xwayland-primary ${device.monitors.main.name}";}

@@ -204,7 +204,7 @@ in {
           set-wallpaper-wayland restore
           launch-wlclock '${main.name}' '${ct.background-darker}' '${ct.foreground}'
         ''
-        + lib.optionalString (device.name == "North" || device.name == "X570AM") ''
+        + lib.optionalString (device.name == "North") ''
           ${pkgs.wlr-randr}/bin/wlr-randr ''
         + ''--output ${main.name} ''
         + ''--mode ${main.resolution}@${toString main.refresh_rate}Hz ''

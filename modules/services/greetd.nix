@@ -83,7 +83,7 @@ in {
           input * accel_profile flat
 
         ''
-        + lib.optionalString (device.name == "North" || device.name == "X570AM") ''
+        + lib.optionalString (device.name == "North") ''
           output DP-2 pos 0 0 mode 2560x1440@165Hz
           output DP-1 pos 2560 0 mode 3440x1440@160Hz
         ''

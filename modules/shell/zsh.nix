@@ -70,7 +70,7 @@ in {
           "open" = "$EDITOR";
           "sopen" = "sudo $EDITOR";
         };
-        initExtra = let
+        initContent = let
           ct = colorScheme.types;
           cs = colorScheme.syntax;
           cd = colorScheme.diagnostic;
